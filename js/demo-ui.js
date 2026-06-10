@@ -171,6 +171,8 @@
     if (el) {
       el.textContent = msg;
       el.style.display = 'block';
+      // Scroll to top so user sees the error
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   }
 
@@ -183,6 +185,12 @@
   }
 
   /* ── Logo Upload ──────────────────────────────────────── */
+
+  function handleLogoFileInput(input) {
+    if (input.files && input.files[0]) {
+      handleLogoFile(input.files[0]);
+    }
+  }
 
   function handleLogoFile(file) {
     if (!file) return;
@@ -208,12 +216,7 @@
     var fileInput = document.getElementById('logoFileInput');
     if (!dropZone || !fileInput) return;
 
-    fileInput.addEventListener('change', function() {
-      if (this.files && this.files[0]) {
-        handleLogoFile(this.files[0]);
-      }
-    });
-
+    // Use inline onchange in HTML to ensure it works even before JS init
     dropZone.addEventListener('dragover', function(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -1063,14 +1066,15 @@
     removeProductRow: removeProductRow,
     handleLogoFile: handleLogoFile,
     renderJourneyCards: renderJourneyCards,
-    applyTemplate: applyTemplate,
     generate: generate,
+    applyTemplate: applyTemplate,
+    handleLogoFileInput: handleLogoFileInput,
+    createShareLink: createShareLink,
     adaptContent: adaptContent,
     acceptContent: acceptContent,
     resetContent: resetContent,
     saveContent: saveContent,
     restoreLastPreview: restoreLastPreview,
-    createShareLink: createShareLink,
     openInNewTab: createShareLink,
     download: download,
     updateStepSelection: updateStepSelection,
@@ -1081,3 +1085,4 @@
   global.demoUI = demoUI;
 
 })(typeof window !== 'undefined' ? window : this);
+

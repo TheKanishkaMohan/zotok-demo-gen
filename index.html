@@ -118,7 +118,7 @@
             <span>🖼️ Drop logo here or click to upload</span>
           </div>
           <img id="logoPreview" src="" alt="Logo preview" style="display:none; max-height:64px; border-radius:6px; margin: 0 auto;">
-          <input type="file" id="logoFileInput" accept="image/*" style="display:none" aria-hidden="true">
+          <input type="file" id="logoFileInput" accept="image/*" style="display:none" aria-hidden="true" onchange="demoUI.handleLogoFileInput(this)">
         </label>
         <p class="asset-guidance">
           <strong>Logo guidance:</strong> PNG, JPG or WebP under 1 MB — ideally square or on a transparent background.

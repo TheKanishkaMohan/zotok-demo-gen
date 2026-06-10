@@ -109,14 +109,14 @@
   }
 
   /* ═══════════════════════════════════════════════════════════
-   *  loadPack() — fetches /template-pack.json and returns a
+   *  loadPack() — fetches template-pack.json and returns a
    *  cached promise. Idempotent — subsequent calls reuse
    *  the already-cached _pack or _packPromise.
    * ═══════════════════════════════════════════════════════════ */
   function loadPack() {
     if (_pack) return Promise.resolve(_pack);
     if (_packPromise) return _packPromise;
-    _packPromise = fetch('/template-pack.json')
+    _packPromise = fetch('template-pack.json')
       .then(function(res) {
         if (!res.ok) throw new Error('Failed to load template pack (HTTP ' + res.status + ')');
         return res.json();
