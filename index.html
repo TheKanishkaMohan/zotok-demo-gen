@@ -113,13 +113,13 @@
 
       <div class="form-group">
         <label>Logo <span style="font-weight:400;color:#999">(optional)</span></label>
-        <div id="logoDropZone" class="drop-zone" role="button" tabindex="0" aria-label="Upload logo — drop file here or click to browse">
+        <label id="logoDropZone" for="logoFileInput" class="drop-zone" role="button" tabindex="0" aria-label="Upload logo — drop file here or click to browse" style="display:block;">
           <div id="logoPlaceholder">
             <span>🖼️ Drop logo here or click to upload</span>
           </div>
-          <img id="logoPreview" src="" alt="Logo preview" style="display:none; max-height:64px; border-radius:6px;">
+          <img id="logoPreview" src="" alt="Logo preview" style="display:none; max-height:64px; border-radius:6px; margin: 0 auto;">
           <input type="file" id="logoFileInput" accept="image/*" style="display:none" aria-hidden="true">
-        </div>
+        </label>
         <p class="asset-guidance">
           <strong>Logo guidance:</strong> PNG, JPG or WebP under 1 MB — ideally square or on a transparent background.
           Without a logo a branded placeholder is generated automatically.

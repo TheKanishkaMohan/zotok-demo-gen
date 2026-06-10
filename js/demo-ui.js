@@ -208,11 +208,6 @@
     var fileInput = document.getElementById('logoFileInput');
     if (!dropZone || !fileInput) return;
 
-    dropZone.addEventListener('click', function(e) {
-      if (e.target === fileInput) return;
-      fileInput.click();
-    });
-
     fileInput.addEventListener('change', function() {
       if (this.files && this.files[0]) {
         handleLogoFile(this.files[0]);
