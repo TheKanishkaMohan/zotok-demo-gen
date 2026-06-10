@@ -1,0 +1,52 @@
+
+W O R K   S T E P S
+1. Make a copy of the Template Folder - rename it ClientName_SalesPersonName
+2. Replace the images with the relevant images in the folder - save all the images as PNG only
+3. Open the index.html in Notepad; identify the modules that you wish to grey out [not to be shared]. Go to that specific module and add the j-grey as the CSS item
+e.g.
+{Search "RIGHT PANEL" and go to the relevant module section
+FROM:  <!-- 2. Campaigns & Queries -->
+    <a class="j-item" href="journey_campaigns_queries.html" style="--c:#1a237e">
+TO 
+	 <!-- 2. Campaigns & Queries -->
+    <a class="j-item j-grey" href="journey_campaigns_queries.html" style="--c:#1a237e">
+}
+
+4. Find+ Replace Company Name with the Company Name and save the file; don't rename files -> Do this for all the modules that you intend to use
+5. Open each of the relevant modules, complete company name changes
+6. For Handwritten image 6.png - provide the following prompt on ChatGPT
+"create a dirty smirched paper of handwritten order for the following products- in hindi, dont make it clean handwriting - careless/ ad hoc/ difficult to read handwriting.. make it scrappy with just item name and qty - no major details like date/ sign needed --> Add 6 product Names"
+
+
+---
+7. Only when using either or all of 
+journey_campaigns_queries.html; 
+journey_order_to_cash.html; 
+order_to_cash_integrated.html
+--
+
+7a. Use ChatGPT to create 6 Category and 8 product names and product images for the brand. Download 8 product images from internet.
+"e.g. Use Patanjali catalog to create 6 product categories and 8 product names" -> ChatGPT; 
+
+Use the list of categories from ChatGPT in the correct HTML as above - and Find replace
+Use the list of products from ChatGPT in the correct HTML as above - and Find Replace
+Use Image files of the product as per the names given below
+
+Find replace the following
+2.	Category and Products list 	-		"ChatGPT List"		Campaign_Query, Screen 1
+3.	"Aloo Bhujia 400g"		-		Key Product 1	21.png	Campaign_Query, Screen 1
+4.	"Moong Dal 150g"		-		Key Product 2	22.png	Campaign_Query, Screen 1
+5.	"Mixed Namkeen 200g"		-		Key Product 3	23.png	Campaign_Query, Screen 1
+6.	"Mathri 400g"			-		Key Product 4	24.png	Campaign_Query, Screen 1
+7. 	"Bhujia Range"			-		Key Category 1		Campaign_Query, Screen 2
+--
+
+
+
+
+
+
+
+
+
+	

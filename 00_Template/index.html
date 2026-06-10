@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Name — WhatsApp Commerce OS | ZoTok</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#fff;display:flex;flex-direction:column;min-height:100vh;}
+
+/* ── Top red strip ── */
+.top-strip{height:6px;background:#E8201E;flex-shrink:0;}
+
+/* ── Main two-column layout ── */
+.main-wrap{flex:1;display:flex;min-height:0;}
+
+/* ── Left panel ── */
+.left-panel{width:42%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 40px;border-right:1px solid #f0f0f0;}
+.brand-logo{width:96px;height:96px;border-radius:50%;border:3px solid rgba(232,32,30,.25);object-fit:cover;margin-bottom:20px;}
+.brand-label{font-size:11px;font-weight:700;color:#E8201E;text-transform:uppercase;letter-spacing:2.5px;margin-bottom:10px;}
+.brand-title{font-size:32px;font-weight:800;color:#111;line-height:1.15;margin-bottom:16px;text-align:center;}
+.brand-title span{color:#E8201E;}
+.brand-desc{font-size:13px;color:#555;line-height:1.65;text-align:center;max-width:320px;margin-bottom:28px;}
+.wa-badge{display:inline-flex;align-items:center;gap:8px;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:24px;padding:9px 18px;font-size:12.5px;color:#222;font-weight:600;}
+.wa-badge svg{flex-shrink:0;}
+.brand-stats{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap;justify-content:center;}
+.stat-pill{font-size:11px;font-weight:700;color:#E8201E;background:rgba(232,32,30,.07);border:1px solid rgba(232,32,30,.2);border-radius:14px;padding:5px 13px;}
+
+/* ── Right panel ── */
+.right-panel{flex:1;background:#f7f7f8;overflow-y:auto;padding:36px 32px 48px;}
+.section-label{font-size:10.5px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;}
+
+/* ── Journey items ── */
+.j-item{display:flex;align-items:stretch;text-decoration:none;color:inherit;margin-bottom:10px;background:#fff;border-radius:14px;border:1px solid #e8e8e8;overflow:hidden;transition:box-shadow .15s ease,transform .15s ease;cursor:pointer;}
+.j-item:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);transform:translateX(4px);}
+.j-grey{opacity:.38;filter:grayscale(1);pointer-events:none;cursor:default;}
+.j-grey:hover{box-shadow:none;transform:none;}
+
+.j-badge{background:var(--c);width:68px;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:14px 0;}
+.j-num{font-size:10.5px;font-weight:900;color:rgba(255,255,255,.45);letter-spacing:.5px;}
+.j-emoji{font-size:26px;line-height:1.1;}
+
+.j-body{flex:1;padding:14px 52px 13px 18px;clip-path:polygon(0 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,0 100%);display:flex;flex-direction:column;justify-content:center;gap:5px;}
+.j-top{display:flex;align-items:center;gap:10px;}
+.j-title{font-size:14.5px;font-weight:700;color:#111;flex:1;}
+.j-steps{font-size:10px;font-weight:700;color:var(--c);background:rgba(0,0,0,.04);padding:3px 9px;border-radius:9px;white-space:nowrap;flex-shrink:0;}
+.j-desc{font-size:12px;color:#666;line-height:1.45;max-width:480px;}
+.j-tags{display:flex;gap:5px;flex-wrap:wrap;}
+.j-tag{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:6px;background:rgba(0,0,0,.05);color:#555;}
+
+/* ── Bottom red strip / footer ── */
+.bottom-strip{background:#E8201E;padding:10px 24px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.footer-text{font-size:11.5px;color:rgba(255,255,255,.85);font-weight:500;text-align:center;}
+.footer-text strong{color:#fff;}
+
+/* ── Mobile ── */
+@media(max-width:768px){
+  .main-wrap{flex-direction:column;}
+  .left-panel{width:100%;border-right:none;border-bottom:1px solid #f0f0f0;padding:32px 24px 28px;}
+  .brand-title{font-size:26px;}
+  .right-panel{padding:24px 16px 40px;}
+  .j-badge{width:58px;}
+  .j-emoji{font-size:22px;}
+  .j-title{font-size:13.5px;}
+  .j-desc{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="top-strip"></div>
+
+<div class="main-wrap">
+
+  <!-- ═══════════ LEFT PANEL ═══════════ -->
+  <div class="left-panel">
+    <img class="brand-logo" src="logo.png" alt="Company Names logo">
+    <div class="brand-label">Company Name&#8217;s India</div>
+    <h1 class="brand-title">WhatsApp<br><span>Commerce OS</span></h1>
+    <p class="brand-desc">A unified WhatsApp operating system for Company Name&#8217;s retail ecosystem — retailer, field executive, and distributor journeys on a single number. Powered by ZoTok.</p>
+    <div class="wa-badge">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#25D366"/><path d="M17.5 14.5c-.3-.1-1.7-.8-2-.9s-.5-.2-.7.2-.8.9-1 1.1-.4.2-.7.1a8.5 8.5 0 01-2.6-1.6 9.9 9.9 0 01-1.8-2.2c-.2-.3 0-.5.1-.6l.5-.6.3-.5a.4.4 0 000-.4l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4A4.4 4.4 0 006 9.7a7.6 7.6 0 001.6 4c1.8 2.4 4.1 3.8 7.8 4.3.8.1 1.5-.1 2-.4a4 4 0 001.3-1.7c.1-.4.1-.7 0-.9z" fill="#fff"/></svg>
+      +91 98110 00001 &nbsp;&#183;&nbsp; Company Names ZoTok
+    </div>
+    <div class="brand-stats">
+      <div class="stat-pill">&#9679; 6 Modules</div>
+      <div class="stat-pill">&#9679; Live Journey Demos</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ RIGHT PANEL ═══════════ -->
+  <div class="right-panel">
+    <div class="section-label">Select a Module to Explore</div>
+
+    <!-- 1. Retailer Activation -->
+    <a class="j-item" href="journey_retailer_activation.html" style="--c:#C62828">
+      <div class="j-badge">
+        <div class="j-num">01</div>
+        <div class="j-emoji">&#127978;</div>
+      </div>
+      <div class="j-body">
+        <div class="j-top">
+          <div class="j-title">Retailer Activation &amp; Onboarding</div>
+          <div class="j-steps">2 Steps</div>
+        </div>
+        <div class="j-desc">Identify, invite and register new retail partners through targeted WhatsApp campaigns and automated verification flows — zero paper, zero salesman effort.</div>
+        <div class="j-tags">
+          <span class="j-tag">Activation</span>
+          <span class="j-tag">Onboarding</span>
+          <span class="j-tag">Campaigns</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- 2. Campaigns & Queries -->
+    <a class="j-item" href="journey_campaigns_queries.html" style="--c:#1a237e">
+      <div class="j-badge">
+        <div class="j-num">02</div>
+        <div class="j-emoji">&#128226;</div>
+      </div>
+      <div class="j-body">
+        <div class="j-top">
+          <div class="j-title">Campaigns &amp; Product Queries</div>
+          <div class="j-steps">3 Steps</div>
+        </div>
+        <div class="j-desc">Push festive and product campaigns to retailers and resolve scheme or product queries instantly using ZoAi — no sales rep needed at any step.</div>
+        <div class="j-tags">
+          <span class="j-tag">Campaigns</span>
+          <span class="j-tag">AI Agents</span>
+          <span class="j-tag">Schemes</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- 3. Order to Cash -->
+    <a class="j-item" href="journey_order_to_cash.html" style="--c:#1565C0">
+      <div class="j-badge">
+        <div class="j-num">03</div>
+        <div class="j-emoji">&#128722;</div>
+      </div>
+      <div class="j-body">
+        <div class="j-top">
+          <div class="j-title">Order to Cash</div>
+          <div class="j-steps">3 Steps</div>
+        </div>
+        <div class="j-desc">Self-service ordering via the WhatsApp catalog, AI-powered order capture from handwritten notes, and confirmed order dispatch — end-to-end on one channel.</div>
+        <div class="j-tags">
+          <span class="j-tag">Ordering</span>
+          <span class="j-tag">Catalog</span>
+          <span class="j-tag">AI Order Capture</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- 4. DT Fulfillment & Payment -->
+    <a class="j-item" href="journey_dt_fulfillment_payment.html" style="--c:#00695C">
+      <div class="j-badge">
+        <div class="j-num">04</div>
+        <div class="j-emoji">&#128666;</div>
+      </div>
+      <div class="j-body">
+        <div class="j-top">
+          <div class="j-title">DT Fulfillment &amp; Payment</div>
+          <div class="j-steps">5 Steps</div>
+        </div>
+        <div class="j-desc">Distributor order confirmation, AI-assisted invoice generation, UPI payment collection and outstanding ledger — the full fulfilment cycle on WhatsApp.</div>
+        <div class="j-tags">
+          <span class="j-tag">Fulfillment</span>
+          <span class="j-tag">Invoicing</span>
+          <span class="j-tag">Payments</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- 5. Field Ops & Expense -->
+    <a class="j-item j-grey" href="journey_field_ops_expense.html" style="--c:#E65100">
+      <div class="j-badge">
+        <div class="j-num">05</div>
+        <div class="j-emoji">&#128084;</div>
+      </div>
+      <div class="j-body">
+        <div class="j-top">
+          <div class="j-title">Field Ops &amp; Expense Management</div>
+          <div class="j-steps">15 Steps</div>
+        </div>
+        <div class="j-desc">Sales executive journey — from AI-powered clock-in to beat plan routing, customer check-ins, order capture, market intelligence, and one-tap expense claims.</div>
+        <div class="j-tags">
+          <span class="j-tag">Field Ops</span>
+          <span class="j-tag">Attendance</span>
+          <span class="j-tag">Expenses</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- 6. Automated Payment Collection -->
+    <a class="j-item" href="journey_automated_collections.html" style="--c:#283593">
+      <div class="j-badge">
+        <div class="j-num">06</div>
+        <div class="j-emoji">&#128176;</div>
+      </div>
+      <div class="j-body">
+        <div class="j-top">
+          <div class="j-title">Automated Payment Collection</div>
+          <div class="j-steps">11 Steps</div>
+        </div>
+        <div class="j-desc">AI-driven promise-to-pay collection with dynamic UPI QR reminders, scheme unlocks for on-time payment, and salesman escalation when needed.</div>
+        <div class="j-tags">
+          <span class="j-tag">Collections</span>
+          <span class="j-tag">AI Agents</span>
+          <span class="j-tag">Scheme Unlock</span>
+        </div>
+      </div>
+    </a>
+
+    <!-- 7. Retailer Loyalty & Invoice Collection -->
+    <a class="j-item" href="journey_retailer_loyalty_invoice_collection.html" style="--c:#6A1B9A">
+      <div class="j-badge">
+        <div class="j-num">07</div>
+        <div class="j-emoji">&#127881;</div>
+      </div>
+      <div class="j-body">
+        <div class="j-top">
+          <div class="j-title">Turnover-Based Loyalty Scheme</div>
+          <div class="j-steps">4 Steps</div>
+        </div>
+        <div class="j-desc">Retailer snaps or shares a distributor invoice on WhatsApp — ZoAi authenticates it, extracts SKUs, maps purchases to scheme progress, and unlocks rewards automatically. No SFA or digital tools needed.</div>
+        <div class="j-tags">
+          <span class="j-tag">Invoice Capture</span>
+          <span class="j-tag">SKU Recognition</span>
+          <span class="j-tag">Scheme Progress</span>
+          <span class="j-tag">Reward Unlock</span>
+        </div>
+      </div>
+    </a>
+
+  </div><!-- /right-panel -->
+
+</div><!-- /main-wrap -->
+
+<div class="bottom-strip">
+  <div class="footer-text"><strong>Company Name&#8217;s WhatsApp Commerce OS</strong> &nbsp;&#183;&nbsp; Powered by <a href="https://zotok.ai" target="_blank" style="color:#fff;font-weight:700;text-decoration:underline;">ZoTok.ai</a> &nbsp;&#183;&nbsp; Journey Simulations for Internal Demo Use</div>
+</div>
+
+</body>
+</html>

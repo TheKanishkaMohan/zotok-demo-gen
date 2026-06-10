@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZoTok Demo Preview</title>
+  <style>
+    body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: #fff; font-family: sans-serif; }
+    #loader { display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; flex-direction: column; color: #666; }
+    .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #075e54; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin-bottom: 12px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    iframe { border: none; width: 100%; height: 100%; display: none; }
+  </style>
+</head>
+<body>
+
+  <div id="loader">
+    <div class="spinner"></div>
+    <div id="statusText">Loading demo...</div>
+  </div>
+
+  <iframe id="demoFrame" sandbox="allow-scripts allow-same-origin"></iframe>
+
+  <script src="js/handlebars.min.js"></script>
+  <script src="js/lz-string.min.js"></script>
+  <script src="js/demo-renderer.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var compressedData = urlParams.get('d');
+      var statusText = document.getElementById('statusText');
+
+      if (!compressedData) {
+        statusText.textContent = "Error: No demo configuration found in the URL.";
+        statusText.style.color = "red";
+        document.querySelector('.spinner').style.display = 'none';
+        return;
+      }
+
+      try {
+        var jsonStr = window.LZString ? window.LZString.decompressFromEncodedURIComponent(compressedData) : decodeURIComponent(compressedData);
+        if (!jsonStr) throw new Error("Decompression failed");
+        
+        var config = JSON.parse(jsonStr);
+
+        // Load the template pack and render the demo
+        DemoRenderer.loadPack()
+          .then(function() {
+            return DemoRenderer.renderMultiJourney(config);
+          })
+          .then(function(result) {
+            // Write the generated HTML into the iframe
+            var iframe = document.getElementById('demoFrame');
+            iframe.srcdoc = result.html;
+            
+            document.getElementById('loader').style.display = 'none';
+            iframe.style.display = 'block';
+            document.title = (config.name || 'Demo') + " — ZoTok Preview";
+          })
+          .catch(function(err) {
+            console.error(err);
+            statusText.textContent = "Error rendering demo: " + err.message;
+            statusText.style.color = "red";
+            document.querySelector('.spinner').style.display = 'none';
+          });
+      } catch (err) {
+        console.error(err);
+        statusText.textContent = "Error parsing demo configuration: " + err.message;
+        statusText.style.color = "red";
+        document.querySelector('.spinner').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

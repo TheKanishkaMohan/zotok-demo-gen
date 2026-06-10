@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Name — Brand Retailer Engagement Journey</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --brand: #1B6B2F;
+  --brand-dark: #134d22;
+  --accent: #F9A825;
+  --wa-dark: #075E54;
+  --wa-teal: #00A884;
+  --wa-green: #25D366;
+  --chat-bg: #ECE5DD;
+  --sender-bg: #DCF8C6;
+  --receiver-bg: #FFFFFF;
+  --msg-text: #111B21;
+  --time-text: #667781;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #eef0f5;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 236px;
+  background: #111827;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  border-right: 1px solid #1f2937;
+}
+
+.sidebar-brand {
+  padding: 18px 14px 14px;
+  border-bottom: 1px solid #1f2937;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.brand-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #1B6B2F 0%, #134d22 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+  color: #F9A825;
+  letter-spacing: -1px;
+  flex-shrink: 0;
+}
+
+.brand-text { flex: 1; }
+.brand-name { font-size: 12.5px; font-weight: 700; color: #fff; line-height: 1.2; }
+.brand-sub { font-size: 10px; color: #6b7280; margin-top: 1px; }
+
+.journey-tag {
+  display: inline-block;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background: rgba(27,107,47,0.2);
+  color: #4ade80;
+  border: 1px solid rgba(27,107,47,0.4);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.step-list { flex: 1; padding: 6px 0 16px; }
+
+.step-item {
+  padding: 9px 14px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.12s;
+}
+
+.step-item:hover { background: rgba(255,255,255,0.04); }
+
+.step-item.active {
+  background: rgba(27,107,47,0.15);
+  border-left-color: #1B6B2F;
+}
+
+.step-num {
+  font-size: 9.5px;
+  font-weight: 700;
+  color: #4ade80;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.step-title-sb {
+  font-size: 11.5px;
+  color: #9ca3af;
+  line-height: 1.3;
+}
+
+.step-item.active .step-title-sb { color: #f9fafb; }
+
+.step-screens-sb {
+  font-size: 10px;
+  color: #4b5563;
+  margin-top: 2px;
+}
+
+/* ── Main ── */
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+.step-header {
+  background: #fff;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.step-hdr-num {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #1B6B2F;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.step-hdr-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.step-hdr-badge {
+  margin-left: auto;
+  font-size: 10.5px;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 3px 9px;
+  border-radius: 10px;
+}
+
+.content-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  overflow-y: auto;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+/* ── Phone frame ── */
+.phone {
+  width: 375px;
+  border-radius: 40px;
+  border: 8px solid #1a1a1a;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 680px;
+  flex-shrink: 0;
+  background: #ECE5DD;
+  position: relative;
+}
+
+.phone-label {
+  text-align: center;
+  font-size: 11px;
+  color: #9ca3af;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 8px;
+}
+
+/* ── DM Status bar (dark) ── */
+.sb-dark {
+  background: #075E54;
+  padding: 8px 16px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.sb-time-dark { font-size: 13px; font-weight: 600; color: #fff; }
+.sb-icons-dark { display: flex; align-items: center; gap: 6px; }
+
+/* ── DM Top bar ── */
+.wa-topbar {
+  background: #075E54;
+  padding: 6px 10px 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+.wa-back { color: #fff; font-size: 22px; line-height: 1; padding-right: 2px; }
+.wa-avatar-ag {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: linear-gradient(135deg, #1B6B2F, #134d22);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; color: #F9A825; letter-spacing: -0.5px;
+}
+.wa-contact { flex: 1; }
+.wa-contact-name { font-size: 14px; font-weight: 600; color: #fff; line-height: 1.2; }
+.wa-contact-status { font-size: 11px; color: rgba(255,255,255,0.75); }
+.wa-actions { display: flex; align-items: center; gap: 14px; }
+
+/* ── Chat area ── */
+.chat-area {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #ECE5DD;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b2a99a' fill-opacity='0.13'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  padding: 10px 8px;
+}
+
+/* ── Message bubbles ── */
+.msg-row-r { display: flex; justify-content: flex-end; margin-bottom: 3px; }
+.msg-row-l { display: flex; justify-content: flex-start; margin-bottom: 3px; }
+
+.msg-s {
+  background: #DCF8C6;
+  border-radius: 8px 0 8px 8px;
+  max-width: 82%;
+  padding: 6px 10px 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.msg-r {
+  background: #fff;
+  border-radius: 0 8px 8px 8px;
+  max-width: 82%;
+  padding: 6px 10px 4px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.msg-body { font-size: 13.5px; color: #111B21; line-height: 1.45; }
+.msg-time { font-size: 10.5px; color: #667781; text-align: right; display: block; margin-top: 2px; }
+.tick { color: #53bdeb; }
+
+/* ── Date pill ── */
+.date-pill { text-align: center; margin: 8px 0; }
+.date-pill span {
+  background: rgba(225,245,255,0.85); color: #667781;
+  font-size: 11.5px; padding: 3px 10px; border-radius: 8px;
+}
+
+/* ── Template message ── */
+.wa-tmpl {
+  background: #fff;
+  border-radius: 8px 0 8px 8px;
+  max-width: 90%;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.wa-hdr-img {
+  width: 100%; height: 140px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+}
+.wa-hdr-text {
+  padding: 8px 11px 6px;
+  background: #f5f5f5;
+  font-size: 14px;
+  font-weight: 700;
+  color: #111B21;
+  border-bottom: 1px solid #ebebeb;
+}
+.wa-tmpl-body {
+  padding: 9px 11px 4px;
+  font-size: 13.5px;
+  color: #111B21;
+  line-height: 1.5;
+}
+.wa-tmpl-footer {
+  padding: 2px 11px 5px;
+  font-size: 11px;
+  color: #667781;
+}
+.wa-tmpl-time {
+  padding: 0 11px 7px;
+  font-size: 10.5px;
+  color: #667781;
+  text-align: right;
+}
+.wa-tmpl-btns { border-top: 1px solid #f0f0f0; }
+.wa-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  width: 100%; padding: 10px 12px;
+  font-size: 13.5px; font-weight: 500; color: #00A884;
+  background: none; border: none; border-bottom: 1px solid #f0f0f0; cursor: pointer;
+}
+.wa-btn:last-child { border-bottom: none; }
+.zotok-ftr {
+  margin-top: 2px; padding: 2px 8px 1px;
+  font-size: 9.5px; color: #8696a0; text-align: center;
+}
+
+/* ── Interactive list msg ── */
+.wa-list-msg {
+  background: #fff; border-radius: 8px 0 8px 8px;
+  max-width: 90%; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.wa-list-body {
+  padding: 10px 12px 6px;
+  font-size: 13.5px; color: #111B21; line-height: 1.55;
+}
+.wa-list-time { font-size: 10.5px; color: #667781; text-align: right; padding: 0 12px 4px; }
+.wa-list-btn {
+  border-top: 1px solid #f0f0f0;
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  width: 100%; padding: 11px 12px;
+  font-size: 14px; font-weight: 600; color: #00A884;
+  background: none; border-top: 1px solid #f0f0f0; border-bottom: none;
+  border-left: none; border-right: none; cursor: pointer;
+}
+
+/* ── List modal (bottom sheet shown open) ── */
+.modal-overlay {
+  position: absolute; bottom: 0; left: 0; right: 0; top: 0;
+  background: rgba(0,0,0,0.45); z-index: 5;
+  display: flex; align-items: flex-end;
+}
+.list-modal {
+  background: #fff; border-radius: 16px 16px 0 0;
+  width: 100%; overflow: hidden;
+  max-height: 70%;
+}
+.modal-drag {
+  display: flex; justify-content: center; padding: 10px 0 4px;
+}
+.modal-drag-bar { width: 36px; height: 4px; background: #ddd; border-radius: 2px; }
+.modal-topbar-row {
+  display: flex; align-items: center; padding: 4px 16px 10px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.modal-close { font-size: 18px; color: #555; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
+.modal-title { flex: 1; text-align: center; font-size: 17px; font-weight: 700; color: #111B21; }
+.modal-spacer { width: 28px; }
+.modal-section { font-size: 13px; color: #667781; padding: 10px 16px 6px; border-bottom: 1px solid #f5f5f5; }
+.modal-row {
+  padding: 11px 16px; border-bottom: 1px solid #f2f2f2;
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 8px;
+}
+.modal-row:last-of-type { border-bottom: none; }
+.modal-row-title { font-size: 14px; font-weight: 600; color: #111B21; line-height: 1.3; }
+.modal-row-desc { font-size: 12.5px; color: #667781; margin-top: 2px; line-height: 1.35; }
+.modal-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #ccc; flex-shrink: 0; margin-top: 2px; }
+.modal-send-wrap { padding: 10px 16px 8px; }
+.modal-send-btn {
+  width: 100%; padding: 13px; background: #25D366; color: #fff;
+  font-size: 15px; font-weight: 700; border: none; border-radius: 28px; cursor: pointer;
+}
+
+/* ── Input bar ── */
+.input-bar {
+  background: #f0f0f0; padding: 6px 8px;
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+}
+.input-plus { color: #54656f; font-size: 22px; font-weight: 300; }
+.input-field {
+  flex: 1; background: #fff; border-radius: 22px;
+  padding: 7px 14px; font-size: 13px; color: #8696a0;
+  display: flex; align-items: center;
+}
+.input-icons { display: flex; align-items: center; gap: 12px; color: #54656f; }
+
+/* ── Facebook / Meta ad screen ── */
+.fb-screen { flex: 1; overflow-y: auto; background: #f0f2f5; }
+.fb-top {
+  background: #1877f2; padding: 9px 14px 8px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.fb-logo { font-size: 22px; font-weight: 900; color: #fff; font-style: italic; letter-spacing: -1px; }
+.fb-top-icons { display: flex; gap: 10px; }
+.fb-icon-btn {
+  width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.2);
+  display: flex; align-items: center; justify-content: center; color: #fff; font-size: 16px;
+}
+
+.fb-post { background: #fff; border-bottom: 8px solid #f0f2f5; }
+.fb-post-hdr {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px;
+}
+.fb-post-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: linear-gradient(135deg, #1B6B2F, #F9A825);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 900; color: #fff; letter-spacing: -0.5px;
+}
+.fb-post-account { font-size: 13.5px; font-weight: 700; color: #050505; }
+.fb-post-sponsored { font-size: 11.5px; color: #65676b; display: flex; align-items: center; gap: 4px; }
+.fb-post-more { margin-left: auto; font-size: 20px; color: #606770; }
+
+.fb-creative {
+  width: 100%; height: 220px;
+  background: linear-gradient(140deg, #1B6B2F 0%, #2e9e50 45%, #F9A825 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: #fff; text-align: center; padding: 20px; position: relative;
+  overflow: hidden;
+}
+.fb-creative::before {
+  content: '';
+  position: absolute; top: -15px; right: -15px;
+  width: 110px; height: 110px; border-radius: 50%;
+  background: rgba(249,168,37,0.2);
+}
+.fb-creative::after {
+  content: '';
+  position: absolute; bottom: -25px; left: -25px;
+  width: 90px; height: 90px; border-radius: 50%;
+  background: rgba(255,255,255,0.07);
+}
+.fb-creative-brand {
+  font-size: 10px; font-weight: 800; letter-spacing: 2px;
+  color: #F9A825; text-transform: uppercase; margin-bottom: 10px;
+  background: rgba(0,0,0,0.3); padding: 3px 10px; border-radius: 10px;
+  position: relative; z-index: 1;
+}
+.fb-creative-headline {
+  font-size: 19px; font-weight: 900; line-height: 1.2; margin-bottom: 8px;
+  position: relative; z-index: 1;
+}
+.fb-creative-sub { font-size: 12px; opacity: 0.9; line-height: 1.4; position: relative; z-index: 1; }
+
+.fb-post-caption { padding: 10px 14px 4px; font-size: 13px; color: #050505; line-height: 1.4; }
+.fb-post-time { padding: 4px 14px; font-size: 11px; color: #65676b; }
+
+.fb-cta-row { padding: 8px 14px 12px; }
+.fb-cta-btn {
+  width: 100%; padding: 10px;
+  background: #1B6B2F; color: #fff;
+  font-size: 13.5px; font-weight: 700;
+  border: none; border-radius: 6px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.fb-cta-sub { font-size: 10.5px; color: #65676b; text-align: center; margin-top: 4px; }
+
+.fb-bottom-nav {
+  background: #fff; border-top: 1px solid #dddfe2;
+  padding: 8px 0; display: flex; justify-content: space-around;
+  flex-shrink: 0;
+}
+.fb-nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.fb-nav-icon { font-size: 20px; color: #606770; }
+.fb-nav-icon.active { color: #1877f2; }
+.fb-nav-label { font-size: 9px; color: #606770; }
+
+/* ── Light status bar ── */
+.sb-light {
+  background: #f0f2f5; padding: 8px 16px 5px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.sb-time-light { font-size: 13px; font-weight: 600; color: #111; }
+.sb-batt {
+  font-size: 10px; font-weight: 700; color: #111;
+  border: 1.5px solid #111; border-radius: 3px;
+  padding: 1px 4px;
+}
+
+/* ── Balance card ── */
+.balance-card {
+  background: #fff; border-radius: 8px 0 8px 8px;
+  max-width: 90%; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+.balance-hdr {
+  background: linear-gradient(135deg, #1B6B2F 0%, #134d22 100%);
+  padding: 14px; color: #fff;
+}
+.balance-tag { font-size: 10px; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+.balance-pts { font-size: 28px; font-weight: 900; color: #F9A825; }
+.balance-equiv { font-size: 11.5px; color: rgba(255,255,255,0.85); margin-top: 2px; }
+.balance-body { padding: 10px 14px 4px; font-size: 13px; color: #111B21; line-height: 1.5; }
+.balance-time { font-size: 10.5px; color: #667781; text-align: right; padding: 2px 14px 8px; }
+
+/* ── Product card ── */
+.prod-card {
+  background: #fff; border-radius: 8px 0 8px 8px;
+  max-width: 88%; overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  margin-bottom: 6px;
+}
+.prod-img {
+  width: 100%; height: 90px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 36px;
+}
+.prod-body { padding: 8px 10px 4px; }
+.prod-name { font-size: 13px; font-weight: 700; color: #111B21; margin-bottom: 3px; }
+.prod-feat { font-size: 12px; color: #444; line-height: 1.4; margin-bottom: 3px; }
+.prod-use { font-size: 11px; color: #667781; font-style: italic; }
+.prod-time { font-size: 10.5px; color: #667781; text-align: right; padding: 2px 10px 6px; }
+.prod-tag {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  background: rgba(27,107,47,0.1); color: #1B6B2F;
+  padding: 2px 7px; border-radius: 8px; margin-bottom: 4px;
+}
+
+/* ── Typing indicator ── */
+.msg-r.typing {
+  padding: 10px 14px;
+  display: flex; gap: 5px; align-items: center;
+}
+.t-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #aaa;
+  animation: tdot 1.4s infinite;
+}
+.t-dot:nth-child(2) { animation-delay: 0.2s; }
+.t-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes tdot { 0%,60%,100% { opacity: 0.3; } 30% { opacity: 1; } }
+
+/* ── Nav bar ── */
+.nav-bar {
+  background: #fff; border-top: 1px solid #e5e7eb;
+  padding: 11px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.nav-btn {
+  padding: 8px 20px; border-radius: 8px; border: none;
+  font-size: 13px; font-weight: 600; cursor: pointer; transition: 0.12s;
+}
+.nav-btn-prev { background: #f3f4f6; color: #374151; }
+.nav-btn-next { background: #1B6B2F; color: #fff; }
+.nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.nav-counter { font-size: 13px; color: #6b7280; font-weight: 500; }
+
+/* ── Utility ── */
+.bold { font-weight: 700; }
+.step-panel { display: none; }
+.step-panel.active { display: contents; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════ SIDEBAR ════════════════════════════════ -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-row">
+      <div class="brand-icon">AG</div>
+      <div class="brand-text">
+        <div class="brand-name">Brand by Company Name</div>
+        <div class="brand-sub">Retailer Engagement Journey</div>
+      </div>
+    </div>
+    <span class="journey-tag">Agri-Input Dealers</span>
+  </div>
+
+  <div class="step-list">
+    <div class="step-item active" onclick="goTo(1)">
+      <div class="step-num">Step 1</div>
+      <div class="step-title-sb">Campaign Trigger</div>
+      <div class="step-screens-sb">2 screens · Meta Ad + WhatsApp</div>
+    </div>
+    <div class="step-item" onclick="goTo(2)">
+      <div class="step-num">Step 2</div>
+      <div class="step-title-sb">Season Scheme Awareness</div>
+      <div class="step-screens-sb">1 screen · Marketing Template</div>
+    </div>
+    <div class="step-item" onclick="goTo(3)">
+      <div class="step-num">Step 3</div>
+      <div class="step-title-sb">Product Discovery</div>
+      <div class="step-screens-sb">2 screens · List + Product Cards</div>
+    </div>
+    <div class="step-item" onclick="goTo(4)">
+      <div class="step-num">Step 4</div>
+      <div class="step-title-sb">AI Agronomic FAQ</div>
+      <div class="step-screens-sb">2 screens · Question + Answer</div>
+    </div>
+    <div class="step-item" onclick="goTo(5)">
+      <div class="step-num">Step 5</div>
+      <div class="step-title-sb">Assisted Selling</div>
+      <div class="step-screens-sb">1 screen · Agronomist Connect CTA</div>
+    </div>
+    <div class="step-item" onclick="goTo(6)">
+      <div class="step-num">Step 6</div>
+      <div class="step-title-sb">Engagement Loop</div>
+      <div class="step-screens-sb">1 screen · Crop Advisory Highlight</div>
+    </div>
+    <div class="step-item" onclick="goTo(7)">
+      <div class="step-num">Step 7</div>
+      <div class="step-title-sb">Lead Capture</div>
+      <div class="step-screens-sb">1 screen · Location + Crop Profile</div>
+    </div>
+    <div class="step-item" onclick="goTo(8)">
+      <div class="step-num">Step 8</div>
+      <div class="step-title-sb">Continuous Engagement</div>
+      <div class="step-screens-sb">1 screen · Weekly Krishi Tips</div>
+    </div>
+    <div class="step-item" onclick="goTo(9)">
+      <div class="step-num">Step 9</div>
+      <div class="step-title-sb">Dealer Loyalty Program</div>
+      <div class="step-screens-sb">2 screens · AgriPoints + AI Layer</div>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════ MAIN ════════════════════════════════ -->
+<div class="main">
+
+  <!-- Step header bar -->
+  <div class="step-header">
+    <span class="step-hdr-num" id="hdr-num">Step 1 of 9</span>
+    <span class="step-hdr-title" id="hdr-title">Campaign Trigger — Meta Ad + WhatsApp Opt-in</span>
+    <span class="step-hdr-badge" id="hdr-badge">2 screens</span>
+  </div>
+
+  <!-- Content area -->
+  <div class="content-area" id="content-area">
+
+    <!-- ══════════════════ STEP 1 ══════════════════ -->
+    <div class="step-panel active" id="panel-1">
+
+      <!-- Screen 1A: Facebook / Meta ad -->
+      <div>
+        <div class="phone-label">Screen 1 — Facebook / Meta Ad (Kharif Season)</div>
+        <div class="phone" style="background:#f0f2f5;">
+          <div class="sb-light">
+            <span class="sb-time-light">9:41</span>
+            <div style="display:flex;align-items:center;gap:5px;">
+              <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#111"/><rect x="4" y="2" width="3" height="10" rx="1" fill="#111"/><rect x="8" y="1" width="3" height="11" rx="1" fill="#111"/><rect x="12" y="0" width="3" height="12" rx="1" fill="#111"/></svg>
+              <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2C5.5 2 3.3 3.1 1.8 4.8L0 3C2 1.1 4.9 0 8 0s6 1.1 8 3l-1.8 1.8C12.7 3.1 10.5 2 8 2z" fill="#111"/><path d="M8 6c-1.4 0-2.6.6-3.5 1.5L3 6C4.3 4.7 6 4 8 4s3.7.7 5 2l-1.5 1.5C10.6 6.6 9.4 6 8 6z" fill="#111"/><circle cx="8" cy="10" r="2" fill="#111"/></svg>
+              <span class="sb-batt">100</span>
+            </div>
+          </div>
+          <!-- FB top bar -->
+          <div class="fb-top">
+            <span class="fb-logo">facebook</span>
+            <div class="fb-top-icons">
+              <div class="fb-icon-btn">🔍</div>
+              <div class="fb-icon-btn">💬</div>
+            </div>
+          </div>
+          <div class="fb-screen">
+            <div class="fb-post">
+              <div class="fb-post-hdr">
+                <div class="fb-post-avatar">AG</div>
+                <div>
+                  <div class="fb-post-account">Brand by Company Name <span style="color:#1877f2;">✓</span></div>
+                  <div class="fb-post-sponsored">
+                    <span>Sponsored</span>
+                    <span style="font-size:8px;">•</span>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#65676b"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                  </div>
+                </div>
+                <div class="fb-post-more">···</div>
+              </div>
+              <div class="fb-creative">
+                <div class="fb-creative-brand">Brand · Company Name</div>
+                <div class="fb-creative-headline">Kharif Season Ki<br>Seedha Taiyari 🌾</div>
+                <div class="fb-creative-sub">Seeds · Fertilizers · Crop Protection<br>ab WhatsApp pe — direct dealer</div>
+              </div>
+              <div style="padding:8px 14px 2px;">
+                <div style="font-size:10px;color:#65676b;text-transform:uppercase;letter-spacing:0.5px;">Brand.com/shop</div>
+                <div style="font-size:14px;font-weight:700;color:#050505;margin-top:1px;">Brand Dealer Saathi — Sabse Pehle, Sabse Sasta</div>
+                <div style="font-size:12px;color:#65676b;">Kharif inputs seedha WhatsApp pe order karein</div>
+              </div>
+              <div class="fb-post-caption">
+                <strong>🌾 Kharif season shuru ho raha hai — kya aapka stock ready hai?</strong><br>
+                <span style="color:#65676b;">Brand Dealer Saathi pe top seeds, fertilizers aur crop protection products WhatsApp pe milenge — sahi rate, seedhi delivery.</span>
+              </div>
+              <div class="fb-post-time">Aaj · Sponsored · Brandture</div>
+              <div class="fb-cta-row">
+                <button class="fb-cta-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.4 3.6C18.2 1.4 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.4-1.7C8.1 23.4 10 24 12 24c6.6 0 12-5.4 12-12 0-3.2-1.3-6.2-3.6-8.4z"/></svg>
+                  WhatsApp par Sampark Karein
+                </button>
+                <div class="fb-cta-sub">Opens WhatsApp · Brand.com/shop</div>
+              </div>
+            </div>
+          </div>
+          <div class="fb-bottom-nav">
+            <div class="fb-nav-item"><span class="fb-nav-icon active">🏠</span><span class="fb-nav-label" style="color:#1877f2;">Home</span></div>
+            <div class="fb-nav-item"><span class="fb-nav-icon">👥</span><span class="fb-nav-label">Friends</span></div>
+            <div class="fb-nav-item"><span class="fb-nav-icon">📺</span><span class="fb-nav-label">Video</span></div>
+            <div class="fb-nav-item"><span class="fb-nav-icon">🔔</span><span class="fb-nav-label">Notifs</span></div>
+            <div class="fb-nav-item">
+              <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#1B6B2F,#F9A825);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;">AG</div>
+              <span class="fb-nav-label">Profile</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 1B: WhatsApp opt-in -->
+      <div>
+        <div class="phone-label">Screen 2 — WhatsApp Opt-in (Marketing Template)</div>
+        <div class="phone">
+          <div class="sb-dark">
+            <span class="sb-time-dark">9:42</span>
+            <div class="sb-icons-dark">
+              <svg width="14" height="12" viewBox="0 0 16 12" fill="white"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4" y="2" width="3" height="10" rx="1"/><rect x="8" y="1" width="3" height="11" rx="1"/><rect x="12" y="0" width="3" height="12" rx="1"/></svg>
+              <svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg>
+            </div>
+          </div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account · online</div>
+            </div>
+            <div class="wa-actions">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+            </div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <!-- Marketing Template: Image header + 3 QR buttons -->
+              <div class="msg-row-l">
+                <div style="max-width:90%;">
+                  <div class="wa-tmpl">
+                    <!-- Image header: brand creative -->
+                    <div class="wa-hdr-img">
+                      <div style="width:100%;height:140px;background:linear-gradient(135deg,#1B6B2F 0%,#2e9e50 50%,#F9A825 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:14px;text-align:center;position:relative;overflow:hidden;">
+                        <div style="position:absolute;top:-15px;right:-15px;width:90px;height:90px;border-radius:50%;background:rgba(249,168,37,0.2);"></div>
+                        <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:#F9A825;text-transform:uppercase;margin-bottom:8px;">Brand Dealer Saathi</div>
+                        <div style="font-size:17px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:5px;">Kharif Ki Taiyari<br>WhatsApp Pe 🌾</div>
+                        <div style="font-size:11px;color:rgba(255,255,255,0.85);">Seeds · Fertilizers · Crop Protection</div>
+                      </div>
+                    </div>
+                    <div class="wa-tmpl-body">
+                      Namaskar 🙏 <strong>Brand Dealer Saathi</strong> mein swagat hai!<br><br>
+                      Ab WhatsApp pe seedha paaiye —<br>
+                      <strong>Products</strong> — Seeds, fertilizers, pesticides<br>
+                      <strong>Schemes</strong> — Kharif season dealer incentives<br>
+                      <strong>AI Saathi</strong> — Crop queries ka turant jawab<br><br>
+                      Kya dekhna chahenge aap?
+                    </div>
+                    <div class="wa-tmpl-footer">Managed by ZoTok powered by Zono</div>
+                    <div class="wa-tmpl-time">9:42 AM</div>
+                    <div class="wa-tmpl-btns">
+                      <button class="wa-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        Products dekhein
+                      </button>
+                      <button class="wa-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        Scheme jaaniye
+                      </button>
+                      <button class="wa-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        Sawaal poochein
+                      </button>
+                    </div>
+                  </div>
+                  <div class="zotok-ftr">Managed by ZoTok powered by Zono</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-1 -->
+
+    <!-- ══════════════════ STEP 2 ══════════════════ -->
+    <div class="step-panel" id="panel-2">
+      <div>
+        <div class="phone-label">Screen 1 — Season Scheme Awareness (Marketing Template)</div>
+        <div class="phone">
+          <div class="sb-dark">
+            <span class="sb-time-dark">9:43</span>
+            <div class="sb-icons-dark">
+              <svg width="14" height="12" viewBox="0 0 16 12" fill="white"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4" y="2" width="3" height="10" rx="1"/><rect x="8" y="1" width="3" height="11" rx="1"/><rect x="12" y="0" width="3" height="12" rx="1"/></svg>
+              <svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg>
+            </div>
+          </div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account</div>
+            </div>
+            <div class="wa-actions">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+            </div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <!-- Dealer taps "Scheme jaaniye" -->
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">Scheme jaaniye</div>
+                  <span class="msg-time">9:43 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <!-- Marketing template response -->
+              <div class="msg-row-l">
+                <div style="max-width:92%;">
+                  <div class="wa-tmpl">
+                    <div class="wa-hdr-text">Kharif 2026 Dealer Schemes</div>
+                    <div class="wa-tmpl-body">
+                      Namaskar! 🙏<br><br>
+                      Yahan hain Brand ki <strong>Kharif 2026 dealer-level schemes</strong> — aapke distributor ke through available:<br><br>
+                      <strong>Seeds Range</strong> — 6% scheme benefit on MRP + display board<br>
+                      <strong>Crop Protection</strong> — Slab-based incentive: 5 cases = free carry bag supply<br>
+                      <strong>Fertilizers</strong> — Volume-linked cash discount up to ₹18/bag<br><br>
+                      <em>Note:</em> Exact benefit aapke assigned distributor ke through milega. Apne area VSE se sampark karein.
+                    </div>
+                    <div class="wa-tmpl-footer">Managed by ZoTok powered by Zono</div>
+                    <div class="wa-tmpl-time">9:43 AM</div>
+                    <div class="wa-tmpl-btns">
+                      <button class="wa-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        Products dekhein
+                      </button>
+                    </div>
+                  </div>
+                  <div class="zotok-ftr">Managed by ZoTok powered by Zono</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-2 -->
+
+    <!-- ══════════════════ STEP 3 ══════════════════ -->
+    <div class="step-panel" id="panel-3">
+
+      <!-- Screen 3A: Category selection (interactive list + modal open) -->
+      <div>
+        <div class="phone-label">Screen 1 — Category Selection (Interactive List)</div>
+        <div class="phone" style="position:relative;">
+          <div class="sb-dark">
+            <span class="sb-time-dark">9:44</span>
+            <div class="sb-icons-dark">
+              <svg width="14" height="12" viewBox="0 0 16 12" fill="white"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4" y="2" width="3" height="10" rx="1"/><rect x="8" y="1" width="3" height="11" rx="1"/><rect x="12" y="0" width="3" height="12" rx="1"/></svg>
+              <svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg>
+            </div>
+          </div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account</div>
+            </div>
+            <div class="wa-actions">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+            </div>
+          </div>
+          <div class="chat-area" style="position:relative;">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">Products dekhein</div>
+                  <span class="msg-time">9:44 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <!-- Interactive list message -->
+              <div class="msg-row-l">
+                <div class="wa-list-msg">
+                  <div class="wa-list-body">
+                    Kaunsa agri-input explore karna chahte hain? 🌱<br><br>
+                    Neechey menu se category chunein — hum aapko relevant products aur rates dikhaenge.
+                  </div>
+                  <div class="wa-list-time">9:44 AM</div>
+                  <button class="wa-list-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Category chunein
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal overlay (open) -->
+          <div class="modal-overlay">
+            <div class="list-modal">
+              <div class="modal-drag"><div class="modal-drag-bar"></div></div>
+              <div class="modal-topbar-row">
+                <div class="modal-close">✕</div>
+                <div class="modal-title">Category chunein</div>
+                <div class="modal-spacer"></div>
+              </div>
+              <div class="modal-section">Agri-Input Categories</div>
+              <div class="modal-row">
+                <div>
+                  <div class="modal-row-title">Seeds</div>
+                  <div class="modal-row-desc">Paddy, cotton, maize — Kharif</div>
+                </div>
+                <div class="modal-radio"></div>
+              </div>
+              <div class="modal-row">
+                <div>
+                  <div class="modal-row-title">Fertilizers</div>
+                  <div class="modal-row-desc">DAP, NPK, Urea, micronutrients</div>
+                </div>
+                <div class="modal-radio"></div>
+              </div>
+              <div class="modal-row">
+                <div>
+                  <div class="modal-row-title">Crop Protection</div>
+                  <div class="modal-row-desc">Insecticides, fungicides, herbicides</div>
+                </div>
+                <div class="modal-radio" style="border-color:#00A884;background:#e8fdf5;"></div>
+              </div>
+              <div class="modal-row">
+                <div>
+                  <div class="modal-row-title">Bio-Inputs</div>
+                  <div class="modal-row-desc">Biofertilizers, biopesticides</div>
+                </div>
+                <div class="modal-radio"></div>
+              </div>
+              <div class="modal-row">
+                <div>
+                  <div class="modal-row-title">Micronutrients</div>
+                  <div class="modal-row-desc">Zinc, Boron, Calcium, Sulphur</div>
+                </div>
+                <div class="modal-radio"></div>
+              </div>
+              <div class="modal-send-wrap">
+                <button class="modal-send-btn">Send</button>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar" style="z-index:1;">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 3B: Product cards (Crop Protection) -->
+      <div>
+        <div class="phone-label">Screen 2 — Product Showcase (Crop Protection)</div>
+        <div class="phone">
+          <div class="sb-dark">
+            <span class="sb-time-dark">9:45</span>
+            <div class="sb-icons-dark">
+              <svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg>
+            </div>
+          </div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account</div>
+            </div>
+            <div class="wa-actions">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+            </div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">Crop Protection</div>
+                  <span class="msg-time">9:44 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="msg-r" style="max-width:88%;">
+                  <div class="msg-body">Yahan hain Brand ke top Crop Protection products 👇</div>
+                  <span class="msg-time">9:45 AM</span>
+                </div>
+              </div>
+              <!-- Product card 1: Insecticide -->
+              <div class="msg-row-l">
+                <div class="prod-card">
+                  <div class="prod-img" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);">🌿</div>
+                  <div class="prod-body">
+                    <div class="prod-tag">Insecticide — Bestseller</div>
+                    <div class="prod-name">Brand Chlorpyriphos 20 EC</div>
+                    <div class="prod-feat">
+                      Broad-spectrum organophosphate<br>
+                      500 ml · Contact + stomach action<br>
+                      CIB/RCGC registered · ISI certified
+                    </div>
+                    <div class="prod-use">Use: Paddy stem borer, cotton bollworm, maize fall armyworm</div>
+                  </div>
+                  <div class="prod-time">9:45 AM</div>
+                </div>
+              </div>
+              <!-- Product card 2: Fungicide -->
+              <div class="msg-row-l">
+                <div class="prod-card">
+                  <div class="prod-img" style="background:linear-gradient(135deg,#fff8e1,#ffecb3);">🍂</div>
+                  <div class="prod-body">
+                    <div class="prod-tag">Fungicide — High Demand</div>
+                    <div class="prod-name">Brand Mancozeb 75 WP</div>
+                    <div class="prod-feat">
+                      Preventive + protective action<br>
+                      500g · Dithiocarbamate group<br>
+                      Multi-site activity — low resistance risk
+                    </div>
+                    <div class="prod-use">Use: Paddy blast, potato blight, vegetable downy mildew</div>
+                  </div>
+                  <div class="prod-time">9:45 AM</div>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="wa-tmpl" style="max-width:90%;">
+                  <div class="wa-tmpl-body" style="padding-bottom:4px;">
+                    Aur products dekhne hain? Category wapas chunein ya dosage sawaal poochein! 😊
+                  </div>
+                  <div class="wa-tmpl-time">9:45 AM</div>
+                  <div class="wa-tmpl-btns">
+                    <button class="wa-btn">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                      Aur products dekhein
+                    </button>
+                    <button class="wa-btn">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                      Sawaal poochein
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-3 -->
+
+    <!-- ══════════════════ STEP 4 ══════════════════ -->
+    <div class="step-panel" id="panel-4">
+
+      <!-- Screen 4A: Retailer question -->
+      <div>
+        <div class="phone-label">Screen 1 — Dealer Asks (Agronomic FAQ)</div>
+        <div class="phone">
+          <div class="sb-dark"><span class="sb-time-dark">9:47</span><div class="sb-icons-dark"><svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg></div></div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account</div>
+            </div>
+            <div class="wa-actions"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <div class="msg-row-l">
+                <div class="msg-r">
+                  <div class="msg-body">Sawaal poochein</div>
+                  <span class="msg-time">9:46 AM</span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="msg-r" style="max-width:88%;">
+                  <div class="msg-body">Zaroor! 😊 Koi bhi crop, product ya dosage sawaal poochein. Hum Hinglish mein jawab dete hain — farmer ko seedha bata sakenge.</div>
+                  <span class="msg-time">9:46 AM</span>
+                </div>
+              </div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">DAP aur NPK mein kya fark hai? Kharif paddy ke liye kaunsa behtar?</div>
+                  <span class="msg-time">9:47 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <!-- Typing indicator -->
+              <div class="msg-row-l">
+                <div class="msg-r typing">
+                  <div class="t-dot"></div>
+                  <div class="t-dot"></div>
+                  <div class="t-dot"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 4B: AI agronomic answer -->
+      <div>
+        <div class="phone-label">Screen 2 — AI Answers (Hinglish Agronomy)</div>
+        <div class="phone">
+          <div class="sb-dark"><span class="sb-time-dark">9:47</span><div class="sb-icons-dark"><svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg></div></div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account</div>
+            </div>
+            <div class="wa-actions"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">DAP aur NPK mein kya fark hai? Kharif paddy ke liye kaunsa behtar?</div>
+                  <span class="msg-time">9:47 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="msg-r" style="max-width:90%;">
+                  <div class="msg-body">
+                    Bahut achha sawaal! 🌾 Dono nitrogen-phosphorus fertilizers hain — lekin key difference hai:<br><br>
+                    <strong>DAP (Di-Ammonium Phosphate)</strong><br>
+                    18% Nitrogen + 46% Phosphorus. Transplanting ya basal dose ke liye ideal — roots aur tillering strong karta hai.<br><br>
+                    <strong>NPK (e.g., 12-32-16)</strong><br>
+                    Balanced N, P, K — potassium bhi milta hai. Grain filling stage mein zyada effective.<br><br>
+                    ✅ <strong>Paddy ke liye recommendation:</strong><br>
+                    Basal mein DAP — phir 25-30 DAS par Brand NPK 12-32-16 use karein. Yield 15-20% tak badh sakti hai.<br><br>
+                    <em>Apne area ke soil type ke hisaab se agronomist se confirm karein.</em>
+                  </div>
+                  <span class="msg-time">9:47 AM</span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="wa-tmpl" style="max-width:90%;">
+                  <div class="wa-tmpl-body" style="padding-bottom:4px;">Brand fertilizer range dekhna chahenge ya apne area ka VSE se baat karein?</div>
+                  <div class="wa-tmpl-time">9:47 AM</div>
+                  <div class="wa-tmpl-btns">
+                    <button class="wa-btn">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                      Fertilizer range dekho
+                    </button>
+                    <button class="wa-btn">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                      VSE se baat karein
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-4 -->
+
+    <!-- ══════════════════ STEP 5 ══════════════════ -->
+    <div class="step-panel" id="panel-5">
+      <div>
+        <div class="phone-label">Screen 1 — Assisted Selling (Agronomist Connect CTA)</div>
+        <div class="phone">
+          <div class="sb-dark"><span class="sb-time-dark">9:49</span><div class="sb-icons-dark"><svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg></div></div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account</div>
+            </div>
+            <div class="wa-actions"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">VSE se baat karein</div>
+                  <span class="msg-time">9:48 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div style="max-width:92%;">
+                  <div class="wa-tmpl">
+                    <div class="wa-hdr-text">Agronomist Connect</div>
+                    <div class="wa-tmpl-body">
+                      Aapke area ke Company Name VSE (Village Sales Executive) ya agronomist aapki madad ke liye available hain! 🤝<br><br>
+                      Apni location aur main crop share karein — hum aapko sahi VSE se connect karenge aur field demo bhi arrange kar sakte hain.<br><br>
+                      <em>Note: Yeh sirf connection service hai — koi scheme promise nahi ki jaati.</em>
+                    </div>
+                    <div class="wa-tmpl-footer">Managed by ZoTok powered by Zono</div>
+                    <div class="wa-tmpl-time">9:49 AM</div>
+                    <div class="wa-tmpl-btns">
+                      <button class="wa-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                        VSE se connect karein
+                      </button>
+                    </div>
+                  </div>
+                  <div class="zotok-ftr">Managed by ZoTok powered by Zono</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-5 -->
+
+    <!-- ══════════════════ STEP 6 ══════════════════ -->
+    <div class="step-panel" id="panel-6">
+      <div>
+        <div class="phone-label">Screen 1 — Engagement Loop (Crop Advisory Highlight)</div>
+        <div class="phone">
+          <div class="sb-dark"><span class="sb-time-dark">10:00</span><div class="sb-icons-dark"><svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg></div></div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account</div>
+            </div>
+            <div class="wa-actions"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today — Kharif Advisory</span></div>
+              <!-- Proactive marketing template: image header + body -->
+              <div class="msg-row-l">
+                <div style="max-width:92%;">
+                  <div class="wa-tmpl">
+                    <div class="wa-hdr-img">
+                      <div style="width:100%;height:140px;background:linear-gradient(135deg,#1B6B2F 0%,#2e9e50 55%,#F9A825 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:16px;">
+                        <div style="font-size:26px;margin-bottom:6px;">🌾</div>
+                        <div style="font-size:14px;font-weight:900;letter-spacing:0.5px;">Kharif Season Alert</div>
+                        <div style="font-size:10px;color:rgba(255,255,255,0.85);margin-top:4px;background:rgba(0,0,0,0.3);padding:2px 10px;border-radius:8px;">Brand · Company Name</div>
+                      </div>
+                    </div>
+                    <div class="wa-tmpl-body">
+                      <strong>Stock Ready Hai?</strong> Kharif transplanting ka peak time aa raha hai — yeh products jaldi khatam hote hain! 🌱<br><br>
+                      Aaj hi apni dukaan ke liye stock confirm karein:<br>
+                      <strong>Paddy Hybrid Seeds</strong> — Ujjwal-108, Ujjwal-119 fast-moving<br>
+                      <strong>DAP + NPK combo</strong> — basal dose season rush mein<br>
+                      <strong>Chlorpyriphos 20EC</strong> — stem borer season shuru<br><br>
+                      <em>Brand — Kisan ka Vishwas, Dealer ki Kamai.</em>
+                    </div>
+                    <div class="wa-tmpl-footer">Managed by ZoTok powered by Zono</div>
+                    <div class="wa-tmpl-time">10:00 AM</div>
+                    <div class="wa-tmpl-btns">
+                      <button class="wa-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        Products dekhein
+                      </button>
+                    </div>
+                  </div>
+                  <div class="zotok-ftr">Managed by ZoTok powered by Zono</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-6 -->
+
+    <!-- ══════════════════ STEP 7 ══════════════════ -->
+    <div class="step-panel" id="panel-7">
+      <div>
+        <div class="phone-label">Screen 1 — Lead Capture (Location + Crop Profile)</div>
+        <div class="phone">
+          <div class="sb-dark"><span class="sb-time-dark">10:02</span><div class="sb-icons-dark"><svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg></div></div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account</div>
+            </div>
+            <div class="wa-actions"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <div class="msg-row-l">
+                <div class="msg-r" style="max-width:90%;">
+                  <div class="msg-body">Kya aap regular Brand products rakhna chahenge? 😊<br><br>Hum aapke area ke best distributor se connect karenge. Sirf 3 quick sawaal —</div>
+                  <span class="msg-time">10:01 AM</span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="msg-r" style="max-width:88%;">
+                  <div class="msg-body">📍 <strong>Sawaal 1:</strong> Aapka tehsil aur jila kaunsa hai?</div>
+                  <span class="msg-time">10:01 AM</span>
+                </div>
+              </div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">Nanded, Maharashtra</div>
+                  <span class="msg-time">10:02 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="msg-r" style="max-width:90%;">
+                  <div class="msg-body">🌾 <strong>Sawaal 2:</strong> Aapke area ke farmers mainly kaunsi fasal lete hain?<br><em>(e.g., paddy, cotton, soybean, sugarcane)</em></div>
+                  <span class="msg-time">10:02 AM</span>
+                </div>
+              </div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">Soybean aur tur dal</div>
+                  <span class="msg-time">10:02 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="msg-r" style="max-width:90%;">
+                  <div class="msg-body">🏪 <strong>Sawaal 3:</strong> Aapki dukaan ka type kya hai?<br><em>(e.g., agri dealer, krishi kendra, general store)</em></div>
+                  <span class="msg-time">10:02 AM</span>
+                </div>
+              </div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">Agri dealer — seeds aur pesticides main item</div>
+                  <span class="msg-time">10:02 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="msg-r" style="max-width:90%;">
+                  <div class="msg-body">✅ Shukriya! Aapki details note kar li gayi hain.<br><br><strong>Location:</strong> Nanded, Maharashtra<br><strong>Main Crops:</strong> Soybean, Tur Dal<br><strong>Shop Type:</strong> Agri Dealer<br><br>Aapke area ka VSE jald sampark karega. Koi aur sawaal ho toh zaroor poochein! 🙏</div>
+                  <span class="msg-time">10:02 AM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-7 -->
+
+    <!-- ══════════════════ STEP 8 ══════════════════ -->
+    <div class="step-panel" id="panel-8">
+      <div>
+        <div class="phone-label">Screen 1 — Weekly Krishi Tips (Continuous Engagement)</div>
+        <div class="phone">
+          <div class="sb-dark"><span class="sb-time-dark">Mon 8:00</span><div class="sb-icons-dark"><svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg></div></div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Business Account</div>
+            </div>
+            <div class="wa-actions"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Monday · Weekly Krishi Update</span></div>
+              <div class="msg-row-l">
+                <div style="max-width:92%;">
+                  <div class="wa-tmpl">
+                    <div class="wa-hdr-text">Saptahik Krishi Bulletin</div>
+                    <div class="wa-tmpl-body">
+                      Namaskar! 🙏 Is hafte ke liye Brand ke khas updates —<br><br>
+                      🆕 <strong>Nayi Launch:</strong> Brand BioMax Biofertilizer — now available; Rhizobium + PSB combo for soybean<br><br>
+                      🌿 <strong>Season Tip:</strong> Soybean mein yellow mosaic virus se bachaav ke liye Thiamethoxam 25WG seedling dip zaroor karein — early protection, zyada yield<br><br>
+                      ❓ <strong>FAQ of the Week:</strong> Tur dal mein pod borer aaye toh kya karein? Spinosad 45SC 0.3ml/litre ya Indoxacarb 14.5SC use karein — second flush ke time spray effective<br><br>
+                      Kuch aur jaanna chahte hain? Poochein!
+                    </div>
+                    <div class="wa-tmpl-footer">Managed by ZoTok powered by Zono</div>
+                    <div class="wa-tmpl-time">Mon 8:00 AM</div>
+                    <div class="wa-tmpl-btns">
+                      <button class="wa-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        Aur jaaniye
+                      </button>
+                    </div>
+                  </div>
+                  <div class="zotok-ftr">Managed by ZoTok powered by Zono</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /panel-8 -->
+
+    <!-- ══════════════════ STEP 9 ══════════════════ -->
+    <div class="step-panel" id="panel-9">
+
+      <!-- Screen 9A: POINTS command (loyalty balance) -->
+      <div>
+        <div class="phone-label">Screen 1 — AgriPoints Balance (Dealer Loyalty)</div>
+        <div class="phone">
+          <div class="sb-dark"><span class="sb-time-dark">11:15</span><div class="sb-icons-dark"><svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg></div></div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Dealer Loyalty Programme · online</div>
+            </div>
+            <div class="wa-actions"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <!-- Loyalty programme context chip -->
+              <div style="text-align:center;margin:6px 0;">
+                <span style="background:rgba(27,107,47,0.1);color:#1B6B2F;font-size:10.5px;font-weight:600;padding:4px 12px;border-radius:10px;border:1px solid rgba(27,107,47,0.25);">AgriPoints Programme — Active 🌾</span>
+              </div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">POINTS</div>
+                  <span class="msg-time">11:15 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <!-- Balance card (utility template — no header) -->
+              <div class="msg-row-l">
+                <div class="balance-card">
+                  <div class="balance-hdr">
+                    <div class="balance-tag">Brand Dealer Points</div>
+                    <div class="balance-pts">3,820 pts</div>
+                    <div class="balance-equiv">≈ ₹382 redeemable value</div>
+                  </div>
+                  <div class="balance-body">
+                    Hi Suresh Bhai! 👋<br><br>
+                    <strong>Points Balance:</strong> 3,820 pts<br>
+                    <strong>This Season Earned:</strong> 1,240 pts<br>
+                    <strong>Next Milestone:</strong> 680 pts more → Gold Dealer badge + ₹500 bonus<br><br>
+                    Reward redeem karne ke liye <strong>REDEEM</strong> type karein.
+                  </div>
+                  <div class="balance-time">11:15 AM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Screen 9B: AI crop recommendation layer -->
+      <div>
+        <div class="phone-label">Screen 2 — AI Crop Recommendation Layer</div>
+        <div class="phone">
+          <div class="sb-dark"><span class="sb-time-dark">11:17</span><div class="sb-icons-dark"><svg width="16" height="12" viewBox="0 0 25 12" fill="white"><rect x="0" y="1" width="21" height="10" rx="3" stroke="white" stroke-width="1.2" fill="none"/><rect x="1.5" y="2.5" width="16" height="7" rx="2" fill="white"/><rect x="22" y="4" width="2" height="4" rx="1" fill="white"/></svg></div></div>
+          <div class="wa-topbar">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar-ag">AG</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Brand Saathi</div>
+              <div class="wa-contact-status">Dealer Loyalty Programme · online</div>
+            </div>
+            <div class="wa-actions"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></div>
+          </div>
+          <div class="chat-area">
+            <div>
+              <div class="date-pill"><span>Today</span></div>
+              <div style="text-align:center;margin:6px 0;">
+                <span style="background:rgba(0,168,132,0.1);color:#00A884;font-size:10.5px;font-weight:600;padding:4px 12px;border-radius:10px;border:1px solid rgba(0,168,132,0.3);">AI Saathi — Active 🤖</span>
+              </div>
+              <div class="msg-row-r">
+                <div class="msg-s">
+                  <div class="msg-body">Soybean ke liye best fertilizer schedule kya hai?</div>
+                  <span class="msg-time">11:17 AM <span class="tick">✓✓</span></span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div class="msg-r" style="max-width:90%;">
+                  <div class="msg-body">
+                    Soybean ke liye Brand ka recommended fertilizer schedule 🌱<br><br>
+                    <strong>Basal (sowing time):</strong><br>
+                    DAP 50 kg/acre — root nodulation support<br>
+                    Brand SSP 50 kg/acre — phosphorus boost<br><br>
+                    <strong>30 DAS:</strong><br>
+                    Brand NPK 00-00-50 (MOP) — 20 kg/acre for pod filling<br><br>
+                    <strong>Bio-Input Add-on:</strong><br>
+                    Brand BioMax Rhizobium seed treatment — nitrogen fixation mein 20-25% improvement<br><br>
+                    ✅ Is schedule se Nanded area mein average yield 8-10 qt/acre tak achieve ho sakti hai!
+                  </div>
+                  <span class="msg-time">11:17 AM</span>
+                </div>
+              </div>
+              <div class="msg-row-l">
+                <div style="max-width:92%;">
+                  <div class="wa-tmpl">
+                    <div class="wa-tmpl-body" style="padding-bottom:4px;">
+                      Apne farmers ko yeh schedule share karein aur Brand products ka stock confirm karein!
+                    </div>
+                    <div class="wa-tmpl-time">11:17 AM</div>
+                    <div class="wa-tmpl-btns">
+                      <button class="wa-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        Nearby distributor
+                      </button>
+                      <button class="wa-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+                        Aur products jaaniye
+                      </button>
+                    </div>
+                  </div>
+                  <div class="zotok-ftr">Managed by ZoTok powered by Zono</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-bar">
+            <span class="input-plus">+</span>
+            <div class="input-field">Type a message</div>
+            <div class="input-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3zm6 10a6 6 0 0 1-12 0H4a8 8 0 0 0 16 0h-2z"/></svg></div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /panel-9 -->
+
+  </div><!-- /content-area -->
+
+  <!-- Nav bar -->
+  <div class="nav-bar">
+    <button class="nav-btn nav-btn-prev" id="btn-prev" onclick="navigate(-1)" disabled>← Previous</button>
+    <span class="nav-counter" id="nav-counter">Step 1 of 9</span>
+    <button class="nav-btn nav-btn-next" id="btn-next" onclick="navigate(1)">Next →</button>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+const STEPS = [
+  { num:1, title:'Campaign Trigger — Meta Ad + WhatsApp Opt-in', badge:'2 screens' },
+  { num:2, title:'Season Scheme Awareness — Kharif 2026 Dealer Schemes', badge:'1 screen' },
+  { num:3, title:'Product Discovery — Category + Crop Protection Showcase', badge:'2 screens' },
+  { num:4, title:'AI Agronomic FAQ — DAP vs NPK for Paddy', badge:'2 screens' },
+  { num:5, title:'Assisted Selling — Agronomist / VSE Connect CTA', badge:'1 screen' },
+  { num:6, title:'Engagement Loop — Kharif Season Advisory', badge:'1 screen' },
+  { num:7, title:'Lead Capture — Location + Crop Profile', badge:'1 screen' },
+  { num:8, title:'Continuous Engagement — Weekly Krishi Bulletin', badge:'1 screen' },
+  { num:9, title:'Dealer Loyalty Programme — AgriPoints + AI Recommendation', badge:'2 screens' },
+];
+
+let current = 1;
+
+function goTo(n) {
+  const prev = current;
+  current = n;
+
+  const oldPanel = document.getElementById('panel-' + prev);
+  if (oldPanel) oldPanel.classList.remove('active');
+
+  const newPanel = document.getElementById('panel-' + current);
+  if (newPanel) newPanel.classList.add('active');
+
+  document.querySelectorAll('.step-item').forEach((el, i) => {
+    el.classList.toggle('active', i === (current - 1));
+  });
+
+  const step = STEPS[current - 1];
+  document.getElementById('hdr-num').textContent = 'Step ' + current + ' of 9';
+  document.getElementById('hdr-title').textContent = step.title;
+  document.getElementById('hdr-badge').textContent = step.badge;
+
+  document.getElementById('nav-counter').textContent = 'Step ' + current + ' of 9';
+  document.getElementById('btn-prev').disabled = current <= 1;
+  document.getElementById('btn-next').disabled = current >= 9;
+}
+
+function navigate(dir) {
+  const next = current + dir;
+  if (next >= 1 && next <= 9) goTo(next);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') navigate(1);
+  if (e.key === 'ArrowLeft') navigate(-1);
+});
+</script>
+</body>
+</html>

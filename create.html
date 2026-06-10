@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Demo — ZoTok Demo Generator</title>
+  <meta name="description" content="Generate a custom branded WhatsApp Commerce OS demo in minutes. Enter your brand details, upload a logo, and generate.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="create-page">
+
+  <!-- Top strip -->
+  <div class="top-strip"></div>
+
+  <!-- ── Create page header ── -->
+  <header class="create-header">
+    <a href="index.html" class="back-link" id="backBtn">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back to Hub
+    </a>
+
+    <div class="create-header-logo">
+      <div class="zt-logo-icon" style="width:32px;height:32px;border-radius:8px;" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 26 26" fill="none">
+          <path d="M5 6h16L9 20h12" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="zt-logo-wordmark" style="font-size:17px;">Zo<span>Tok</span></div>
+    </div>
+  </header>
+
+  <!-- ── Main wizard content ── -->
+  <main class="create-main">
+
+    <h1 class="create-title">Create Your Demo</h1>
+    <p class="create-subtitle">Configure brand, products, and journey type to generate a custom demo.</p>
+
+    <!-- Step indicator -->
+    <div class="steps-indicator" role="tablist" aria-label="Wizard steps">
+      <div class="step-dot active" data-step="1" role="tab" aria-selected="true"  id="stepTab1" aria-controls="step1">Brand</div>
+      <div class="step-dot"        data-step="2" role="tab" aria-selected="false" id="stepTab2" aria-controls="step2">Products</div>
+      <div class="step-dot"        data-step="3" role="tab" aria-selected="false" id="stepTab3" aria-controls="step3">Generate</div>
+    </div>
+
+    <!-- Error message -->
+    <div id="wizardError" class="error-msg" style="display:none" role="alert"></div>
+
+    <!-- ───────── STEP 1: Brand ───────── -->
+    <div id="step1" class="wizard-step card active" role="tabpanel" aria-labelledby="stepTab1">
+
+      <div class="form-group">
+        <label for="brandNameInput">
+          Brand Name <span class="required" aria-label="required">*</span>
+        </label>
+        <input
+          type="text"
+          id="brandNameInput"
+          class="form-control"
+          placeholder="e.g. Haldiram's, JK Cement, Patanjali"
+          required
+          autocomplete="organization"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="industryInput">
+          Industry <span class="required" aria-label="required">*</span>
+        </label>
+        <select id="industryInput" class="form-control" required>
+          <option value="">Select industry…</option>
+          <option value="FMCG">FMCG</option>
+          <option value="Pharma">Pharma</option>
+          <option value="Cement">Cement</option>
+          <option value="Steel">Steel</option>
+          <option value="Construction">Construction</option>
+          <option value="Retail">Retail</option>
+          <option value="Agri">Agri / Agriculture</option>
+          <option value="Paint">Paint</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="primaryColorInput">Primary Color</label>
+          <input type="color" id="primaryColorInput" class="form-control color-input" value="#075e54">
+        </div>
+        <div class="form-group">
+          <label for="secondaryColorInput">Secondary / Dark Color</label>
+          <input type="color" id="secondaryColorInput" class="form-control color-input" value="#064e46">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Logo <span style="font-weight:400;color:#999">(optional)</span></label>
+        <div id="logoDropZone" class="drop-zone" role="button" tabindex="0" aria-label="Upload logo — drop file here or click to browse">
+          <div id="logoPlaceholder">
+            <span>🖼️ Drop logo here or click to upload</span>
+          </div>
+          <img id="logoPreview" src="" alt="Logo preview" style="display:none; max-height:64px; border-radius:6px;">
+          <input type="file" id="logoFileInput" accept="image/*" style="display:none" aria-hidden="true">
+        </div>
+        <p class="asset-guidance">
+          <strong>Logo guidance:</strong> PNG, JPG or WebP under 1 MB — ideally square or on a transparent background.
+          Without a logo a branded placeholder is generated automatically.
+        </p>
+      </div>
+
+    </div>
+    <!-- /step1 -->
+
+    <!-- ───────── STEP 2: Products ───────── -->
+    <div id="step2" class="wizard-step card" role="tabpanel" aria-labelledby="stepTab2">
+
+      <h2 style="font-size:16px;font-weight:700;margin-bottom:6px;color:#222">Products</h2>
+      <p style="font-size:13px;color:#666;margin-bottom:14px">Add up to 8 products for the catalog. Used to personalise demo screens.</p>
+      <p class="asset-guidance" style="margin-bottom:14px">
+        <strong>Product image guidance:</strong> clean PNG, JPG or WebP images under 1 MB each.
+        Missing images are replaced with a branded placeholder so the demo still renders.
+      </p>
+
+      <div id="productRowsContainer"></div>
+
+      <button
+        type="button"
+        id="addProductBtn"
+        class="btn btn-outline btn-add-product"
+        onclick="demoUI.addProductRow()"
+      >
+        + Add Product
+      </button>
+
+    </div>
+    <!-- /step2 -->
+
+    <!-- ───────── STEP 3: Journey & Generate ───────── -->
+    <div id="step3" class="wizard-step card" role="tabpanel" aria-labelledby="stepTab3">
+
+      <h2 style="font-size:16px;font-weight:700;margin-bottom:6px;color:#222">Select Journey Type</h2>
+      <div id="journeyCardsContainer" class="journey-cards-grid"></div>
+
+      <!-- Step selection panel (shown when journey with >1 step is selected) -->
+      <div id="stepSelectionPanel" class="step-selection-panel" style="display:none" aria-live="polite">
+        <h4>Steps to include</h4>
+        <div class="step-checklist">
+          <label class="step-all-toggle">
+            <input type="checkbox" checked onchange="demoUI.toggleAllSteps(this.checked)">
+            Select All
+          </label>
+          <div id="stepChecklistItems"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;">
+        <button
+          type="button"
+          id="generateBtn"
+          class="btn primary"
+          onclick="demoUI.generate()"
+        >
+          Generate Demo ✨
+        </button>
+      </div>
+
+      <div id="progressBar" class="progress-bar" style="display:none" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+
+    </div>
+    <!-- /step3 -->
+
+    <!-- ── Wizard Navigation ── -->
+    <div class="wizard-nav">
+      <button
+        type="button"
+        id="prevStepBtn"
+        class="btn btn-outline"
+        onclick="demoUI.prevStep()"
+        style="display:none"
+        aria-label="Go to previous step"
+      >
+        ← Back
+      </button>
+      <button
+        type="button"
+        id="nextStepBtn"
+        class="btn primary"
+        onclick="demoUI.nextStep()"
+        aria-label="Go to next step"
+      >
+        Next →
+      </button>
+    </div>
+
+    <!-- ── Preview Area ── -->
+    <div id="previewArea" style="display:none" aria-live="polite">
+      <div class="preview-toolbar">
+        <span id="previewTitle" class="preview-title">Preview</span>
+        <div class="preview-actions">
+          <button
+            type="button"
+            id="createShareLinkBtn"
+            class="btn btn-sm primary"
+            onclick="demoUI.createShareLink()"
+          >
+            Create Share Link
+          </button>
+        </div>
+      </div>
+
+      <div id="shareStatus" class="share-status" style="display:none" role="status"></div>
+
+      <!-- Content review panel (shown after Adapt Content) -->
+      <div id="contentReviewPanel" class="card" style="display:none; margin-top:12px">
+        <h3 style="font-size:14px;font-weight:700;margin-bottom:6px">Content Review</h3>
+        <p style="font-size:13px;color:#666;margin-bottom:12px">Review suggested label updates before saving them to the demo.</p>
+        <div id="contentDiffList"></div>
+        <div id="contentDiffActions" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+          <button type="button" class="btn btn-outline btn-sm" onclick="demoUI.acceptContent()">Accept</button>
+          <button type="button" class="btn btn-outline btn-sm" onclick="demoUI.resetContent()">Reset</button>
+          <button type="button" class="btn primary btn-sm" onclick="demoUI.saveContent()">Save</button>
+        </div>
+      </div>
+
+      <iframe
+        id="previewIframe"
+        class="preview-iframe"
+        title="Generated demo preview"
+        sandbox="allow-scripts allow-same-origin"
+      ></iframe>
+    </div>
+    <!-- /previewArea -->
+
+  </main>
+
+  <!-- Bottom strip -->
+  <div class="bottom-strip">
+    <div class="footer-text">
+      <strong>ZoTok Demo Generator</strong>
+      &nbsp;·&nbsp;
+      Powered by <a href="https://zotok.ai" target="_blank" rel="noopener noreferrer">ZoTok.ai</a>
+    </div>
+  </div>
+
+  <!-- Scripts: Handlebars → DemoRenderer → LZString → DemoUI → Boot -->
+  <script src="js/handlebars.min.js"></script>
+  <script src="js/demo-renderer.js"></script>
+  <script src="js/lz-string.min.js"></script>
+  <script src="js/demo-ui.js"></script>
+
+  <script>
+    // Initialise the wizard once DOM + scripts are ready
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.DemoRenderer) {
+        DemoRenderer.loadPack()
+          .then(function () {
+            if (window.demoUI) {
+              demoUI.init();
+              demoUI.renderJourneyCards();
+            }
+          })
+          .catch(function (err) {
+            console.error('[Create] Failed to load template pack:', err);
+            var errEl = document.getElementById('wizardError');
+            if (errEl) {
+              errEl.textContent = 'Could not load demo templates. Please ensure template-pack.json is available.';
+              errEl.style.display = 'block';
+            }
+          });
+      }
+    });
+  </script>
+
+</body>
+</html>

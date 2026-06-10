@@ -1,0 +1,116 @@
+{
+  "brands": [
+    {
+      "id": "haldirams",
+      "name": "Haldiram's",
+      "shortName": "Haldirams",
+      "color": "#E8201E",
+      "colorDark": "#b71c1c",
+      "logo": "00_Template/logo.png",
+      "desc": "A unified WhatsApp operating system for Haldiram's retail ecosystem — retailer, field executive, and distributor journeys on a single number.",
+      "phone": "+91 98110 00001",
+      "stats": ["9 Modules", "Live Demo"],
+      "journeys": [
+        {
+          "id": "retailer_activation",
+          "title": "Retailer Activation & Onboarding",
+          "emoji": "🏪",
+          "color": "#C62828",
+          "steps": 2,
+          "desc": "Identify, invite and register new retail partners through targeted WhatsApp campaigns and automated verification flows — zero paper, zero salesman effort.",
+          "tags": ["Activation", "Onboarding", "Campaigns"],
+          "url": "00_Template/journey_retailer_activation.html",
+          "enabled": true
+        },
+        {
+          "id": "campaigns_queries",
+          "title": "Campaigns & Product Queries",
+          "emoji": "📢",
+          "color": "#1a237e",
+          "steps": 3,
+          "desc": "Push festive and product campaigns to retailers and resolve scheme or product queries instantly using ZoAi — no sales rep needed at any step.",
+          "tags": ["Campaigns", "AI Agents", "Schemes"],
+          "url": "00_Template/journey_campaigns_queries.html",
+          "enabled": true
+        },
+        {
+          "id": "order_to_cash",
+          "title": "Order to Cash",
+          "emoji": "🛒",
+          "color": "#1565C0",
+          "steps": 3,
+          "desc": "Self-service ordering via the WhatsApp catalog, AI-powered order capture from handwritten notes, and confirmed order dispatch — end-to-end on one channel.",
+          "tags": ["Ordering", "Catalog", "AI Order Capture"],
+          "url": "00_Template/journey_order_to_cash.html",
+          "enabled": true
+        },
+        {
+          "id": "dt_fulfillment_payment",
+          "title": "DT Fulfillment & Payment",
+          "emoji": "🚚",
+          "color": "#00695C",
+          "steps": 5,
+          "desc": "Distributor order confirmation, AI-assisted invoice generation, UPI payment collection and outstanding ledger — the full fulfilment cycle on WhatsApp.",
+          "tags": ["Fulfillment", "Invoicing", "Payments"],
+          "url": "00_Template/journey_dt_fulfillment_payment.html",
+          "enabled": true
+        },
+        {
+          "id": "field_ops_expense",
+          "title": "Field Ops & Expense Management",
+          "emoji": "📍",
+          "color": "#E65100",
+          "steps": 15,
+          "desc": "Sales executive journey — from AI-powered clock-in to beat plan routing, customer check-ins, order capture, market intelligence, and one-tap expense claims.",
+          "tags": ["Field Ops", "Attendance", "Expenses"],
+          "url": "00_Template/journey_field_ops_expense.html",
+          "enabled": true
+        },
+        {
+          "id": "automated_collections",
+          "title": "Automated Payment Collection",
+          "emoji": "💰",
+          "color": "#283593",
+          "steps": 11,
+          "desc": "AI-driven promise-to-pay collection with dynamic UPI QR reminders, scheme unlocks for on-time payment, and salesman escalation when needed.",
+          "tags": ["Collections", "AI Agents", "Scheme Unlock"],
+          "url": "00_Template/journey_automated_collections.html",
+          "enabled": true
+        },
+        {
+          "id": "retailer_loyalty",
+          "title": "Turnover-Based Loyalty Scheme",
+          "emoji": "🎉",
+          "color": "#6A1B9A",
+          "steps": 4,
+          "desc": "Retailer snaps or shares a distributor invoice on WhatsApp — ZoAi authenticates it, extracts SKUs, maps purchases to scheme progress, and unlocks rewards automatically.",
+          "tags": ["Invoice Capture", "SKU Recognition", "Reward Unlock"],
+          "url": "00_Template/journey_retailer_loyalty_invoice_collection.html",
+          "enabled": true
+        },
+        {
+          "id": "agri_retailer_engagement",
+          "title": "Agri Retailer Engagement",
+          "emoji": "🌾",
+          "color": "#2E7D32",
+          "steps": 4,
+          "desc": "Engage agri-input retailers with targeted crop advisory campaigns, product recommendations, and scheme notifications through WhatsApp.",
+          "tags": ["Agri", "Engagement", "Advisory"],
+          "url": "00_Template/journey_agri_retailer_engagement.html",
+          "enabled": true
+        },
+        {
+          "id": "order_to_cash_integrated",
+          "title": "Order to Cash (Integrated)",
+          "emoji": "🔄",
+          "color": "#0277BD",
+          "steps": 8,
+          "desc": "The complete integrated Order-to-Cash flow combining catalog ordering, distributor fulfilment, invoicing, and payment collection in a single seamless journey.",
+          "tags": ["End-to-End", "Integrated", "OTC"],
+          "url": "00_Template/order_to_cash_integrated.html",
+          "enabled": true
+        }
+      ]
+    }
+  ]
+}

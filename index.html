@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZoTok Demo Hub — WhatsApp Commerce OS</title>
+  <meta name="description" content="Browse live WhatsApp Commerce OS client demos and generate custom branded demos in minutes. Powered by ZoTok.ai.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ── Accent strip ── -->
+  <div class="top-strip"></div>
+
+  <!-- ── Main two-column layout ── -->
+  <div class="main-wrap">
+
+    <!-- ════════════ LEFT PANEL — ZoTok Identity ════════════ -->
+    <div class="left-panel">
+
+      <!-- ZoTok logo -->
+      <div class="zt-logo">
+        <div class="zt-logo-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 6h16L9 20h12" stroke="white" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="zt-logo-wordmark">Zo<span>Tok</span></div>
+      </div>
+
+      <div class="brand-label">WhatsApp Commerce OS</div>
+
+      <h1 class="brand-title">Client<br><span>Demo Hub</span></h1>
+
+      <p class="brand-desc">
+        Browse live WhatsApp journey demos for your clients, or generate a custom branded demo in minutes.
+      </p>
+
+      <!-- WhatsApp powered badge -->
+      <div class="wa-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="10" fill="#25D366"/>
+          <path d="M17.5 14.5c-.3-.1-1.7-.8-2-.9s-.5-.2-.7.2-.8.9-1 1.1-.4.2-.7.1a8.5 8.5 0 01-2.6-1.6 9.9 9.9 0 01-1.8-2.2c-.2-.3 0-.5.1-.6l.5-.6.3-.5a.4.4 0 000-.4l-.9-2.1c-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.5.1-.8.4A4.4 4.4 0 006 9.7a7.6 7.6 0 001.6 4c1.8 2.4 4.1 3.8 7.8 4.3.8.1 1.5-.1 2-.4a4 4 0 001.3-1.7c.1-.4.1-.7 0-.9z" fill="#fff"/>
+        </svg>
+        WhatsApp-first Commerce
+      </div>
+
+      <!-- Stats pills (filled by JS) -->
+      <div class="brand-stats" id="statsRow" aria-label="Demo statistics">
+        <div class="stat-pill">Loading…</div>
+      </div>
+
+    </div>
+    <!-- /left-panel -->
+
+    <!-- ════════════ RIGHT PANEL — Demo Browser ════════════ -->
+    <div class="right-panel" role="main">
+
+      <!-- Brand selector tabs (rendered by JS) -->
+      <div class="brand-tabs" id="brandTabs" role="tablist" aria-label="Client brands"></div>
+
+      <!-- Section label -->
+      <div class="section-label" id="sectionLabel" aria-live="polite">Select a Module to Explore</div>
+
+      <!-- Journey list (rendered by JS) -->
+      <div id="journeyList" role="list">
+        <!-- Loading skeletons -->
+        <div class="j-skeleton" aria-hidden="true"></div>
+        <div class="j-skeleton" aria-hidden="true" style="opacity:0.7"></div>
+        <div class="j-skeleton" aria-hidden="true" style="opacity:0.4"></div>
+      </div>
+
+    </div>
+    <!-- /right-panel -->
+
+  </div>
+  <!-- /main-wrap -->
+
+  <!-- ── Bottom strip / footer ── -->
+  <div class="bottom-strip">
+    <div class="footer-text">
+      <strong>ZoTok Demo Hub</strong>
+      &nbsp;·&nbsp;
+      Powered by <a href="https://zotok.ai" target="_blank" rel="noopener noreferrer">ZoTok.ai</a>
+      &nbsp;·&nbsp;
+      Journey Simulations for Sales &amp; Demo Use
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
