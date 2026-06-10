@@ -768,9 +768,9 @@
       // Compress using LZString (which we included in the HTML)
       var compressed = window.LZString ? window.LZString.compressToEncodedURIComponent(jsonStr) : encodeURIComponent(jsonStr);
       
-      // Build the shareable URL pointing to preview.html
       var baseUrl = window.location.origin + window.location.pathname.replace(/[^/]*$/, '');
-      var shareUrl = baseUrl + 'preview.html?d=' + compressed;
+      var cleanBrandName = (config.name || 'Brand').replace(/[^a-zA-Z0-9-]/g, '-');
+      var shareUrl = baseUrl + 'preview.html#/' + compressed + '/' + cleanBrandName;
       
       window._generatedShareUrl = shareUrl;
       window.open(shareUrl, '_blank');

@@ -27,8 +27,10 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var urlParams = new URLSearchParams(window.location.search);
-      var compressedData = urlParams.get('d');
+      var hash = window.location.hash || '';
+      var parts = hash.split('/');
+      // Expected format: #/<compressed_data>/<brand_name>
+      var compressedData = parts.length > 1 ? parts[1] : null;
       var statusText = document.getElementById('statusText');
 
       if (!compressedData) {
