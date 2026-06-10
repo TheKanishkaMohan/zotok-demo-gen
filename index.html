@@ -54,6 +54,16 @@
     <!-- ───────── STEP 1: Brand ───────── -->
     <div id="step1" class="wizard-step card active" role="tabpanel" aria-labelledby="stepTab1">
 
+      <div class="form-group" style="margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #eaeaea;">
+        <label for="templateSelect">
+          Demo Templates <span style="font-weight:400;color:#999">(optional)</span>
+        </label>
+        <select id="templateSelect" class="form-control" onchange="demoUI.applyTemplate(this.value)">
+          <option value="">Start from scratch...</option>
+        </select>
+        <p class="asset-guidance" style="margin-top: 6px;">Select a pre-built brand to auto-fill the details below.</p>
+      </div>
+
       <div class="form-group">
         <label for="brandNameInput">
           Brand Name <span class="required" aria-label="required">*</span>
@@ -82,6 +92,11 @@
           <option value="Retail">Retail</option>
           <option value="Agri">Agri / Agriculture</option>
           <option value="Paint">Paint</option>
+          <option value="Apparel">Apparel</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Automotive">Automotive</option>
+          <option value="Logistics">Logistics</option>
+          <option value="B2B Distribution">B2B Distribution</option>
         </select>
       </div>
 

@@ -9,6 +9,7 @@
   var _logoDataUrl = null;
   var _productRowCount = 0;
   var _selectedJourneys = ['order_to_cash'];
+  var _templates = [];
   var _contentAdaptation = null;
   var MAX_GUIDELINE_IMAGE_SIZE = 1024 * 1024;
   var LAST_PREVIEW_KEY = 'zotok.demoGenerator.lastPreview';
@@ -207,7 +208,8 @@
     var fileInput = document.getElementById('logoFileInput');
     if (!dropZone || !fileInput) return;
 
-    dropZone.addEventListener('click', function() {
+    dropZone.addEventListener('click', function(e) {
+      if (e.target === fileInput) return;
       fileInput.click();
     });
 
@@ -610,6 +612,85 @@
     }
   }
 
+  /* ── Template Loading ─────────────────────────────────────── */
+
+  function loadTemplates() {
+    var select = document.getElementById('templateSelect');
+    if (!select) return;
+
+    fetch('brands.json')
+      .then(function(res) {
+        if (!res.ok) throw new Error('brands.json returned HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function(data) {
+        if (data && data.brands) {
+          _templates = data.brands;
+          _templates.forEach(function(brand) {
+            var option = document.createElement('option');
+            option.value = brand.id;
+            option.textContent = brand.name;
+            select.appendChild(option);
+          });
+        }
+      })
+      .catch(function(err) {
+        console.error('Failed to load templates:', err);
+      });
+  }
+
+  function applyTemplate(templateId) {
+    if (!templateId) return;
+    var template = _templates.find(function(t) { return t.id === templateId; });
+    if (!template) return;
+
+    // Fill Brand Details
+    var nameInput = document.getElementById('brandNameInput');
+    if (nameInput) nameInput.value = template.name || '';
+    
+    var indInput = document.getElementById('industryInput');
+    // Try to guess industry if not provided, Haldiram's is FMCG
+    if (indInput) indInput.value = template.industry || 'FMCG';
+
+    var primColor = document.getElementById('primaryColorInput');
+    if (primColor && template.color) primColor.value = template.color;
+
+    var secColor = document.getElementById('secondaryColorInput');
+    if (secColor && template.colorDark) secColor.value = template.colorDark;
+
+    // Load logo if present
+    if (template.logo) {
+      fetch(template.logo)
+        .then(function(res) { return res.blob(); })
+        .then(function(blob) {
+          // Convert to data url for generating
+          var reader = new FileReader();
+          reader.onload = function(e) {
+            var img = document.getElementById('logoPreview');
+            var placeholder = document.getElementById('logoPlaceholder');
+            if (img && placeholder) {
+              img.src = e.target.result;
+              img.style.display = 'block';
+              placeholder.style.display = 'none';
+            }
+          };
+          reader.readAsDataURL(blob);
+        })
+        .catch(function(err) {
+          console.error('Could not load template logo', err);
+        });
+    }
+
+    // Pre-select journeys
+    if (template.journeys && template.journeys.length > 0) {
+      _selectedJourneys = template.journeys
+        .filter(function(j) { return j.enabled !== false; })
+        .map(function(j) { return j.id; });
+      renderJourneyCards();
+      updateStepSelection();
+    }
+  }
+
   /* ── Generate ─────────────────────────────────────────── */
 
   function generate() {
@@ -966,6 +1047,7 @@
 
   function init() {
     setupLogoDropZone();
+    loadTemplates();
     getIndustryValue();
     addProductRow();
     renderJourneyCards();
@@ -986,6 +1068,7 @@
     removeProductRow: removeProductRow,
     handleLogoFile: handleLogoFile,
     renderJourneyCards: renderJourneyCards,
+    applyTemplate: applyTemplate,
     generate: generate,
     adaptContent: adaptContent,
     acceptContent: acceptContent,
