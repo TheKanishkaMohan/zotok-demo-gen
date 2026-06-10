@@ -159,7 +159,7 @@
       <h2 style="font-size:16px;font-weight:700;margin-bottom:6px;color:#222">Select Journey Type</h2>
       <div id="journeyCardsContainer" class="journey-cards-grid"></div>
 
-      <!-- Step selection panel (shown when journey with >1 step is selected) -->
+      <!-- Step selection panel (shown when journey with >1 step is selected) 
       <div id="stepSelectionPanel" class="step-selection-panel" style="display:none" aria-live="polite">
         <h4>Steps to include</h4>
         <div class="step-checklist">
@@ -170,6 +170,7 @@
           <div id="stepChecklistItems"></div>
         </div>
       </div>
+      -->
 
       <div style="margin-top:18px;">
         <button
@@ -264,9 +265,9 @@
 
   <!-- Scripts: Handlebars → DemoRenderer → LZString → DemoUI → Boot -->
   <script src="js/handlebars.min.js"></script>
-  <script src="js/demo-renderer.js"></script>
+  <script src="js/demo-renderer.js?v=2"></script>
   <script src="js/lz-string.min.js"></script>
-  <script src="js/demo-ui.js"></script>
+  <script src="js/demo-ui.js?v=2"></script>
 
   <script>
     // Initialise the wizard once DOM + scripts are ready
@@ -292,3 +293,4 @@
 
 </body>
 </html>
+

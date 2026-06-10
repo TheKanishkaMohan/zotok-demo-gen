@@ -991,8 +991,8 @@
     var dataScripts = '';
     for (var r = 0; r < results.length; r++) {
       var dt = journeyTypes[r];
-      var safe = results[r].html.replace(/<\/script>/gi, '<\\/script>');
-      dataScripts += '<script type="text/plain" id="jd-' + dt + '">' + safe + '<\\/script>\n';
+      var safe = encodeURIComponent(results[r].html);
+      dataScripts += '<script type="text/plain" id="jd-' + dt + '">' + safe + '</script>\n';
     }
 
     // Build journey cards (matching Haldiram hub design)
@@ -1106,28 +1106,26 @@
       '  journeyHtmls[jt] = el.textContent;' +
       '}' +
       'var currentBlobUrl = null;' +
-      'window.loadJourney = function(jt) {' +
-      '  var html = journeyHtmls[jt];' +
-      '  if (!html) return;' +
-      '  // Revoke previous blob URL to free memory' +
-      '  if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);' +
-      '  var blob = new Blob([html], {type: "text/html;charset=utf-8"});' +
-      '  currentBlobUrl = URL.createObjectURL(blob);' +
-      '  document.getElementById("jv-frame").src = currentBlobUrl;' +
-      '  // Show title' +
-      '  var desc = ' + JSON.stringify(selectedDescs) + '[jt] || {};' +
-      '  document.getElementById("jv-title").textContent = desc.title || jt;' +
-      '  // Hide cards, show journey view' +
-      '  document.getElementById("hp-cards-container").style.display = "none";' +
-      '  document.getElementById("jv").classList.add("active");' +
-      '};' +
-      'window.backToCards = function() {' +
-      '  document.getElementById("jv-frame").src = "about:blank";' +
-      '  document.getElementById("jv").classList.remove("active");' +
-      '  document.getElementById("hp-cards-container").style.display = "";' +
-      '};' +
+      'window.loadJourney = function(jt) {\n' +
+      '  var encodedHtml = journeyHtmls[jt];\n' +
+      '  if (!encodedHtml) return;\n' +
+      '  var html = decodeURIComponent(encodedHtml);\n' +
+      '  if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);\n' +
+      '  var blob = new Blob([html], {type: "text/html;charset=utf-8"});\n' +
+      '  currentBlobUrl = URL.createObjectURL(blob);\n' +
+      '  document.getElementById("jv-frame").src = currentBlobUrl;\n' +
+      '  var desc = ' + JSON.stringify(selectedDescs) + '[jt] || {};\n' +
+      '  document.getElementById("jv-title").textContent = desc.title || jt;\n' +
+      '  document.getElementById("hp-cards-container").style.display = "none";\n' +
+      '  document.getElementById("jv").classList.add("active");\n' +
+      '};\n' +
+      'window.backToCards = function() {\n' +
+      '  document.getElementById("jv-frame").src = "about:blank";\n' +
+      '  document.getElementById("jv").classList.remove("active");\n' +
+      '  document.getElementById("hp-cards-container").style.display = "";\n' +
+      '};\n' +
       '})();' +
-      '<\\/script>' +
+      '</script>' +
       '</body></html>';
 
     return {
@@ -1246,3 +1244,5 @@
   global.DemoRenderer = DemoRenderer;
 
 })(typeof window !== 'undefined' ? window : this);
+
+
