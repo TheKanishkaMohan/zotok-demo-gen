@@ -1057,11 +1057,11 @@
           "body": "Retailer · Earnings overview"
         },
         "step10": {
-          "heading": "Engagement &amp; Nudges",
+          "heading": "Engagement & Nudges",
           "body": "Retailer · Reminders"
         },
         "step11": {
-          "heading": "Validation &amp; Exceptions",
+          "heading": "Validation & Exceptions",
           "body": "System Backend · Pipeline"
         },
         "step12": {
@@ -1252,17 +1252,17 @@
         {
           "num": 10,
           "displayNum": 10,
-          "title": "Engagement &amp; Nudges",
+          "title": "Engagement & Nudges",
           "meta": "Retailer · Reminders",
-          "navTitle": "Step 10 — Engagement &amp; Nudges",
+          "navTitle": "Step 10 — Engagement & Nudges",
           "navDesc": "<span style=\"color:#555;font-size:12px;\">Automated progress reminders and incentive push</span><span class=\"tag tag-util\">Utility Template</span><span class=\"tag tag-session\">Nudges</span>"
         },
         {
           "num": 11,
           "displayNum": 11,
-          "title": "Validation &amp; Exceptions",
+          "title": "Validation & Exceptions",
           "meta": "System Backend · Pipeline",
-          "navTitle": "Step 11 — Validation &amp; Exceptions",
+          "navTitle": "Step 11 — Validation & Exceptions",
           "navDesc": "<span style=\"color:#555;font-size:12px;\">Backend validation, duplicates &amp; review queue</span><span class=\"tag tag-dist\">System Backend</span><span class=\"tag tag-ai\">Validation</span>"
         },
         {

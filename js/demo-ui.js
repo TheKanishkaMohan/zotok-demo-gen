@@ -942,6 +942,119 @@
     });
   }
 
+  /* ── GitHub Settings & Integration ─────────────────────── */
+  var GH_SETTINGS_KEY = 'zotok.githubSettings';
+
+  function getGitHubSettings() {
+    try {
+      var raw = global.localStorage.getItem(GH_SETTINGS_KEY);
+      if (raw) {
+        var parsed = JSON.parse(raw);
+        if (parsed) return parsed;
+      }
+    } catch (e) {
+      console.warn('[demo-ui] Failed to load GitHub settings:', e);
+    }
+    return {
+      pat: '',
+      owner: 'TheKanishkaMohan',
+      repo: 'zotok-demo-gen',
+      branch: 'main'
+    };
+  }
+
+  function openSettingsModal() {
+    var modal = document.getElementById('settingsModal');
+    if (!modal) return;
+    
+    var settings = getGitHubSettings();
+    var patInput = document.getElementById('ghPatInput');
+    var ownerInput = document.getElementById('ghOwnerInput');
+    var repoInput = document.getElementById('ghRepoInput');
+    var branchInput = document.getElementById('ghBranchInput');
+
+    if (patInput) patInput.value = settings.pat || '';
+    if (ownerInput) ownerInput.value = settings.owner || 'TheKanishkaMohan';
+    if (repoInput) repoInput.value = settings.repo || 'zotok-demo-gen';
+    if (branchInput) branchInput.value = settings.branch || 'main';
+
+    modal.style.display = 'flex';
+  }
+
+  function closeSettingsModal() {
+    var modal = document.getElementById('settingsModal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  function saveSettings() {
+    var pat = (document.getElementById('ghPatInput') || {}).value || '';
+    var owner = (document.getElementById('ghOwnerInput') || {}).value || '';
+    var repo = (document.getElementById('ghRepoInput') || {}).value || '';
+    var branch = (document.getElementById('ghBranchInput') || {}).value || 'main';
+
+    if (!pat.trim() || !owner.trim() || !repo.trim()) {
+      alert('PAT, Owner, and Repository Name are required.');
+      return;
+    }
+
+    var settings = {
+      pat: pat.trim(),
+      owner: owner.trim(),
+      repo: repo.trim(),
+      branch: branch.trim()
+    };
+
+    try {
+      global.localStorage.setItem(GH_SETTINGS_KEY, JSON.stringify(settings));
+    } catch (e) {
+      console.error('[demo-ui] Failed to save GitHub settings:', e);
+    }
+
+    closeSettingsModal();
+  }
+
+  function saveDemoToGitHub(config) {
+    var settings = getGitHubSettings();
+    if (!settings.pat) {
+      openSettingsModal();
+      return Promise.reject(new Error('GitHub Personal Access Token is required to create a share link. Please configure settings and try again.'));
+    }
+
+    // Generate unique ID
+    var cleanBrand = (config.name || 'brand').toLowerCase().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
+    var rand = Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+    var id = 'demo-' + (cleanBrand || 'brand') + '-' + rand;
+    var filename = id + '.json';
+    var path = 'demos/' + filename;
+
+    var jsonStr = JSON.stringify(config);
+    var b64Content = btoa(unescape(encodeURIComponent(jsonStr)));
+
+    var url = 'https://api.github.com/repos/' + settings.owner + '/' + settings.repo + '/contents/' + path;
+
+    return fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'token ' + settings.pat,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: 'Add demo: ' + (config.name || 'Brand'),
+        content: b64Content,
+        branch: settings.branch
+      })
+    })
+    .then(function(res) {
+      if (!res.ok) {
+        return res.json().then(function(errData) {
+          throw new Error(errData.message || 'GitHub API returned status ' + res.status);
+        });
+      }
+      var baseUrl = window.location.origin + window.location.pathname.replace(/[^/]*$/, '');
+      return baseUrl + 'preview.html#/id/' + id;
+    });
+  }
+
   function createShareLink() {
     clearError();
     var html = getGeneratedHtml();
@@ -997,15 +1110,13 @@
           config.acceptedLabels = acceptedLabels;
         }
 
-        var jsonStr = JSON.stringify(config);
-        var compressed = window.LZString ? window.LZString.compressToEncodedURIComponent(jsonStr) : encodeURIComponent(jsonStr);
-        
-        var baseUrl = window.location.origin + window.location.pathname.replace(/[^/]*$/, '');
-        var cleanBrandName = (config.name || 'Brand').replace(/[^a-zA-Z0-9-]/g, '-');
-        var shareUrl = baseUrl + 'preview.html#/' + compressed + '/' + cleanBrandName;
-
-        setShareStatus('Shortening share link...', false);
-        return shortenUrl(shareUrl);
+        setShareStatus('Saving demo config to GitHub...', false);
+        return saveDemoToGitHub(config).then(function(shareUrl) {
+          setShareStatus('Shortening share link...', false);
+          return shortenUrl(shareUrl).catch(function() {
+            return shareUrl;
+          });
+        });
       })
       .then(function(finalUrl) {
         window._generatedShareUrl = finalUrl;
@@ -1238,7 +1349,10 @@
     download: download,
     updateStepSelection: updateStepSelection,
     toggleAllSteps: toggleAllSteps,
-    onStepToggle: onStepToggle
+    onStepToggle: onStepToggle,
+    openSettingsModal: openSettingsModal,
+    closeSettingsModal: closeSettingsModal,
+    saveSettings: saveSettings
   };
 
   global.demoUI = demoUI;

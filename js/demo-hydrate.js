@@ -156,6 +156,9 @@
     swaps['Sharma General Stores'] = cfg.storeName;
     swaps['Ganesh General Stores'] = cfg.storeName;
 
+    // Brand name replacements
+    swaps['Company Name'] = cfg.brandName;
+
     walkTextNodes(document.body, swaps);
   }
 

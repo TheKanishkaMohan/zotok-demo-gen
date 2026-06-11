@@ -29,23 +29,98 @@
     document.addEventListener('DOMContentLoaded', function() {
       var hash = window.location.hash || '';
       var parts = hash.split('/');
-      // Expected format: #/<compressed_data>/<brand_name>
-      var compressedData = parts.length > 1 ? parts[1] : null;
       var statusText = document.getElementById('statusText');
 
-      if (!compressedData) {
-        statusText.textContent = "Error: No demo configuration found in the URL.";
-        statusText.style.color = "red";
-        document.querySelector('.spinner').style.display = 'none';
-        return;
+      if (parts[1] === 'id') {
+        var owner = 'TheKanishkaMohan';
+        var repo = 'zotok-demo-gen';
+        var branch = 'main';
+        var id = '';
+
+        if (parts.length >= 6) {
+          // Long format: #/id/{owner}/{repo}/{branch}/{id}
+          owner = parts[2];
+          repo = parts[3];
+          branch = parts[4];
+          id = parts[5];
+        } else {
+          // Short format: #/id/{id}
+          id = parts[2];
+          
+          // Auto-detect owner and repo from GitHub Pages URL if applicable
+          var host = window.location.hostname;
+          if (host.indexOf('.github.io') !== -1) {
+            owner = host.split('.')[0];
+            var pathParts = window.location.pathname.split('/');
+            if (pathParts.length > 1 && pathParts[1]) {
+              repo = pathParts[1];
+            }
+          }
+        }
+
+        if (!id) {
+          statusText.textContent = "Error: Invalid preview link format.";
+          statusText.style.color = "red";
+          document.querySelector('.spinner').style.display = 'none';
+          return;
+        }
+
+        statusText.textContent = "Fetching demo configuration from GitHub...";
+        
+        var rawUrl = 'https://raw.githubusercontent.com/' + owner + '/' + repo + '/' + branch + '/demos/' + id + '.json';
+        
+        fetch(rawUrl)
+          .then(function(res) {
+            if (!res.ok) throw new Error('Could not find configuration file on GitHub (HTTP ' + res.status + ')');
+            return res.json();
+          })
+          .then(function(config) {
+            renderDemo(config);
+          })
+          .catch(function(err) {
+            console.warn('[preview] Failed to fetch from raw.githubusercontent.com, trying local fallback...', err);
+            // Fallback to relative file check in case it's a local build or deployed Pages segment
+            var localUrl = 'demos/' + id + '.json';
+            statusText.textContent = "Fetching local fallback demo...";
+            return fetch(localUrl)
+              .then(function(res2) {
+                if (!res2.ok) throw err; // throw original error if local also fails
+                return res2.json();
+              })
+              .then(function(config) {
+                renderDemo(config);
+              })
+              .catch(function(err2) {
+                statusText.textContent = "Error loading demo configuration: " + err2.message;
+                statusText.style.color = "red";
+                document.querySelector('.spinner').style.display = 'none';
+              });
+          });
+      } else {
+        // Fallback to legacy compression method
+        var compressedData = parts.length > 1 ? parts[1] : null;
+        if (!compressedData) {
+          statusText.textContent = "Error: No demo configuration found in the URL.";
+          statusText.style.color = "red";
+          document.querySelector('.spinner').style.display = 'none';
+          return;
+        }
+
+        try {
+          var jsonStr = window.LZString ? window.LZString.decompressFromEncodedURIComponent(compressedData) : decodeURIComponent(compressedData);
+          if (!jsonStr) throw new Error("Decompression failed");
+          
+          var config = JSON.parse(jsonStr);
+          renderDemo(config);
+        } catch (err) {
+          console.error(err);
+          statusText.textContent = "Error parsing demo configuration: " + err.message;
+          statusText.style.color = "red";
+          document.querySelector('.spinner').style.display = 'none';
+        }
       }
 
-      try {
-        var jsonStr = window.LZString ? window.LZString.decompressFromEncodedURIComponent(compressedData) : decodeURIComponent(compressedData);
-        if (!jsonStr) throw new Error("Decompression failed");
-        
-        var config = JSON.parse(jsonStr);
-
+      function renderDemo(config) {
         // Load the template pack and render the demo
         DemoRenderer.loadPack()
           .then(function() {
@@ -66,11 +141,6 @@
             statusText.style.color = "red";
             document.querySelector('.spinner').style.display = 'none';
           });
-      } catch (err) {
-        console.error(err);
-        statusText.textContent = "Error parsing demo configuration: " + err.message;
-        statusText.style.color = "red";
-        document.querySelector('.spinner').style.display = 'none';
       }
     });
   </script>
