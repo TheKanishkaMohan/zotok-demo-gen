@@ -1390,7 +1390,8 @@
     var partialPrefix = journeyType;
     var knownMismatches = {
       'field_ops_expense': 'field-ops',
-      'automated_collections': 'collections'
+      'automated_collections': 'collections',
+      'van_sales': 'van-sales'
     };
     if (knownMismatches[partialPrefix]) {
       partialPrefix = knownMismatches[partialPrefix];

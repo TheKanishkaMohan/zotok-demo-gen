@@ -118,6 +118,22 @@
           ],
           "url": "00_Template/journey_retailer_loyalty_invoice_collection.html",
           "enabled": true
+        },
+        {
+          "id": "van_sales",
+          "title": "Van Sales Journey",
+          "emoji": "🚚",
+          "color": "#d3002b",
+          "steps": 4,
+          "desc": "Sales rep journey with Clock-in & Trip Stock entry, active carried stock view, assigned beat routes & customer GPS check-ins, ordering quick actions, and Clock-out reconciliation report.",
+          "tags": [
+            "Field Ops",
+            "Trip Stock",
+            "Attendance",
+            "GPS Check-In"
+          ],
+          "url": "00_Template/journey_van_sales.html",
+          "enabled": true
         }
       ]
     }

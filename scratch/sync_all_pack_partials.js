@@ -14,7 +14,8 @@ const prefixMap = {
   'campaigns_queries': 'campaigns_queries',
   'retailer_activation': 'retailer_activation',
   'order_to_cash': 'self-service',
-  'retailer_loyalty': 'retailer_loyalty'
+  'retailer_loyalty': 'retailer_loyalty',
+  'van_sales': 'van-sales'
 };
 
 const htmlFiles = fs.readdirSync(templateDir).filter(f => f.endsWith('.html'));
