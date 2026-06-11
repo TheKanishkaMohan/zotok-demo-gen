@@ -72,7 +72,7 @@
           type="text"
           id="brandNameInput"
           class="form-control"
-          placeholder="e.g. Haldiram's, JK Cement, Patanjali"
+          placeholder="e.g. Haldiram's, Acme Corp, Patanjali"
           required
           autocomplete="organization"
         >
@@ -85,8 +85,9 @@
         <select id="industryInput" class="form-control" required>
           <option value="">Select industry…</option>
           <option value="FMCG">FMCG</option>
+          <option value="Food & Beverage">Food & Beverage</option>
           <option value="Pharma">Pharma</option>
-          <option value="Cement">Cement</option>
+          <option value="Building Materials">Building Materials</option>
           <option value="Steel">Steel</option>
           <option value="Construction">Construction</option>
           <option value="Retail">Retail</option>
@@ -97,6 +98,7 @@
           <option value="Automotive">Automotive</option>
           <option value="Logistics">Logistics</option>
           <option value="B2B Distribution">B2B Distribution</option>
+          <option value="Other">Other</option>
         </select>
       </div>
 
@@ -113,13 +115,13 @@
 
       <div class="form-group">
         <label>Logo <span style="font-weight:400;color:#999">(optional)</span></label>
-        <label id="logoDropZone" for="logoFileInput" class="drop-zone" role="button" tabindex="0" aria-label="Upload logo — drop file here or click to browse" style="display:block;">
+        <div id="logoDropZone" class="drop-zone" role="button" tabindex="0" aria-label="Upload logo — drop file here or click to browse" style="display:block;" onclick="document.getElementById('logoFileInput').click()" onkeydown="if(event.key==='Enter'||event.key===' ')document.getElementById('logoFileInput').click()">
           <div id="logoPlaceholder">
             <span>🖼️ Drop logo here or click to upload</span>
           </div>
           <img id="logoPreview" src="" alt="Logo preview" style="display:none; max-height:64px; border-radius:6px; margin: 0 auto;">
-          <input type="file" id="logoFileInput" accept="image/*" style="display:none" aria-hidden="true" onchange="demoUI.handleLogoFileInput(this)">
-        </label>
+          <input type="file" id="logoFileInput" accept="image/*" style="opacity:0; width:0.1px; height:0.1px; position:absolute;" aria-hidden="true" onchange="demoUI.handleLogoFileInput(this)">
+        </div>
         <p class="asset-guidance">
           <strong>Logo guidance:</strong> PNG, JPG or WebP under 1 MB — ideally square or on a transparent background.
           Without a logo a branded placeholder is generated automatically.
@@ -138,6 +140,16 @@
         <strong>Product image guidance:</strong> clean PNG, JPG or WebP images under 1 MB each.
         Missing images are replaced with a branded placeholder so the demo still renders.
       </p>
+
+      <!-- Product Row Header for Visual Hierarchy -->
+      <div class="product-row-header" style="display:flex; gap:8px; padding:0 10px; margin-bottom:6px; font-size:12px; font-weight:700; color:#666;">
+        <div style="width:44px; flex-shrink:0; text-align:center;">Image</div>
+        <div style="flex:2;">Category</div>
+        <div style="flex:2;">Product Name</div>
+        <div style="flex:1;">Price (₹)</div>
+        <div style="flex:1;">Unit</div>
+        <div style="width:28px; flex-shrink:0;"></div>
+      </div>
 
       <div id="productRowsContainer"></div>
 
@@ -159,7 +171,7 @@
       <h2 style="font-size:16px;font-weight:700;margin-bottom:6px;color:#222">Select Journey Type</h2>
       <div id="journeyCardsContainer" class="journey-cards-grid"></div>
 
-      <!-- Step selection panel (shown when journey with >1 step is selected) 
+      <!-- Step selection panel (shown when journey with >1 step is selected) -->
       <div id="stepSelectionPanel" class="step-selection-panel" style="display:none" aria-live="polite">
         <h4>Steps to include</h4>
         <div class="step-checklist">
@@ -170,7 +182,6 @@
           <div id="stepChecklistItems"></div>
         </div>
       </div>
-      -->
 
       <div style="margin-top:18px;">
         <button
@@ -265,9 +276,9 @@
 
   <!-- Scripts: Handlebars → DemoRenderer → LZString → DemoUI → Boot -->
   <script src="js/handlebars.min.js"></script>
-  <script src="js/demo-renderer.js?v=2"></script>
+  <script src="js/demo-renderer.js?v=3"></script>
   <script src="js/lz-string.min.js"></script>
-  <script src="js/demo-ui.js?v=2"></script>
+  <script src="js/demo-ui.js?v=3"></script>
 
   <script>
     // Initialise the wizard once DOM + scripts are ready

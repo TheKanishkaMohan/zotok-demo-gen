@@ -25,7 +25,7 @@
   function getIndustryValue() {
     var runtimeIndustry = document.getElementById('runtimeIndustryInput');
     var wizardIndustry = document.getElementById('industryInput');
-    var value = (wizardIndustry && wizardIndustry.value) || (runtimeIndustry && runtimeIndustry.value) || 'Cement';
+    var value = (wizardIndustry && wizardIndustry.value) || (runtimeIndustry && runtimeIndustry.value) || 'FMCG';
     if (wizardIndustry && !wizardIndustry.value) wizardIndustry.value = value;
     if (runtimeIndustry && !runtimeIndustry.value) runtimeIndustry.value = value;
     return value;
@@ -281,6 +281,12 @@
       document.body.removeChild(inp);
     });
 
+    var catInput = document.createElement('input');
+    catInput.type = 'text';
+    catInput.className = 'product-category-input';
+    catInput.placeholder = 'Category';
+    catInput.value = (data && data.category) || '';
+
     var nameInput = document.createElement('input');
     nameInput.type = 'text';
     nameInput.className = 'product-name-input';
@@ -315,6 +321,7 @@
     });
 
     row.appendChild(thumbDiv);
+    row.appendChild(catInput);
     row.appendChild(nameInput);
     row.appendChild(priceInput);
     row.appendChild(unitSelect);
@@ -525,11 +532,13 @@
     var products = [];
     for (var i = 0; i < productRows.length; i++) {
       var row = productRows[i];
+      var catInput = row.querySelector('.product-category-input');
       var nameInput = row.querySelector('.product-name-input');
       var priceInput = row.querySelector('.product-price-input');
       var unitSelect = row.querySelector('.product-unit-select');
       var thumbEl = row.querySelector('.product-thumb');
 
+      var pCat = (catInput && catInput.value.trim()) || 'All';
       var pName = (nameInput && nameInput.value.trim()) || '';
       var pPrice = parseFloat((priceInput && priceInput.value) || '0');
       var pUnit = (unitSelect && unitSelect.value) || 'piece';
@@ -541,7 +550,7 @@
           price: pPrice,
           unit: pUnit,
           imageDataUrl: pImage || (window.DemoRenderer ? DemoRenderer.generatePlaceholderImage(pName, primaryColor) : ''),
-          category: 'All'
+          category: pCat
         });
       }
     }
@@ -616,7 +625,7 @@
     var select = document.getElementById('templateSelect');
     if (!select) return;
 
-    fetch('brands.json')
+    fetch('brands.json?v=' + Date.now())
       .then(function(res) {
         if (!res.ok) throw new Error('brands.json returned HTTP ' + res.status);
         return res.json();
@@ -716,22 +725,44 @@
       return;
     }
 
+    // Save demo configuration for static hydration
+    try {
+      if (global.localStorage) {
+        var configPayload = {
+          products: formData.products,
+          brandName: formData.brandName,
+          primaryColor: formData.primaryColor,
+          storeName: formData.brandName + ' Store'
+        };
+        global.localStorage.setItem('zotok.demoConfig', JSON.stringify(configPayload));
+      }
+    } catch (e) {
+      console.warn('[demo-ui] Could not persist zotok.demoConfig:', e);
+    }
+
     // Show progress
     if (progressEl) progressEl.style.display = 'block';
     if (progressFill) progressFill.style.width = '30%';
 
-    // Map form data to DemoRenderer.render() input format
-    var userInput = {
-      name: formData.brandName,
-      industry: formData.industry,
-      brandColor: formData.primaryColor,
-      brandColorDark: formData.secondaryColor,
-      logo: formData.logoDataUrl || null,
-      products: formData.products,
-      journeyType: formData.journeyType,
-      journeyTypes: formData.journeyTypes.length > 1 ? formData.journeyTypes : undefined,
-      acceptedLabels: getSelectedContentLabels()
-    };
+    var userInput;
+    try {
+      // Map form data to DemoRenderer.render() input format
+      userInput = {
+        name: formData.brandName,
+        industry: formData.industry,
+        brandColor: formData.primaryColor,
+        brandColorDark: formData.secondaryColor,
+        logo: formData.logoDataUrl || null,
+        products: formData.products,
+        journeyType: formData.journeyType,
+        journeyTypes: formData.journeyTypes.length > 1 ? formData.journeyTypes : undefined,
+        acceptedLabels: getSelectedContentLabels()
+      };
+    } catch (e) {
+      if (progressEl) progressEl.style.display = 'none';
+      showError('Failed to prepare demo data: ' + e.message);
+      return;
+    }
 
     // Add step selection if user has selected specific steps
     if (window.selectedSteps) {

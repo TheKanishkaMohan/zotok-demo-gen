@@ -17,9 +17,9 @@
   var INDUSTRY_CATEGORIES = {
     'FMCG': ['Biscuits & Snacks', 'Namkeen & Savouries', 'Beverages', 'Sweets & Desserts'],
     'Pharma': ['Tablets & Capsules', 'Syrups & Liquids', 'Injections', 'Ointments & Creams'],
-    'Cement': ['OPC', 'PPC', 'White Cement', 'Specialty'],
+    'Apparel': ['Shirts', 'Trousers', 'Jackets', 'Accessories'],
     'Steel': ['TMT Bars', 'Coils & Sheets', 'Pipes & Tubes', 'Structural Steel'],
-    'Construction': ['Cement', 'Steel & TMT', 'Paint & Chemicals', 'Hardware & Tools'],
+    'Construction': ['Hardware & Tools', 'Steel & TMT', 'Paint & Chemicals'],
     'Retail': ['Electronics', 'Clothing & Apparel', 'Groceries & FMCG', 'Home & Kitchen'],
     'General': ['Products', 'Specialty', 'Bulk & Trade']
   };
@@ -49,7 +49,7 @@
   var INDUSTRY_STORE_NAMES = {
     'FMCG': 'Sharma Food Store',
     'Pharma': 'Sharma Pharma Store',
-    'Cement': 'Sharma Cement Store',
+    'Apparel': 'Sharma Clothing Store',
     'Steel': 'Sharma Steel Store',
     'Construction': 'Sharma Hardware Store',
     'Retail': 'Sharma Retail Store',
@@ -116,7 +116,7 @@
   function loadPack() {
     if (_pack) return Promise.resolve(_pack);
     if (_packPromise) return _packPromise;
-    _packPromise = fetch('template-pack.json')
+    _packPromise = fetch('template-pack.json?v=' + Date.now())
       .then(function(res) {
         if (!res.ok) throw new Error('Failed to load template pack (HTTP ' + res.status + ')');
         return res.json();
@@ -155,6 +155,24 @@
    * ═══════════════════════════════════════════════════════════ */
   function registerHelpers(pack) {
     if (_helpersRegistered) return;
+    
+    // Register custom genericSalesImage helper
+    Handlebars.registerHelper('genericSalesImage', function(title, brandColor) {
+      var bg = brandColor || '#075e54';
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="600" height="300" viewBox="0 0 600 300">' +
+        '<defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">' +
+        '<stop offset="0%" stop-color="' + bg + '" stop-opacity="0.8"/>' +
+        '<stop offset="100%" stop-color="' + bg + '"/>' +
+        '</linearGradient></defs>' +
+        '<rect width="600" height="300" fill="url(#g)"/>' +
+        '<circle cx="500" cy="80" r="120" fill="white" fill-opacity="0.06"/>' +
+        '<rect x="40" y="200" width="120" height="8" rx="4" fill="white" fill-opacity="0.3"/>' +
+        '<text x="40" y="100" font-family="-apple-system, sans-serif" font-size="36" font-weight="800" fill="white">' + escapeXml(title || 'SPECIAL OFFER') + '</text>' +
+        '<text x="40" y="150" font-family="-apple-system, sans-serif" font-size="20" fill="white" fill-opacity="0.8">Exclusive partner schemes &amp; benefits</text>' +
+        '</svg>';
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    });
+
     var helpers = pack.helpers || {};
     for (var name in helpers) {
       if (helpers.hasOwnProperty(name)) {
@@ -174,7 +192,7 @@
    *  Fields: name, industry, brandColor, brandColorDark, logo
    * ═══════════════════════════════════════════════════════════ */
   function buildBrand(userInput) {
-    var base = deepClone(_pack.defaultBrand || {});
+    var base = deepClone((_pack && _pack.defaultBrand) || {});
     var input = userInput || {};
 
     // Override id with slug of name
@@ -246,17 +264,17 @@
    * ═══════════════════════════════════════════════════════════ */
   function buildCatalog(userInput, brandId) {
     var input = userInput || {};
-    var industry = input.industry || _pack.defaultBrand.industry || 'General';
+    var industry = input.industry || (_pack && _pack.defaultBrand && _pack.defaultBrand.industry) || 'General';
     var industryCategories = getCategoriesForIndustry(industry);
     var userProducts = input.products || [];
 
     // If user provided products, build catalog from them
     if (userProducts.length > 0) {
       var prodList = [];
-      for (var i = 0; i < userProducts.length; i++) {
-        var up = userProducts[i];
-        if (!up.name) continue;
-        var category = assignCategoryToProduct(up.name, industryCategories);
+      for (var i = 0; i < 8; i++) {
+        var up = userProducts[i % userProducts.length];
+        if (!up || !up.name) continue;
+        var category = up.category && up.category !== 'All' ? up.category : assignCategoryToProduct(up.name, industryCategories);
         prodList.push({
           id: 'up_' + i,
           sku: 'SKU_P' + (i + 1),
@@ -271,7 +289,7 @@
     }
 
     // Otherwise use default catalog from pack
-    return { products: deepClone(_pack.defaultCatalog || []) };
+    return { products: deepClone((_pack && _pack.defaultCatalog) || []) };
   }
 
   /* ═══════════════════════════════════════════════════════════
@@ -280,7 +298,7 @@
    * ═══════════════════════════════════════════════════════════ */
   function buildContent(userInput) {
     var input = userInput || {};
-    var defaultLabels = deepClone(_pack.defaultContentLabels || {});
+    var defaultLabels = _pack ? deepClone(_pack.defaultContentLabels || {}) : {};
     var acceptedLabels = input.acceptedLabels || {};
     // Merge accepted labels over defaults (only for keys that exist in defaultLabels and were accepted)
     var merged = {};
@@ -357,11 +375,80 @@
   }
 
   /* ═══════════════════════════════════════════════════════════
-   *  applyCatalogToJourney(journey, catalog)
+   *  replaceCementTerms & deepReplaceCementTerms
+   *  Utility functions to dynamically sanitize cement terms
+   *  from strings inside the journey data context.
+   * ═══════════════════════════════════════════════════════════ */
+  function replaceCementTerms(text, catalog, brand) {
+    if (typeof text !== 'string') return text;
+    var products = (catalog && catalog.products) ? catalog.products : [];
+    var p0 = products[0] || { name: 'Product Alpha', unit: 'piece' };
+    var p1 = products[1] || { name: 'Product Beta', unit: 'piece' };
+    var p2 = products[2] || { name: 'Product Gamma', unit: 'piece' };
+    var p3 = products[3] || { name: 'Product Delta', unit: 'piece' };
+    
+    var unitSingular = p0.unit || 'piece';
+    var unitPlural = unitSingular + (unitSingular.slice(-1) === 's' ? '' : 's');
+    
+    var res = text;
+    
+    // Replace long names
+    res = res.replace(/JK Super OPC 53 Grade \(50kg\)/g, p0.name + ' (' + unitSingular + ')');
+    res = res.replace(/JK Super OPC 43 Grade \(50kg\)/g, p2.name + ' (' + unitSingular + ')');
+    res = res.replace(/JK Super PPC \(50kg\)/g, p1.name + ' (' + unitSingular + ')');
+    res = res.replace(/JK Super Cement PPC \(50kg\)/g, p1.name + ' (' + unitSingular + ')');
+    
+    // Replace short names
+    res = res.replace(/OPC 53 Grade/gi, p0.name);
+    res = res.replace(/OPC 43 Grade/gi, p2.name);
+    res = res.replace(/OPC 53/gi, p0.name);
+    res = res.replace(/OPC 43/gi, p2.name);
+    res = res.replace(/\bOPC\b/g, p0.name);
+    res = res.replace(/\bPPC\b/g, p1.name);
+    res = res.replace(/JK White & LevelMaxX/gi, p3.name);
+    res = res.replace(/JK White/gi, p3.name);
+    res = res.replace(/LevelMaxX/gi, p3.name);
+    
+    // Replace unit names
+    res = res.replace(/\bbags\b/g, unitPlural);
+    res = res.replace(/\bbag\b/g, unitSingular);
+    
+    // Replace brand name
+    if (brand && brand.name) {
+      res = res.replace(/JK Super/gi, brand.name);
+      res = res.replace(/JK Cement/gi, brand.name);
+      res = res.replace(/JK product/gi, brand.name);
+      res = res.replace(/jkcement/gi, brand.id || 'brand');
+    }
+    
+    return res;
+  }
+
+  function deepReplaceCementTerms(obj, catalog, brand) {
+    if (typeof obj === 'string') {
+      return replaceCementTerms(obj, catalog, brand);
+    }
+    if (Array.isArray(obj)) {
+      return obj.map(function(item) { return deepReplaceCementTerms(item, catalog, brand); });
+    }
+    if (obj && typeof obj === 'object') {
+      var result = {};
+      for (var key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          result[key] = deepReplaceCementTerms(obj[key], catalog, brand);
+        }
+      }
+      return result;
+    }
+    return obj;
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+   *  applyCatalogToJourney(journey, catalog, brand)
    *  Injects catalog data and transforms journey step data
    *  to use catalog-driven product names for step1 sections.
    * ═══════════════════════════════════════════════════════════ */
-  function applyCatalogToJourney(journey, catalog) {
+  function applyCatalogToJourney(journey, catalog, brand) {
     if (!journey || !catalog || !catalog.products) return;
 
     // Build category groups from catalog
@@ -382,6 +469,41 @@
     journey._mainCategory = mainCat;
     journey._secondaryCategories = secondaryCats;
     journey._offerCategory = offerCat;
+
+    // Rebuild message sections dynamically using actual catalog categories
+    if (journey.messages) {
+      for (var msgKey in journey.messages) {
+        if (journey.messages.hasOwnProperty(msgKey) && journey.messages[msgKey] && journey.messages[msgKey].sections) {
+          var newSections = [];
+          catKeys.forEach(function(catName) {
+            var items = categories[catName].map(function(p) {
+              return {
+                title: p.name,
+                desc: p.category + ' · Premium quality product'
+              };
+            });
+            newSections.push({
+              label: catName,
+              items: items.slice(0, 3)
+            });
+          });
+          // Add Offers & Solutions at the end if the original sections had it
+          var hasOffers = journey.messages[msgKey].sections.some(function(sec) {
+            return sec.label === 'Offers & Solutions' || sec.label === 'Offers';
+          });
+          if (hasOffers) {
+            newSections.push({
+              label: 'Offers & Solutions',
+              items: [
+                { title: 'Seasonal Offers', desc: 'Seasonal combos & clearance offers' },
+                { title: 'Business Solutions', desc: 'Bulk orders & trade schemes' }
+              ]
+            });
+          }
+          journey.messages[msgKey].sections = newSections;
+        }
+      }
+    }
 
     // Update step1 section titles if they exist
     if (journey.screens && journey.screens.length > 0) {
@@ -417,9 +539,23 @@
 
     // Replace journey-level productNames object (e.g. { opc53: '...', ppc: '...' })
     if (journey.productNames && productNames.length > 0) {
+      var p0 = productNames[0];
+      var p1 = productNames[1] || p0;
+      var p2 = productNames[2] || p1 || p0;
+      
+      if (journey.productNames.hasOwnProperty('opc53')) journey.productNames.opc53 = p0;
+      if (journey.productNames.hasOwnProperty('opc43')) journey.productNames.opc43 = p1;
+      if (journey.productNames.hasOwnProperty('ppc')) journey.productNames.ppc = p2;
+      if (journey.productNames.hasOwnProperty('cementPpc')) journey.productNames.cementPpc = p2;
+      if (journey.productNames.hasOwnProperty('ppcTag1')) journey.productNames.ppcTag1 = 'Premium Quality · ' + p2;
+      if (journey.productNames.hasOwnProperty('ppcTag2')) journey.productNames.ppcTag2 = 'All Purpose · ' + p2;
+      
       var keys = Object.keys(journey.productNames);
       for (var ki = 0; ki < keys.length && ki < productNames.length; ki++) {
-        journey.productNames[keys[ki]] = productNames[ki];
+        var k = keys[ki];
+        if (k !== 'ppcTag1' && k !== 'ppcTag2' && k !== 'opc53' && k !== 'opc43' && k !== 'ppc' && k !== 'cementPpc') {
+          journey.productNames[k] = productNames[ki];
+        }
       }
     }
 
@@ -485,8 +621,8 @@
         productLines += '<text x="38" y="' + (129 + i * 30) + '" font-family="Comic Sans MS, Segoe Print, cursive" font-size="15" fill="#4a3f2b">• ' + escapeXml(name) + ' - ' + qty + ' ' + escapeXml(unit) + '</text>';
       }
     } else {
-      productLines = '<text x="38" y="129" font-family="Comic Sans MS, Segoe Print, cursive" font-size="15" fill="#4a3f2b">• JK Super OPC - 25 bag</text>' +
-        '<text x="38" y="159" font-family="Comic Sans MS, Segoe Print, cursive" font-size="15" fill="#4a3f2b">• JK PPC - 20 bag</text>';
+      productLines = '<text x="38" y="129" font-family="Comic Sans MS, Segoe Print, cursive" font-size="15" fill="#4a3f2b">• Product A - 25 units</text>' +
+        '<text x="38" y="159" font-family="Comic Sans MS, Segoe Print, cursive" font-size="15" fill="#4a3f2b">• Product B - 20 units</text>';
     }
 
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
@@ -505,7 +641,7 @@
   /* ═══════════════════════════════════════════════════════════
    *  buildJourney(journeyType, brand, catalog, selectedSteps)
    *  Takes journey data from pack.defaultJourneyData[journeyType],
-   *  override dealer name, replace "JK Cement" references.
+   *  override dealer name, replace "Premium Brand" references.
    * ═══════════════════════════════════════════════════════════ */
   function buildJourney(journeyType, brand, catalog, selectedSteps) {
     var templateData = (_pack.defaultJourneyData || {})[journeyType];
@@ -523,10 +659,8 @@
       journey.dealer.name = dealerStoreName;
     }
 
-    // Replace "JK Cement" references in messages
-    if (journey.messages) {
-      journey.messages = replaceBrandRefs(journey.messages, brandName);
-    }
+    // Replace all brand references recursively in the entire journey object
+    journey = replaceBrandRefs(journey, brandName, brand);
 
     // Replace hardcoded store name in welcome message body
     if (journey.messages && journey.messages.welcome && journey.messages.welcome.body) {
@@ -552,46 +686,40 @@
       journey.steps = filtered;
     }
 
-    // Replace "JK Cement" references in steps
-    if (journey.steps) {
-      for (var i = 0; i < journey.steps.length; i++) {
-        var step = journey.steps[i];
-        if (step.title) step.title = step.title.replace(/JK Cement/g, brandName);
-        if (step.meta) step.meta = step.meta.replace(/JK Cement/g, brandName);
-        if (step.navTitle) step.navTitle = step.navTitle.replace(/JK Cement/g, brandName);
-        if (step.navDesc) step.navDesc = step.navDesc.replace(/JK Cement/g, brandName);
-      }
-    }
-
-    // Also fix productNames references
-    if (journey.productNames) {
-      journey.productNames = replaceBrandRefs(journey.productNames, brandName);
-    }
-
-    // Fix brand references in title/subtitle
-    if (journey.title) journey.title = journey.title.replace(/JK Cement/g, brandName);
-    if (journey.subtitle) journey.subtitle = journey.subtitle.replace(/JK Cement/g, brandName);
-
-    applyCatalogToJourney(journey, catalog);
-
+    applyCatalogToJourney(journey, catalog, brand);
+    journey = deepReplaceCementTerms(journey, catalog, brand);
     return journey;
   }
 
   /**
-   * Recursively replace "JK Cement" in string values within an object/array
+   * Recursively replace "Premium Brand" and template brand placeholders in string values within an object/array
    */
-  function replaceBrandRefs(obj, brandName) {
+  function replaceBrandRefs(obj, brandName, brand) {
     if (typeof obj === 'string') {
-      return obj.replace(/JK Cement/g, brandName);
+      var res = obj.replace(/Premium Brand/g, brandName);
+      if (brand) {
+        if (brand.name) {
+          res = res.replace(/\{\{brand\.name\}\}/g, brand.name);
+        }
+        if (brand.shortName) {
+          res = res.replace(/\{\{brand\.shortName\}\}/g, brand.shortName);
+        } else if (brand.name) {
+          res = res.replace(/\{\{brand\.shortName\}\}/g, brand.name);
+        }
+      } else {
+        res = res.replace(/\{\{brand\.name\}\}/g, brandName);
+        res = res.replace(/\{\{brand\.shortName\}\}/g, brandName);
+      }
+      return res;
     }
     if (Array.isArray(obj)) {
-      return obj.map(function(item) { return replaceBrandRefs(item, brandName); });
+      return obj.map(function(item) { return replaceBrandRefs(item, brandName, brand); });
     }
     if (obj && typeof obj === 'object') {
       var result = {};
       for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
-          result[key] = replaceBrandRefs(obj[key], brandName);
+          result[key] = replaceBrandRefs(obj[key], brandName, brand);
         }
       }
       return result;
@@ -819,7 +947,7 @@
     }
 
     // Build journey cards from descriptions, merging hubMeta
-    var journeyOrder = ['home', 'order_to_cash', 'field_ops_expense', 'automated_collections', 'dealer_engagement', 'retailer_onboarding', 'retailer_loyalty', 'campaigns_queries', 'dt_fulfillment_payment', 'retailer_activation'];
+    var journeyOrder = ['home', 'order_to_cash', 'field_ops_expense', 'automated_collections', 'retailer_loyalty', 'campaigns_queries', 'dt_fulfillment_payment', 'retailer_activation'];
     var cards = '';
     var cardNum = 0;
     for (var oi = 0; oi < journeyOrder.length; oi++) {
@@ -1059,8 +1187,7 @@
       '.hp-card-desc{font-size:12px;color:#666;line-height:1.45;max-width:480px}' +
       '.hp-tags{display:flex;gap:5px;flex-wrap:wrap}' +
       '.hp-tag{font-size:10.5px;font-weight:600;padding:2px 7px;border-radius:6px;background:rgba(0,0,0,.05);color:#555}' +
-      // Journey view (when a card is clicked)
-      '.journey-view{display:none;position:absolute;top:0;left:0;right:0;bottom:0;background:#f7f7f8;z-index:10;flex-direction:column}' +
+      '.journey-view{display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:#f7f7f8;z-index:1000;flex-direction:column}' +
       '.journey-view.active{display:flex}' +
       '.jv-bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border-bottom:1px solid #eee;flex-shrink:0}' +
       '.jv-back{font-size:12px;font-weight:600;color:' + brandColor + ';cursor:pointer;padding:6px 12px;border-radius:8px;border:1px solid rgba(' + brandRgb + ',.3);background:rgba(' + brandRgb + ',.05);transition:background .15s}' +
@@ -1110,6 +1237,17 @@
       '  var encodedHtml = journeyHtmls[jt];\n' +
       '  if (!encodedHtml) return;\n' +
       '  var html = decodeURIComponent(encodedHtml);\n' +
+      '  var loc = window.location.href;\n' +
+      '  if (loc === "about:srcdoc" && window.parent && window.parent.location) {\n' +
+      '    loc = window.parent.location.href;\n' +
+      '  }\n' +
+      '  var baseHref = loc.split("#")[0].split("?")[0].replace(/[^/]*$/, "");\n' +
+      '  var baseTag = "<base href=\\"" + baseHref + "\\">";\n' +
+      '  if (html.indexOf("<head>") !== -1) {\n' +
+      '    html = html.replace("<head>", "<head>" + baseTag);\n' +
+      '  } else if (html.indexOf("<HEAD>") !== -1) {\n' +
+      '    html = html.replace("<HEAD>", "<HEAD>" + baseTag);\n' +
+      '  }\n' +
       '  if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);\n' +
       '  var blob = new Blob([html], {type: "text/html;charset=utf-8"});\n' +
       '  currentBlobUrl = URL.createObjectURL(blob);\n' +

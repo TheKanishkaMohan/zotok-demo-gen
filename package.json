@@ -20,5 +20,9 @@
   "homepage": "https://github.com/TheKanishkaMohan/zotok-demo-gen#readme",
   "devDependencies": {
     "@playwright/test": "^1.60.0"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.9",
+    "undici": "^8.4.1"
   }
 }

@@ -36,7 +36,7 @@
    *  Data loading
    * ───────────────────────────────────────────────────────── */
   function loadBrands() {
-    return fetch('brands.json')
+    return fetch('brands.json?v=' + Date.now())
       .then(function (res) {
         if (!res.ok) throw new Error('brands.json returned HTTP ' + res.status);
         return res.json();

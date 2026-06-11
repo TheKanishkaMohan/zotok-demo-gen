@@ -50,6 +50,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .screens-area{flex:1;overflow-y:auto;overflow-x:auto;padding:24px 16px;background:#f0f2f5;}
 .step-section{display:none;width:100%;justify-content:center;gap:20px;flex-wrap:wrap;align-items:flex-start;}
 .step-section.active{display:flex;flex-wrap:nowrap;}
+#step-1.active{flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:20px;}
 #step-2.active{flex-wrap:nowrap;align-items:flex-start;gap:24px;overflow:visible;}
 #step-3.active{flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:20px;}
 #step-4.active{flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:20px;}
@@ -421,7 +422,7 @@ svg{display:inline-block;vertical-align:middle;}
       </div>
     </div>
   </div>
-  <a href="index.html" style="display:block;padding:9px 20px;font-size:11.5px;color:rgba(255,215,0,.8);text-decoration:none;border-top:1px solid rgba(255,255,255,.1);">&#8592; Main Menu</a>
+
   <div class="sb-foot">Company Name Retailer Connect · ZoTok</div>
 </nav>
 
@@ -463,7 +464,7 @@ svg{display:inline-block;vertical-align:middle;}
             <div class="date-pill">Today</div>
             <div class="msg-receiver-wrap">
               <div class="wa-tmpl">
-                <div class="wa-hdr-img"><img src="6.png" style="width:100%;height:100%;object-fit:cover;display:block;" /></div>
+                <div class="wa-hdr-img"><div style="width:100%;height:100%;background:linear-gradient(135deg,#E8201E 0%,#B01010 60%,#8B0000 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;"><div style="position:absolute;inset:0;opacity:0.08;background:repeating-linear-gradient(45deg,#FFD700,#FFD700 2px,transparent 2px,transparent 20px);"></div><div style="text-align:center;position:relative;z-index:1;"><div style="font-size:22px;font-weight:900;color:#FFD700;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,0.4);">Company Name</div><div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.85);letter-spacing:2px;margin-top:2px;">ORDER CONFIRMATION</div><div style="margin-top:8px;display:flex;gap:8px;justify-content:center;font-size:18px;">📦 ✅ 🚚</div></div></div></div>
                 <div class="wa-tmpl-body">
                   <strong>Order Received</strong><br><br>
                   A new order is awaiting your confirmation.<br><br>
@@ -473,7 +474,7 @@ svg{display:inline-block;vertical-align:middle;}
                   💰 Order Value: <b>₹7,840</b><br>
                   📅 Date: <b>18 April 2026</b>
                 </div>
-                <div class="wa-tmpl-signoff">Team,<br>Company Names</div>
+                <div class="wa-tmpl-signoff">Team,<br>Company Name</div>
                 <div class="wa-tmpl-time">10:18 AM</div>
                 <div class="wa-tmpl-btns">
                   <div class="wa-cta-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="#00A884" stroke-width="2.5"/><polyline points="15 3 21 3 21 9" stroke="#00A884" stroke-width="2.5"/><line x1="10" y1="14" x2="21" y2="3" stroke="#00A884" stroke-width="2.5"/></svg>Review Order</div>
@@ -521,23 +522,23 @@ svg{display:inline-block;vertical-align:middle;}
             <div style="width:42px;height:42px;border-radius:7px;overflow:hidden;flex-shrink:0;"><img src="21.png" style="width:100%;height:100%;object-fit:cover;" /></div>
             <div style="flex:1;min-width:0;">
               <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:4px;">
-                <div><div style="font-size:12px;font-weight:600;color:#111;line-height:1.3;">Aloo Bhujia 400g</div><div style="font-size:10px;color:#888;margin-top:1px;">Namkeen · ₹144/pkt</div></div><div style="font-size:12px;font-weight:700;color:#111;flex-shrink:0;">₹3,600</div></div>
-              <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:5px;"><div style="display:flex;align-items:center;border:1.5px solid #007AFF;border-radius:20px;overflow:hidden;"><span style="padding:3px 7px;font-size:12px;color:#007AFF;">−</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;font-weight:600;border-left:1.5px solid #007AFF;border-right:1.5px solid #007AFF;">25</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;">+</span></div></div>
+                <div><div style="font-size:12px;font-weight:600;color:#111;line-height:1.3;">Borosilicate Bowl Set 3pc</div><div style="font-size:10px;color:#888;margin-top:1px;">Glassware · ₹595/set</div></div><div style="font-size:12px;font-weight:700;color:#111;flex-shrink:0;">₹3,570</div></div>
+              <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:5px;"><div style="display:flex;align-items:center;border:1.5px solid #007AFF;border-radius:20px;overflow:hidden;"><span style="padding:3px 7px;font-size:12px;color:#007AFF;">−</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;font-weight:600;border-left:1.5px solid #007AFF;border-right:1.5px solid #007AFF;">6</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;">+</span></div></div>
             </div>
           </div>
           <div style="background:#fff;margin-bottom:1px;padding:8px 12px;display:flex;gap:8px;align-items:flex-start;">
             <div style="width:42px;height:42px;border-radius:7px;overflow:hidden;flex-shrink:0;"><img src="22.png" style="width:100%;height:100%;object-fit:cover;" /></div>
             <div style="flex:1;min-width:0;">
               <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:4px;">
-                <div><div style="font-size:12px;font-weight:600;color:#111;line-height:1.3;">Moong Dal 200g</div><div style="font-size:10px;color:#888;margin-top:1px;">Namkeen · ₹96/pkt</div></div><div style="font-size:12px;font-weight:700;color:#111;flex-shrink:0;">₹1,920</div></div>
-              <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:5px;"><div style="display:flex;align-items:center;border:1.5px solid #007AFF;border-radius:20px;overflow:hidden;"><span style="padding:3px 7px;font-size:12px;color:#007AFF;">−</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;font-weight:600;border-left:1.5px solid #007AFF;border-right:1.5px solid #007AFF;">20</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;">+</span></div></div>
+                <div><div style="font-size:12px;font-weight:600;color:#111;line-height:1.3;">Serve Fresh Container 3pc</div><div style="font-size:10px;color:#888;margin-top:1px;">Glassware · ₹395/set</div></div><div style="font-size:12px;font-weight:700;color:#111;flex-shrink:0;">₹3,950</div></div>
+              <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:5px;"><div style="display:flex;align-items:center;border:1.5px solid #007AFF;border-radius:20px;overflow:hidden;"><span style="padding:3px 7px;font-size:12px;color:#007AFF;">−</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;font-weight:600;border-left:1.5px solid #007AFF;border-right:1.5px solid #007AFF;">10</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;">+</span></div></div>
             </div>
           </div>
           <div style="background:#fff;margin-bottom:1px;padding:8px 12px;display:flex;gap:8px;align-items:flex-start;">
             <div style="width:42px;height:42px;border-radius:7px;overflow:hidden;flex-shrink:0;"><img src="23.png" style="width:100%;height:100%;object-fit:cover;" /></div>
             <div style="flex:1;min-width:0;">
               <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:4px;">
-                <div><div style="font-size:12px;font-weight:600;color:#111;line-height:1.3;">Khatta Meetha 200g</div><div style="font-size:10px;color:#888;margin-top:1px;">Namkeen · ₹80/pkt</div></div><div style="font-size:12px;font-weight:700;color:#111;flex-shrink:0;">₹960</div></div>
+                <div><div style="font-size:12px;font-weight:600;color:#111;line-height:1.3;">Casserole 500ml</div><div style="font-size:10px;color:#888;margin-top:1px;">Glassware · ₹495/pc</div></div><div style="font-size:12px;font-weight:700;color:#111;flex-shrink:0;">₹5,940</div></div>
               <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:5px;"><div style="display:flex;align-items:center;border:1.5px solid #007AFF;border-radius:20px;overflow:hidden;"><span style="padding:3px 7px;font-size:12px;color:#007AFF;">−</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;font-weight:600;border-left:1.5px solid #007AFF;border-right:1.5px solid #007AFF;">12</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;">+</span></div></div>
             </div>
           </div>
@@ -545,8 +546,8 @@ svg{display:inline-block;vertical-align:middle;}
             <div style="width:42px;height:42px;border-radius:7px;overflow:hidden;flex-shrink:0;"><img src="24.png" style="width:100%;height:100%;object-fit:cover;" /></div>
             <div style="flex:1;min-width:0;">
               <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:4px;">
-                <div><div style="font-size:12px;font-weight:600;color:#111;line-height:1.3;">Farali Chiwda 200g</div><div style="font-size:10px;color:#888;margin-top:1px;">Namkeen · ₹88/pkt</div></div><div style="font-size:12px;font-weight:700;color:#111;flex-shrink:0;">₹1,408</div></div>
-              <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:5px;"><div style="display:flex;align-items:center;border:1.5px solid #007AFF;border-radius:20px;overflow:hidden;"><span style="padding:3px 7px;font-size:12px;color:#007AFF;">−</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;font-weight:600;border-left:1.5px solid #007AFF;border-right:1.5px solid #007AFF;">16</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;">+</span></div></div>
+                <div><div style="font-size:12px;font-weight:600;color:#111;line-height:1.3;">Opalware Dinner Set 18pc</div><div style="font-size:10px;color:#888;margin-top:1px;">Glassware · ₹1,299/set</div></div><div style="font-size:12px;font-weight:700;color:#111;flex-shrink:0;">₹7,794</div></div>
+              <div style="display:flex;justify-content:flex-end;align-items:center;margin-top:5px;"><div style="display:flex;align-items:center;border:1.5px solid #007AFF;border-radius:20px;overflow:hidden;"><span style="padding:3px 7px;font-size:12px;color:#007AFF;">−</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;font-weight:600;border-left:1.5px solid #007AFF;border-right:1.5px solid #007AFF;">6</span><span style="padding:3px 7px;font-size:12px;color:#007AFF;">+</span></div></div>
             </div>
           </div>
             </div>
@@ -591,7 +592,7 @@ svg{display:inline-block;vertical-align:middle;}
             <div class="date-pill">Today</div>
             <div class="msg-receiver-wrap">
               <div class="wa-tmpl">
-                <div class="wa-hdr-img"><img src="6.png" style="width:100%;height:100%;object-fit:cover;display:block;" /></div>
+                <div class="wa-hdr-img"><div style="width:100%;height:100%;background:linear-gradient(135deg,#E8201E 0%,#B01010 60%,#8B0000 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;"><div style="position:absolute;inset:0;opacity:0.08;background:repeating-linear-gradient(45deg,#FFD700,#FFD700 2px,transparent 2px,transparent 20px);"></div><div style="text-align:center;position:relative;z-index:1;"><div style="font-size:22px;font-weight:900;color:#FFD700;letter-spacing:1px;text-shadow:0 2px 8px rgba(0,0,0,0.4);">Company Name</div><div style="font-size:10px;font-weight:600;color:rgba(255,255,255,0.85);letter-spacing:2px;margin-top:2px;">ORDER CONFIRMATION</div><div style="margin-top:8px;display:flex;gap:8px;justify-content:center;font-size:18px;">📦 ✅ 🚚</div></div></div></div>
                 <div class="wa-tmpl-body">
                   <strong>Order Received</strong><br><br>
                   A new order is awaiting your confirmation.<br><br>
@@ -601,7 +602,7 @@ svg{display:inline-block;vertical-align:middle;}
                   💰 Order Value: <b>₹7,840</b><br>
                   📅 Date: <b>18 April 2026</b>
                 </div>
-                <div class="wa-tmpl-signoff">Team,<br>Company Names</div>
+                <div class="wa-tmpl-signoff">Team,<br>Company Name</div>
                 <div class="wa-tmpl-time">10:18 AM</div>
                 <div class="wa-tmpl-btns">
                   <div class="wa-cta-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="#00A884" stroke-width="2.5"/><polyline points="15 3 21 3 21 9" stroke="#00A884" stroke-width="2.5"/><line x1="10" y1="14" x2="21" y2="3" stroke="#00A884" stroke-width="2.5"/></svg>Review Order</div>
@@ -631,7 +632,7 @@ svg{display:inline-block;vertical-align:middle;}
                   💰 Order Value: <b>₹7,840</b><br>
                   📅 Dispatch Date: <b>19 April 2026</b>
                 </div>
-                <div class="wa-tmpl-signoff">Team,<br>Company Names</div>
+                <div class="wa-tmpl-signoff">Team,<br>Company Name</div>
                 <div class="wa-tmpl-time">10:22 AM</div>
                 <div class="wa-tmpl-btns">
                   <div class="wa-cta-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" stroke="#00A884" stroke-width="2.5"/><polyline points="15 3 21 3 21 9" stroke="#00A884" stroke-width="2.5"/><line x1="10" y1="14" x2="21" y2="3" stroke="#00A884" stroke-width="2.5"/></svg>View Order Summary</div>
@@ -896,7 +897,7 @@ svg{display:inline-block;vertical-align:middle;}
                   <div style="border:1.5px solid #2ABB7F;border-radius:8px;padding:8px 10px 7px;background:#fff;position:relative;"><div style="position:absolute;top:-7px;left:9px;background:#fff;padding:0 4px;font-size:10px;color:#2ABB7F;font-weight:600;">Invoice Amount*</div><div style="font-size:12px;color:#091E42;">₹7,888</div></div>
                   <div style="border:1.5px solid #2ABB7F;border-radius:8px;padding:8px 10px 7px;background:#fff;position:relative;"><div style="position:absolute;top:-7px;left:9px;background:#fff;padding:0 4px;font-size:10px;color:#2ABB7F;font-weight:600;">Invoice Date*</div><div style="font-size:12px;color:#091E42;">18/04/2026</div></div>
                   <div style="border:1.5px solid #2ABB7F;border-radius:8px;padding:8px 10px 7px;background:#fff;position:relative;"><div style="position:absolute;top:-7px;left:9px;background:#fff;padding:0 4px;font-size:10px;color:#2ABB7F;font-weight:600;">Due Date*</div><div style="font-size:12px;color:#091E42;">28/04/2026</div></div>
-                  <div style="border:1.5px solid #2ABB7F;border-radius:8px;padding:8px 10px 7px;background:#fff;position:relative;"><div style="position:absolute;top:-7px;left:9px;background:#fff;padding:0 4px;font-size:10px;color:#2ABB7F;font-weight:600;">Note</div><textarea style="width:100%;border:none;outline:none;font-size:12px;color:#091E42;background:transparent;resize:none;min-height:46px;padding:0;">Aloo Bhujia, Moong Dal, Khatta Meetha, Farali Chiwda</textarea></div>
+                  <div style="border:1.5px solid #2ABB7F;border-radius:8px;padding:8px 10px 7px;background:#fff;position:relative;"><div style="position:absolute;top:-7px;left:9px;background:#fff;padding:0 4px;font-size:10px;color:#2ABB7F;font-weight:600;">Note</div><textarea style="width:100%;border:none;outline:none;font-size:12px;color:#091E42;background:transparent;resize:none;min-height:46px;padding:0;">Borosilicate Bowl Set, Serve Fresh, Casserole 500ml, Opalware Set</textarea></div>
                 </div>
               </div>
               <div style="padding:10px 10px 14px;"><div style="background:#132C45;color:#fff;font-size:13px;font-weight:700;text-align:center;padding:11px;border-radius:10px;">Submit Invoice</div></div>
@@ -924,7 +925,7 @@ svg{display:inline-block;vertical-align:middle;}
           <div class="wa-topbar">
             <div class="wa-back"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M9 1L1 8.5L9 16" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="wa-avatar" style="background:none;overflow:hidden;padding:0;"><img src="logo.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>
-            <div class="wa-contact"><div class="wa-contact-name">Company Names</div><div class="wa-contact-status">ZoTok Business</div></div>
+            <div class="wa-contact"><div class="wa-contact-name">Company Name</div><div class="wa-contact-status">ZoTok Business</div></div>
             <div class="wa-actions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3-8.57A2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           </div>
           <div class="chat-area">
@@ -968,7 +969,7 @@ svg{display:inline-block;vertical-align:middle;}
           <div class="wa-topbar">
             <div class="wa-back"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M9 1L1 8.5L9 16" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="wa-avatar" style="background:none;overflow:hidden;padding:0;"><img src="logo.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>
-            <div class="wa-contact"><div class="wa-contact-name">Company Names</div><div class="wa-contact-status">ZoTok Business</div></div>
+            <div class="wa-contact"><div class="wa-contact-name">Company Name</div><div class="wa-contact-status">ZoTok Business</div></div>
             <div class="wa-actions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3-8.57A2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           </div>
           <div class="chat-area">
@@ -985,7 +986,7 @@ svg{display:inline-block;vertical-align:middle;}
                   Total Outstanding: <b>₹7,448</b><br><br>
                   You can make the payment by:<br>
                   Scanning the QR code above<br><br>
-                  UPI Payment ID: <b>Company Namespay@hdfcbank</b><br><br>
+                  UPI Payment ID: <b>companyname@hdfcbank</b><br><br>
                   For any clarifications, please reach out.
                 </div>
                 <div class="wa-tmpl-signoff">Team,<br>Company Name India</div>
@@ -1013,7 +1014,7 @@ svg{display:inline-block;vertical-align:middle;}
           <div class="wa-topbar">
             <div class="wa-back"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M9 1L1 8.5L9 16" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="wa-avatar" style="background:none;overflow:hidden;padding:0;"><img src="logo.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>
-            <div class="wa-contact"><div class="wa-contact-name">Company Names</div><div class="wa-contact-status">ZoTok Business</div></div>
+            <div class="wa-contact"><div class="wa-contact-name">Company Name</div><div class="wa-contact-status">ZoTok Business</div></div>
             <div class="wa-actions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3-8.57A2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           </div>
           <div class="chat-area">
@@ -1026,7 +1027,7 @@ svg{display:inline-block;vertical-align:middle;}
                   📅 Date: <b>22/04/2026</b><br>
                   💰 Amount Received: <b>₹7,448</b><br>
                   🏦 Bank Txn ID: <b>HDFC22041947382</b><br>
-                  📱 UPI ID: <b>Company Namespay@hdfcbank</b>
+                  📱 UPI ID: <b>companyname@hdfcbank</b>
                 </div>
                 <div class="wa-tmpl-signoff">Team,<br>Company Name India</div>
                 <div class="wa-tmpl-time">9:14 AM</div>
@@ -1194,7 +1195,7 @@ svg{display:inline-block;vertical-align:middle;}
           <div class="wa-topbar">
             <div class="wa-back"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M9 1L1 8.5L9 16" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="wa-avatar" style="background:none;overflow:hidden;padding:0;"><img src="logo.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>
-            <div class="wa-contact"><div class="wa-contact-name">Company Names India</div><div class="wa-contact-status">ZoTok Business</div></div>
+            <div class="wa-contact"><div class="wa-contact-name">Company Name India</div><div class="wa-contact-status">ZoTok Business</div></div>
             <div class="wa-actions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#fff" stroke-width="1.8"/></svg><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="5" r="1.5" fill="#fff"/><circle cx="12" cy="12" r="1.5" fill="#fff"/><circle cx="12" cy="19" r="1.5" fill="#fff"/></svg></div>
           </div>
           <div class="chat-area">
@@ -1402,7 +1403,7 @@ svg{display:inline-block;vertical-align:middle;}
           <div class="wa-topbar">
             <div class="wa-back"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M9 1L1 8.5L9 16" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="wa-avatar" style="background:none;overflow:hidden;padding:0;"><img src="logo.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>
-            <div class="wa-contact"><div class="wa-contact-name">Company Names</div><div class="wa-contact-status">ZoTok Business</div></div>
+            <div class="wa-contact"><div class="wa-contact-name">Company Name</div><div class="wa-contact-status">ZoTok Business</div></div>
             <div class="wa-actions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3-8.57A2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
           </div>
           <div class="chat-area">
@@ -1452,7 +1453,7 @@ svg{display:inline-block;vertical-align:middle;}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Previous
     </button>
-    <a class="nav-btn" href="index.html" style="text-decoration:none;">&#8592; Main Menu</a>
+
     </div>
     <span id="desk-counter" style="font-size:13px;color:#888;">Step 1 of 5</span>
     <div style="display:flex;gap:8px;align-items:center;">
@@ -1460,7 +1461,7 @@ svg{display:inline-block;vertical-align:middle;}
       Next
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
-    <a class="nav-btn primary" id="desk-journey-btn" href="journey_field_ops_expense.html" style="display:none;text-decoration:none;">Module 5: Field Ops <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
     </div>
   </div>
 
@@ -1475,7 +1476,7 @@ svg{display:inline-block;vertical-align:middle;}
   <div class="mob-swipe-dots" id="mob-dots"></div>
   <div style="display:flex;gap:6px;align-items:center;">
   <button class="mob-next-btn" id="mob-next" onclick="mobNavigate(1)">Next →</button>
-  <a class="mob-next-btn" id="mob-journey-btn" href="journey_field_ops_expense.html" style="display:none;text-decoration:none;">Module 5 →</a>
+
   </div>
 </div>
 
@@ -1702,5 +1703,6 @@ if(isMobile()){
     setTimeout(function(){ chat.scrollTop = chat.scrollHeight; }, 100);
   }
 </script>
+  <script src="../js/demo-hydrate.js"></script>
 </body>
 </html>

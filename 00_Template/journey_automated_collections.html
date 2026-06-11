@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -15,20 +15,20 @@
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#eef0f3;display:flex;min-height:100vh;overflow:hidden;}
 
 /* ── Sidebar ── */
-.sidebar{width:var(--sidebar-w);background:var(--brand);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;height:100vh;}
-.sb-brand{padding:20px 18px 14px;border-bottom:1px solid rgba(255,255,255,.12);}
+.sidebar{width:var(--sidebar-w);background:#fff;border-right:1px solid #e0e0e0;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;height:100vh;}
+.sb-brand{padding:20px 18px 14px;border-bottom:1px solid #f0f0f0;}
 .sb-logo{display:flex;align-items:center;gap:10px;}
-.sb-mark{width:36px;height:36px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#333;flex-shrink:0;letter-spacing:-.3px;}
-.sb-company{font-size:14px;font-weight:700;color:#fff;line-height:1.25;}
-.sb-journey{font-size:10.5px;color:rgba(255,255,255,.42);margin-top:6px;line-height:1.4;}
+.sb-mark{width:36px;height:36px;background:linear-gradient(135deg,var(--accent),var(--brand));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0;letter-spacing:-.3px;}
+.sb-company{font-size:14px;font-weight:700;color:#111;line-height:1.25;}
+.sb-journey{font-size:10.5px;color:#888;margin-top:6px;line-height:1.4;}
 .sb-steps{padding:8px 0;flex:1;}
 .sb-step{padding:9px 18px 8px;cursor:pointer;border-left:3px solid transparent;transition:background .14s;}
-.sb-step:hover{background:rgba(255,255,255,.07);}
-.sb-step.active{background:rgba(255,255,255,.13);border-left-color:var(--accent);}
-.st-num{font-size:10px;font-weight:700;color:rgba(255,255,255,.36);text-transform:uppercase;letter-spacing:.6px;margin-bottom:1px;}
-.st-title{font-size:12px;font-weight:600;color:#fff;line-height:1.35;}
-.st-meta{font-size:10px;color:rgba(255,255,255,.36);margin-top:1px;}
-.sb-step.active .st-num{color:rgba(255,215,0,.85);}
+.sb-step:hover{background:#f5f5f5;}
+.sb-step.active{background:#fff8f0;border-left-color:var(--brand);}
+.st-num{font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.6px;margin-bottom:1px;}
+.st-title{font-size:12px;font-weight:600;color:#333;line-height:1.35;}
+.st-meta{font-size:10px;color:#aaa;margin-top:1px;}
+.sb-step.active .st-num{color:var(--brand);}
 .sb-step.alt .st-meta{color:rgba(255,180,100,.6);}
 
 /* ── Main ── */
@@ -384,7 +384,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,san
             <!-- AI sends invoice breakdown -->
             <div class="rw">
               <div class="rb">
-                <div class="mb">Invoice-wise breakup:<br><br><strong>Invoice #HD-45821</strong> — ₹18,200<br>Items: Aloo Bhujia, Mixture<br><br><strong>Invoice #HD-46210</strong> — ₹30,300<br>Items: Combo Packs<br><br><strong>Total Outstanding: ₹48,500</strong></div>
+                <div class="mb">Invoice-wise breakup:<br><br><strong>Invoice #HD-45821</strong> — ₹18,200<br>Items: Glassware Sets, Cookware<br><br><strong>Invoice #HD-46210</strong> — ₹30,300<br>Items: Appliances, Gift Sets<br><br><strong>Total Outstanding: ₹48,500</strong></div>
                 <div class="mt">10:24 AM</div>
               </div>
             </div>
@@ -909,7 +909,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,san
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Previous
     </button>
-    <a class="nav-btn" href="index.html" style="text-decoration:none;">&#8592; Main Menu</a>
+
     </div>
     <span class="step-counter">Step <strong id="counter-cur">1</strong> of <strong>11</strong></span>
     <button class="nav-btn primary" id="next-btn" onclick="goTo(currentStep+1)">
@@ -990,5 +990,6 @@ document.addEventListener('keydown', function(e) {
   if (currentDesc) { descTimer = setTimeout(function(){ currentDesc.classList.add('desc-visible'); }, 1500); }
 })();
 </script>
+  <script src="../js/demo-hydrate.js"></script>
 </body>
 </html>

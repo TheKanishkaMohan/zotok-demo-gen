@@ -109,7 +109,7 @@
           "title": "Turnover-Based Loyalty Scheme",
           "emoji": "🎉",
           "color": "#6A1B9A",
-          "steps": 4,
+          "steps": 6,
           "desc": "Retailer snaps or shares a distributor invoice on WhatsApp — ZoAi authenticates it, extracts SKUs, maps purchases to scheme progress, and unlocks rewards automatically.",
           "tags": [
             "Invoice Capture",
