@@ -894,6 +894,17 @@ function closeSidebar(){
   var ov=document.getElementById('mob-overlay');if(ov)ov.classList.remove('mob-open');
 }
 </script>
-  <script src="../js/demo-hydrate.js"></script>
+  <script>
+    (function() {
+      var script = document.createElement('script');
+      var loc = window.location.href;
+      if (loc.indexOf('00_Template') !== -1) {
+        script.src = '../js/demo-hydrate.js';
+      } else {
+        script.src = 'js/demo-hydrate.js';
+      }
+      document.head.appendChild(script);
+    })();
+  </script>
 </body>
 </html>
