@@ -1368,19 +1368,198 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
               </div>
             </div>
           </div>
+<div style="font-size:12px;color:#888;">05:52 PM</div>
+            </div>
+            <div class="customer-row">
+              <div class="customer-avatar" style="background:#e8f5e9;color:#2e7d32;">SC</div>
+              <div class="customer-info">
+                <span class="customer-name">SC Agrotech Ltd</span>
+                <span class="customer-sub">₹30,000 credit limit · Ameerpet, Hyd</span>
+              </div>
+              <div style="font-size:12px;color:#888;">05:52 PM</div>
+            </div>
+            <div class="customer-row">
+              <div class="customer-avatar" style="background:#e3f2fd;color:#1565c0;">RM</div>
+              <div class="customer-info">
+                <span class="customer-name">RM Enterprises</span>
+                <span class="customer-sub">₹60,000 credit limit · Ameerpet, Hyd</span>
+              </div>
+              <div style="font-size:12px;color:#888;">05:52 PM</div>
+            </div>
+            <div class="customer-row">
+              <div class="customer-avatar" style="background:#fff3e0;color:#e65100;">GA</div>
+              <div class="customer-info">
+                <span class="customer-name">Gujarat Ambuja Exports Ltd</span>
+                <span class="customer-sub">₹50,000 credit limit · Ameerpet, Hyd</span>
+              </div>
+              <div style="font-size:12px;color:#888;">05:52 PM</div>
+            </div>
+            <div class="customer-row">
+              <div class="customer-avatar" style="background:#fce4ec;color:#c2185b;">PV</div>
+              <div class="customer-info">
+                <span class="customer-name">PV Studios</span>
+                <span class="customer-sub">₹35,000 credit limit · Ameerpet, Hyd</span>
+              </div>
+              <div style="font-size:12px;color:#888;">05:52 PM</div>
+            </div>
+          </div>
         </div>
         <div class="screen-desc" style="background:#B0D4F0;">
-          <strong>Quick Actions Drawer</strong>
-          Once checked in, the rep can invoke the Actions panel inside the WhatsApp conversation thread to quickly place orders or record collections.
+          <strong>Beat Customers List</strong>
+          The app lists customers mapped to the Ameerpet route, ready for visiting and check-in.
         </div>
       </div>
 
-    </div>��</div>
+      <!-- Screen 3: Map Check In (WebView) -->
+      <div class="screen-wrap">
+        <div class="screen-lbl">Screen 3 · GPS Check-In</div>
+        <div class="screen-type-lbl">WhatsApp WebView — GPS Geofence Verification</div>
+        <div class="phone-frame-web">
+          <div class="status-bar-web">
+            <span>10:17</span>
+            <div class="status-icons-web">
+              <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><rect x="0" y="7" width="3" height="4" rx=".5" fill="#111"/><rect x="4" y="4.5" width="3" height="6.5" rx=".5" fill="#111"/><rect x="8" y="2" width="3" height="9" rx=".5" fill="#111"/><rect x="12" y="0" width="3" height="11" rx=".5" fill="#111"/></svg>
+              <div class="battery-box-web">94</div>
+            </div>
+          </div>
+          <div class="browser-bar">
+            <span class="browser-done">✕</span>
+            <div class="browser-url-wrap">
+              <span class="browser-wa-title">Check In</span>
+              <span class="browser-url">Ameerpet Routes List</span>
+            </div>
+            <span class="browser-menu">···</span>
+          </div>
+
+          <div class="map-container">
+            <!-- simulated high-fidelity map in CSS -->
+            <div class="map-canvas" style="background: #e2e8f0; background-image: linear-gradient(#cbd5e1 1px, transparent 1px), linear-gradient(90deg, #cbd5e1 1px, transparent 1px); background-size: 20px 20px;">
+              <!-- Simulated roads -->
+              <div style="position:absolute; top:30%; left:0; right:0; height:18px; background:#f8fafc; transform:rotate(-5deg); border-top:1px solid #cbd5e1; border-bottom:1px solid #cbd5e1;"></div>
+              <div style="position:absolute; left:40%; top:0; bottom:0; width:18px; background:#f8fafc; border-left:1px solid #cbd5e1; border-right:1px solid #cbd5e1;"></div>
+              
+              <div class="map-geofence">
+                <span style="font-size:7.5px;font-weight:800;color:#16a34a;text-transform:uppercase;letter-spacing:0.5px;">Geofence Active</span>
+              </div>
+              <div class="map-pin">📍</div>
+              <div class="map-user-dot"></div>
+            </div>
+            
+            <div class="map-details-card">
+              <div class="map-details-loc">
+                <div class="map-address-title" style="color:#dc2626;">📍 Store Location:</div>
+                <p class="map-address-text">Civil Hospital, 4-150, near kondapur, Sri Ram Nagar, Kondapur, Hyderabad, Telangana 500084.<br>Lat & Lon: 17.4624103 & 78.3503435</p>
+                <div class="map-address-title" style="color:#2563eb;">📍 Your Location:</div>
+                <p class="map-address-text">Plot No 112, Park Road, Lumbini Avenue, Gachibowli, Hyderabad, Telangana 500032.<br>Lat & Lon: 17.4327003 & 78.3740171</p>
+                <div class="map-address-title" style="color:#475569;">🕒 Date & Time:</div>
+                <p class="map-address-text" style="font-weight: 700;">Wednesday, 18 Sep 2024 - 10 : 24 : 09 AM</p>
+              </div>
+              <button class="primary-action-btn" style="background:#000;">Yes, Check-in</button>
+            </div>
+          </div>
+        </div>
+        <div class="screen-desc" style="background:#FFD9B0;">
+          <strong>GPS Geofenced Check-in</strong>
+          If check-in is enabled in the configuration, the rep performs check-in directly at the retailer's geofenced location.
+        </div>
+      </div>
+
+      <!-- Screen 4: Quick Actions drawer in customer chat -->
+      <div class="screen-wrap">
+        <div class="screen-lbl">Screen 4 · Customer Chat Actions</div>
+        <div class="screen-type-lbl">WhatsApp Message — Chat Actions Drawer</div>
+        <div class="phone-frame">
+          <div class="status-bar">
+            <span class="status-time">10:18 AM</span>
+            <div class="status-icons">
+              <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><rect x="0" y="7" width="3" height="4" rx=".5" fill="#fff"/><rect x="4" y="4.5" width="3" height="6.5" rx=".5" fill="#fff"/><rect x="8" y="2" width="3" height="9" rx=".5" fill="#fff"/><rect x="12" y="0" width="3" height="11" rx=".5" fill="#fff"/></svg>
+              <div class="battery-box">94</div>
+            </div>
+          </div>
+          <div class="wa-topbar">
+            <div class="wa-back"><svg width="10" height="17" viewBox="0 0 10 17" fill="none"><path d="M9 1L1 8.5L9 16" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="wa-avatar" style="background:#94a3b8;color:#fff;">NA</div>
+            <div class="wa-contact">
+              <div class="wa-contact-name">Nagarjuna Agri Tech Ltd</div>
+              <div class="wa-contact-status">checked in · Online</div>
+            </div>
+            <div style="font-size: 15px; display:flex; gap: 14px; color: #fff;">
+              <span>📞</span>
+              <span>⋮</span>
+            </div>
+          </div>
+          <div class="chat-area">
+            <div class="date-pill">Today</div>
+            <div class="msg-receiver-wrap">
+              <div class="msg-receiver">
+                <span class="msg-body">Checked in. Let's record secondary sales activities.</span>
+                <span class="msg-time">10:18 AM</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="quick-actions-drawer">
+            <span class="drawer-title">Quick Actions</span>
+            <div class="actions-grid">
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#10b981;">🛒</div>
+                <span class="action-grid-lbl">Create Order</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#3b82f6;">💰</div>
+                <span class="action-grid-lbl">Collect Payment</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#f59e0b;">💳</div>
+                <span class="action-grid-lbl">Payment Request</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#06b6d4;">🧾</div>
+                <span class="action-grid-lbl">Upload Invoice</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#f97316;">🚚</div>
+                <span class="action-grid-lbl">Upload Dispatch</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#3b82f6;">🖼️</div>
+                <span class="action-grid-lbl">Photos</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#475569;">📷</div>
+                <span class="action-grid-lbl">Camera</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#0ea5e9;">📁</div>
+                <span class="action-grid-lbl">Files</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#10b981;">📝</div>
+                <span class="action-grid-lbl">Template</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#22c55e;">📢</div>
+                <span class="action-grid-lbl">Campaign</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#ec4899;">💵</div>
                 <span class="action-grid-lbl">Invoices</span>
               </div>
               <div class="action-grid-item">
-                <div class="action-circle-icon" style="background:#14b8a6;">📝</div>
+                <div class="action-circle-icon" style="background:#22c55e;">📄</div>
                 <span class="action-grid-lbl">Order Receipt</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#10b981;">💸</div>
+                <span class="action-grid-lbl">Payment Rec...</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#ef4444;">📕</div>
+                <span class="action-grid-lbl">Ledger</span>
+              </div>
+              <div class="action-grid-item">
+                <div class="action-circle-icon" style="background:#3b82f6;">🏷️</div>
+                <span class="action-grid-lbl">Price List</span>
               </div>
             </div>
           </div>
@@ -1430,8 +1609,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                 <div class="modal-bar"></div>
                 <span class="modal-heading">Clock In</span> <!-- Matches screenshot text "Clock In" despite clocking out -->
                 
-                <div style="height:90px; background:#e2e8f0; border-radius:10px; position:relative; overflow:hidden; border: 1px solid #cbd5e1;">
-                  <div class="map-canvas" style="background: #e2e8f0; background-image: linear-gradient(#cbd5e1 1px, transparent 1px), linear-gradient(90deg, #cbd5e1 1px, transparent 1px); background-size: 15px 15px;"></div>
+                <div style="height:90px; background:#cbd5e1; border-radius:10px; position:relative; overflow:hidden; border: 1px solid #cbd5e1;">
+                  <!-- mini map canvas inside modal -->
+                  <div class="map-canvas" style="background: #cbd5e1; background-image: linear-gradient(#94a3b8 1px, transparent 1px), linear-gradient(90deg, #94a3b8 1px, transparent 1px); background-size: 15px 15px;"></div>
                   <div class="map-pin" style="top: 30%; left: 45%;">📍</div>
                 </div>
 
@@ -1528,7 +1708,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
           </div>
 
           <div class="actions-section">
-            <div class="action-card" style="opacity: 0.65;">
+            <div class="action-card">
               <div class="action-left">
                 <div class="action-icon">⏰</div>
                 <div class="action-info">
@@ -1544,7 +1724,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                 <div class="action-icon">📦</div>
                 <div class="action-info">
                   <div class="action-title">Trip Stock Issue</div>
-                  <div class="action-desc">4 Products Reconciliation</div>
+                  <div class="action-desc">4 Products loaded</div>
                 </div>
               </div>
               <span style="font-size: 11px; font-weight: 700; color: #2563eb; cursor: pointer;">View Report ➔</span>
