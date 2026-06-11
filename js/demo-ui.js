@@ -832,6 +832,116 @@
       .catch(function() { return false; });
   }
 
+  function shrinkImage(dataUrl, maxW, maxH) {
+    if (typeof Promise === 'undefined') {
+      return {
+        then: function(cb) { cb(dataUrl); }
+      };
+    }
+    return new Promise(function(resolve) {
+      if (!dataUrl || typeof dataUrl !== 'string' || dataUrl.indexOf('data:image/') !== 0) {
+        resolve(dataUrl);
+        return;
+      }
+      // Don't shrink SVGs or very small strings
+      if (dataUrl.indexOf('image/svg+xml') !== -1 || dataUrl.length < 5000) {
+        resolve(dataUrl);
+        return;
+      }
+      var img = new Image();
+      img.onload = function() {
+        var w = img.width;
+        var h = img.height;
+        if (w <= maxW && h <= maxH) {
+          resolve(dataUrl);
+          return;
+        }
+        var ratio = Math.min(maxW / w, maxH / h);
+        w = Math.round(w * ratio);
+        h = Math.round(h * ratio);
+        
+        var canvas = document.createElement('canvas');
+        canvas.width = w;
+        canvas.height = h;
+        var ctx = canvas.getContext('2d');
+        if (!ctx) {
+          resolve(dataUrl);
+          return;
+        }
+        ctx.drawImage(img, 0, 0, w, h);
+        try {
+          resolve(canvas.toDataURL('image/jpeg', 0.7)); // compress as JPEG with 0.7 quality
+        } catch (e) {
+          resolve(dataUrl);
+        }
+      };
+      img.onerror = function() {
+        resolve(dataUrl);
+      };
+      img.src = dataUrl;
+    });
+  }
+
+  function shortenUrl(longUrl) {
+    if (typeof fetch === 'undefined') {
+      return Promise.resolve(longUrl);
+    }
+    var controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timeoutId = controller ? setTimeout(function() { controller.abort(); }, 6000) : null;
+    
+    return fetch('https://www.lejumo.com/api/shorten', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ url: longUrl }),
+      signal: controller ? controller.signal : undefined
+    })
+    .then(function(res) {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (!res.ok) throw new Error('Shortener returned status ' + res.status);
+      return res.json();
+    })
+    .then(function(data) {
+      if (data && data.short) {
+        return data.short;
+      }
+      return longUrl;
+    })
+    .catch(function(err) {
+      if (timeoutId) clearTimeout(timeoutId);
+      console.warn('Lejumo shortening failed, trying CleanURI...', err);
+      
+      var controller2 = typeof AbortController !== 'undefined' ? new AbortController() : null;
+      var timeoutId2 = controller2 ? setTimeout(function() { controller2.abort(); }, 6000) : null;
+      
+      return fetch('https://cleanuri.com/api/v1/shorten', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: 'url=' + encodeURIComponent(longUrl),
+        signal: controller2 ? controller2.signal : undefined
+      })
+      .then(function(res2) {
+        if (timeoutId2) clearTimeout(timeoutId2);
+        if (!res2.ok) throw new Error('CleanURI returned status ' + res2.status);
+        return res2.json();
+      })
+      .then(function(data2) {
+        if (data2 && data2.result_url) {
+          return data2.result_url;
+        }
+        return longUrl;
+      })
+      .catch(function(err2) {
+        if (timeoutId2) clearTimeout(timeoutId2);
+        console.warn('CleanURI shortening failed, returning original URL', err2);
+        return longUrl;
+      });
+    });
+  }
+
   function createShareLink() {
     clearError();
     var html = getGeneratedHtml();
@@ -847,56 +957,74 @@
     }
     setShareStatus('Creating secure share link...', false);
 
-    // Build render config for v2 config-based share (tiny, no HTML blob)
-    // This eliminates the 4 MB size limit — config is ~2 KB regardless of journey count
     var formData = collectFormData();
-    var config = {
-      name: formData.brandName,
-      industry: formData.industry,
-      brandColor: formData.primaryColor,
-      brandColorDark: formData.secondaryColor,
-      logo: formData.logoDataUrl || null,
-      products: formData.products,
-      journeyType: formData.journeyType,
-      journeyTypes: formData.journeyTypes
-    };
-
-    // Add step selection if user has selected specific steps
-    if (window.selectedSteps) {
-      config.selectedSteps = window.selectedSteps;
-    }
-
-    // Add accepted content labels if adaptation was applied
-    var acceptedLabels = getSelectedContentLabels();
-    if (acceptedLabels && Object.keys(acceptedLabels).length > 0) {
-      config.acceptedLabels = acceptedLabels;
-    }
-
-    // We don't have a backend to create short links, so we encode the state into the URL directly!
-    try {
-      var jsonStr = JSON.stringify(config);
-      // Compress using LZString (which we included in the HTML)
-      var compressed = window.LZString ? window.LZString.compressToEncodedURIComponent(jsonStr) : encodeURIComponent(jsonStr);
-      
-      var baseUrl = window.location.origin + window.location.pathname.replace(/[^/]*$/, '');
-      var cleanBrandName = (config.name || 'Brand').replace(/[^a-zA-Z0-9-]/g, '-');
-      var shareUrl = baseUrl + 'preview.html#/' + compressed + '/' + cleanBrandName;
-      
-      window._generatedShareUrl = shareUrl;
-      window.open(shareUrl, '_blank');
-      
-      copyShareUrl(shareUrl).then(function(copied) {
-        setShareStatus('Share link ' + (copied ? 'copied and ' : '') + 'opened in a new tab.', false);
+    
+    var logoPromise = shrinkImage(formData.logoDataUrl, 120, 120);
+    var productPromises = formData.products.map(function(p) {
+      return shrinkImage(p.imageDataUrl, 120, 120).then(function(shrunkUrl) {
+        return {
+          name: p.name,
+          price: p.price,
+          unit: p.unit,
+          imageDataUrl: shrunkUrl,
+          category: p.category
+        };
       });
-    } catch (err) {
-      showError('Could not create share link: ' + err.message);
-      setShareStatus('Failed to create link.', true);
-    } finally {
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = 'Create Share Link';
-      }
-    }
+    });
+
+    Promise.all([logoPromise, Promise.all(productPromises)])
+      .then(function(results) {
+        var shrunkLogo = results[0];
+        var shrunkProducts = results[1];
+
+        var config = {
+          name: formData.brandName,
+          industry: formData.industry,
+          brandColor: formData.primaryColor,
+          brandColorDark: formData.secondaryColor,
+          logo: shrunkLogo || null,
+          products: shrunkProducts,
+          journeyType: formData.journeyType,
+          journeyTypes: formData.journeyTypes
+        };
+
+        if (window.selectedSteps) {
+          config.selectedSteps = window.selectedSteps;
+        }
+
+        var acceptedLabels = getSelectedContentLabels();
+        if (acceptedLabels && Object.keys(acceptedLabels).length > 0) {
+          config.acceptedLabels = acceptedLabels;
+        }
+
+        var jsonStr = JSON.stringify(config);
+        var compressed = window.LZString ? window.LZString.compressToEncodedURIComponent(jsonStr) : encodeURIComponent(jsonStr);
+        
+        var baseUrl = window.location.origin + window.location.pathname.replace(/[^/]*$/, '');
+        var cleanBrandName = (config.name || 'Brand').replace(/[^a-zA-Z0-9-]/g, '-');
+        var shareUrl = baseUrl + 'preview.html#/' + compressed + '/' + cleanBrandName;
+
+        setShareStatus('Shortening share link...', false);
+        return shortenUrl(shareUrl);
+      })
+      .then(function(finalUrl) {
+        window._generatedShareUrl = finalUrl;
+        window.open(finalUrl, '_blank');
+        
+        return copyShareUrl(finalUrl).then(function(copied) {
+          setShareStatus('Share link ' + (copied ? 'copied and ' : '') + 'opened in a new tab.', false);
+        });
+      })
+      .catch(function(err) {
+        showError('Could not create share link: ' + err.message);
+        setShareStatus('Failed to create link.', true);
+      })
+      .then(function() {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = 'Create Share Link';
+        }
+      });
   }
 
   function adaptContent() {
