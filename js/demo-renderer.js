@@ -1233,6 +1233,15 @@
       '  journeyHtmls[jt] = el.textContent;' +
       '}' +
       'var currentBlobUrl = null;' +
+      'var journeyTypes = ' + JSON.stringify(journeyTypes) + ';\n' +
+      'var selectedDescs = ' + JSON.stringify(selectedDescs) + ';\n' +
+      'window.addEventListener("message", function(e) {\n' +
+      '  if (e.data === "zotok:back-to-hub") {\n' +
+      '    window.backToCards();\n' +
+      '  } else if (e.data && e.data.action === "zotok:load-journey") {\n' +
+      '    window.loadJourney(e.data.journey);\n' +
+      '  }\n' +
+      '});\n' +
       'window.loadJourney = function(jt) {\n' +
       '  var encodedHtml = journeyHtmls[jt];\n' +
       '  if (!encodedHtml) return;\n' +
@@ -1251,8 +1260,58 @@
       '  if (currentBlobUrl) URL.revokeObjectURL(currentBlobUrl);\n' +
       '  var blob = new Blob([html], {type: "text/html;charset=utf-8"});\n' +
       '  currentBlobUrl = URL.createObjectURL(blob);\n' +
-      '  document.getElementById("jv-frame").src = currentBlobUrl;\n' +
-      '  var desc = ' + JSON.stringify(selectedDescs) + '[jt] || {};\n' +
+      '  var iframe = document.getElementById("jv-frame");\n' +
+      '  iframe.onload = function() {\n' +
+      '    try {\n' +
+      '      var doc = iframe.contentDocument || iframe.contentWindow.document;\n' +
+      '      if (!doc) return;\n' +
+      '      var curIdx = journeyTypes.indexOf(jt);\n' +
+      '      var nextJt = (curIdx !== -1 && curIdx < journeyTypes.length - 1) ? journeyTypes[curIdx + 1] : null;\n' +
+      '      var deskBtn = doc.getElementById("desk-journey-btn");\n' +
+      '      var mobBtn = doc.getElementById("mob-journey-btn");\n' +
+      '      if (nextJt) {\n' +
+      '        var nextDesc = selectedDescs[nextJt] || {};\n' +
+      '        var nextTitle = nextDesc.title || nextJt;\n' +
+      '        if (deskBtn) {\n' +
+      '          deskBtn.style.display = "inline-flex";\n' +
+      '          deskBtn.innerHTML = "Next Module: " + nextTitle + " <svg width=\\"16\\" height=\\"16\\" viewBox=\\"0 0 24 24\\" fill=\\"none\\"><path d=\\"M9 18l6-6-6-6\\" stroke=\\"currentColor\\" stroke-width=\\"2\\" stroke-linecap=\\\"round\\" stroke-linejoin=\\"round\\"/></svg>";\n' +
+      '          deskBtn.onclick = function(e) {\n' +
+      '            e.preventDefault();\n' +
+      '            window.loadJourney(nextJt);\n' +
+      '          };\n' +
+      '        }\n' +
+      '        if (mobBtn) {\n' +
+      '          mobBtn.style.display = "inline-block";\n' +
+      '          mobBtn.textContent = "Next Module →";\n' +
+      '          mobBtn.onclick = function(e) {\n' +
+      '            e.preventDefault();\n' +
+      '            window.loadJourney(nextJt);\n' +
+      '          };\n' +
+      '        }\n' +
+      '      } else {\n' +
+      '        if (deskBtn) {\n' +
+      '          deskBtn.style.display = "inline-flex";\n' +
+      '          deskBtn.innerHTML = "Back to Menu <svg width=\\"16\\" height=\\"16\\" viewBox=\\"0 0 24 24\\" fill=\\"none\\"><path d=\\"M9 18l6-6-6-6\\" stroke=\\"currentColor\\" stroke-width=\\"2\\" stroke-linecap=\\\"round\\" stroke-linejoin=\\\"round\\"/></svg>";\n' +
+      '          deskBtn.onclick = function(e) {\n' +
+      '            e.preventDefault();\n' +
+      '            window.backToCards();\n' +
+      '          };\n' +
+      '        }\n' +
+      '        if (mobBtn) {\n' +
+      '          mobBtn.style.display = "inline-block";\n' +
+      '          mobBtn.textContent = "Back to Menu →";\n' +
+      '          mobBtn.onclick = function(e) {\n' +
+      '            e.preventDefault();\n' +
+      '            window.backToCards();\n' +
+      '          };\n' +
+      '        }\n' +
+      '      }\n' +
+      '    } catch (err) {\n' +
+      '      console.warn("Could not customize next buttons inside iframe:", err);\n' +
+      '    }\n' +
+      '  };\n' +
+      '  iframe.src = currentBlobUrl;\n' +
+      '  var desc = selectedDescs[jt] || {};\n' +
       '  document.getElementById("jv-title").textContent = desc.title || jt;\n' +
       '  document.getElementById("hp-cards-container").style.display = "none";\n' +
       '  document.getElementById("jv").classList.add("active");\n' +
