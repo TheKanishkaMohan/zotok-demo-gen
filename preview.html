@@ -121,6 +121,19 @@
       }
 
       function renderDemo(config) {
+        // Save config to localStorage for the hydration script inside the iframe
+        try {
+          var configPayload = {
+            products: config.products,
+            brandName: config.name,
+            primaryColor: config.brandColor,
+            storeName: config.name + ' Store'
+          };
+          localStorage.setItem('zotok.demoConfig', JSON.stringify(configPayload));
+        } catch (e) {
+          console.warn('[preview] Could not save demoConfig to localStorage:', e);
+        }
+
         // Load the template pack and render the demo
         DemoRenderer.loadPack()
           .then(function() {

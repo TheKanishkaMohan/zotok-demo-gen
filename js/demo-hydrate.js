@@ -41,6 +41,15 @@
         if (cfg && cfg.products && cfg.products.length) return cfg;
       }
     } catch (e) {}
+    try {
+      if (window.parent && window.parent.localStorage) {
+        var raw = window.parent.localStorage.getItem(CONFIG_KEY);
+        if (raw) {
+          var cfg = JSON.parse(raw);
+          if (cfg && cfg.products && cfg.products.length) return cfg;
+        }
+      }
+    } catch (e) {}
     return null;
   }
 
