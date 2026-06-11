@@ -46,18 +46,19 @@
 
   /* ── Merge user config with defaults ─────────────────── */
   function resolveConfig(cfg) {
-    if (!cfg) return DEFAULTS;
-    var products = (cfg.products && cfg.products.length) ? cfg.products : DEFAULTS.products;
+    var base = cfg || DEFAULTS;
+    var products = (base.products && base.products.length) ? base.products : DEFAULTS.products;
     // Pad to at least 6 products using defaults
-    while (products.length < 6) {
-      products.push(DEFAULTS.products[products.length] || { name: 'Product ' + (products.length + 1), category: 'Products', price: 299, unit: 'piece' });
+    var productsCopy = products.slice();
+    while (productsCopy.length < 6) {
+      productsCopy.push(DEFAULTS.products[productsCopy.length] || { name: 'Product ' + (productsCopy.length + 1), category: 'Products', price: 299, unit: 'piece' });
     }
     return {
-      products:     products,
-      storeName:    cfg.storeName || cfg.brandName || DEFAULTS.storeName,
-      brandName:    cfg.brandName || DEFAULTS.brandName,
-      primaryColor: cfg.primaryColor || DEFAULTS.primaryColor,
-      categories:   getUniqueCategories(products)
+      products:     productsCopy,
+      storeName:    base.storeName || base.brandName || DEFAULTS.storeName,
+      brandName:    base.brandName || DEFAULTS.brandName,
+      primaryColor: base.primaryColor || DEFAULTS.primaryColor,
+      categories:   getUniqueCategories(productsCopy)
     };
   }
 
