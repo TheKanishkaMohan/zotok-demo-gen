@@ -590,7 +590,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <input type="text" class="qty-input-box" placeholder="QTY" value="" />
+              <input type="text" class="qty-input-box qty-input-menthol" placeholder="QTY" value="{{#if journey.stock.menthol}}{{journey.stock.menthol}}{{else}}0{{/if}}" />
             </div>
 
             <div class="prod-entry-card">
@@ -603,7 +603,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <input type="text" class="qty-input-box" placeholder="QTY" value="10" style="border-color: #047857;" />
+              <input type="text" class="qty-input-box qty-input-lavender" placeholder="QTY" value="{{#if journey.stock.lavender}}{{journey.stock.lavender}}{{else}}10{{/if}}" style="border-color: #047857;" />
             </div>
 
             <div class="prod-entry-card">
@@ -616,7 +616,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <input type="text" class="qty-input-box" placeholder="QTY" value="" />
+              <input type="text" class="qty-input-box qty-input-aloe" placeholder="QTY" value="{{#if journey.stock.aloe}}{{journey.stock.aloe}}{{else}}0{{/if}}" />
             </div>
 
             <div class="prod-entry-card">
@@ -629,7 +629,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <input type="text" class="qty-input-box" placeholder="QTY" value="" />
+              <input type="text" class="qty-input-box qty-input-sandal" placeholder="QTY" value="{{#if journey.stock.sandal}}{{journey.stock.sandal}}{{else}}0{{/if}}" />
             </div>
 
             <div class="prod-entry-card">
@@ -642,7 +642,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <input type="text" class="qty-input-box" placeholder="QTY" value="" />
+              <input type="text" class="qty-input-box qty-input-heat-powder" placeholder="QTY" value="{{#if journey.stock.heat_powder}}{{journey.stock.heat_powder}}{{else}}0{{/if}}" />
             </div>
 
             <div class="prod-entry-card">
@@ -655,7 +655,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <input type="text" class="qty-input-box" placeholder="QTY" value="" />
+              <input type="text" class="qty-input-box qty-input-soap" placeholder="QTY" value="{{#if journey.stock.soap}}{{journey.stock.soap}}{{else}}0{{/if}}" />
             </div>
           </div>
         </div>
@@ -693,28 +693,28 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   <span style="font-size:16px;">🧴</span>
                   <span style="font-size:12.5px;font-weight:700;color:var(--text-primary)">Menthol Regular</span>
                 </div>
-                <span style="font-size:12.5px;font-weight:800;color:#000;">Qty: 10</span>
+                <span style="font-size:12.5px;font-weight:800;color:#000;">Qty: <span class="qty-val-menthol">{{#if journey.stock.menthol}}{{journey.stock.menthol}}{{else}}0{{/if}}</span></span>
               </div>
               <div class="recon-row" style="padding:4px 0; border-bottom: 1px solid #f1f5f9;">
                 <div style="display:flex; align-items:center; gap:8px;">
                   <span style="font-size:16px;">🌸</span>
                   <span style="font-size:12.5px;font-weight:700;color:var(--text-primary)">Soothing Lavender</span>
                 </div>
-                <span style="font-size:12.5px;font-weight:800;color:#000;">Qty: 10</span>
+                <span style="font-size:12.5px;font-weight:800;color:#000;">Qty: <span class="qty-val-lavender">{{#if journey.stock.lavender}}{{journey.stock.lavender}}{{else}}10{{/if}}</span></span>
               </div>
               <div class="recon-row" style="padding:4px 0; border-bottom: 1px solid #f1f5f9;">
                 <div style="display:flex; align-items:center; gap:8px;">
                   <span style="font-size:16px;">☀️</span>
                   <span style="font-size:12.5px;font-weight:700;color:var(--text-primary)">Radiant Sandal</span>
                 </div>
-                <span style="font-size:12.5px;font-weight:800;color:#000;">Qty: 10</span>
+                <span style="font-size:12.5px;font-weight:800;color:#000;">Qty: <span class="qty-val-sandal">{{#if journey.stock.sandal}}{{journey.stock.sandal}}{{else}}0{{/if}}</span></span>
               </div>
               <div class="recon-row" style="padding:4px 0;">
                 <div style="display:flex; align-items:center; gap:8px;">
                   <span style="font-size:16px;">🧼</span>
                   <span style="font-size:12.5px;font-weight:700;color:var(--text-primary)">DermiCool Soap</span>
                 </div>
-                <span style="font-size:12.5px;font-weight:800;color:#000;">Qty: 10</span>
+                <span style="font-size:12.5px;font-weight:800;color:#000;">Qty: <span class="qty-val-soap">{{#if journey.stock.soap}}{{journey.stock.soap}}{{else}}0{{/if}}</span></span>
               </div>
             </div>
           </div>
@@ -985,7 +985,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: 10</span>
+              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: <span class="qty-val-menthol">{{#if journey.stock.menthol}}{{journey.stock.menthol}}{{else}}0{{/if}}</span></span>
             </div>
 
             <div class="prod-entry-card">
@@ -998,7 +998,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: 10</span>
+              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: <span class="qty-val-lavender">{{#if journey.stock.lavender}}{{journey.stock.lavender}}{{else}}10{{/if}}</span></span>
             </div>
 
             <div class="prod-entry-card">
@@ -1011,7 +1011,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: 10</span>
+              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: <span class="qty-val-sandal">{{#if journey.stock.sandal}}{{journey.stock.sandal}}{{else}}0{{/if}}</span></span>
             </div>
 
             <div class="prod-entry-card">
@@ -1024,7 +1024,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
                   </div>
                 </div>
               </div>
-              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: 10</span>
+              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: <span class="qty-val-soap">{{#if journey.stock.soap}}{{journey.stock.soap}}{{else}}0{{/if}}</span></span>
             </div>
           </div>
         </div>
@@ -1862,7 +1862,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
               </div>
               <div class="stock-item-qtys">
                 <div>
-                  <div class="stock-qty-val">10</div>
+                  <div class="stock-qty-val"><span class="qty-val-menthol">{{#if journey.stock.menthol}}{{journey.stock.menthol}}{{else}}0{{/if}}</span></div>
                   <div class="stock-qty-lbl">Collected</div>
                 </div>
                 <div>
@@ -1879,7 +1879,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
               </div>
               <div class="stock-item-qtys">
                 <div>
-                  <div class="stock-qty-val">10</div>
+                  <div class="stock-qty-val"><span class="qty-val-lavender">{{#if journey.stock.lavender}}{{journey.stock.lavender}}{{else}}10{{/if}}</span></div>
                   <div class="stock-qty-lbl">Collected</div>
                 </div>
                 <div>
@@ -1896,7 +1896,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
               </div>
               <div class="stock-item-qtys">
                 <div>
-                  <div class="stock-qty-val">10</div>
+                  <div class="stock-qty-val"><span class="qty-val-sandal">{{#if journey.stock.sandal}}{{journey.stock.sandal}}{{else}}0{{/if}}</span></div>
                   <div class="stock-qty-lbl">Collected</div>
                 </div>
                 <div>
@@ -1913,28 +1913,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
               </div>
               <div class="stock-item-qtys">
                 <div>
-                  <div class="stock-qty-val">10</div>
+                  <div class="stock-qty-val"><span class="qty-val-soap">{{#if journey.stock.soap}}{{journey.stock.soap}}{{else}}0{{/if}}</span></div>
                   <div class="stock-qty-lbl">Collected</div>
                 </div>
                 <div>
                   <div class="stock-qty-val" style="color:var(--brand);">8</div>
-                  <div class="stock-qty-lbl">Remaining</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="stock-item-row">
-              <div class="stock-item-names">
-                <span class="stock-item-name">DermiCool Soap</span>
-                <span class="stock-item-meta">Soap</span>
-              </div>
-              <div class="stock-item-qtys">
-                <div>
-                  <div class="stock-qty-val">10</div>
-                  <div class="stock-qty-lbl">Collected</div>
-                </div>
-                <div>
-                  <div class="stock-qty-val" style="color:var(--brand);">7</div>
                   <div class="stock-qty-lbl">Remaining</div>
                 </div>
               </div>
@@ -2113,6 +2096,25 @@ function updatePhoneZoom() {
       .forEach(el => el.style.zoom = '');
   }
 }
+
+// Live stock input synchronization across screens
+function initStockSync() {
+  const products = ['menthol', 'lavender', 'aloe', 'sandal', 'heat-powder', 'soap'];
+  products.forEach(p => {
+    const input = document.querySelector('.qty-input-' + p);
+    if (!input) return;
+    const sync = () => {
+      const val = input.value || '0';
+      document.querySelectorAll('.qty-val-' + p).forEach(span => {
+        span.textContent = val;
+      });
+    };
+    input.addEventListener('input', sync);
+    // Sync initial values
+    sync();
+  });
+}
+initStockSync();
 
 updatePhoneZoom();
 window.addEventListener('resize', updatePhoneZoom);
