@@ -836,7 +836,7 @@
           'if(!a)return;' +
           'var href=a.getAttribute("href")||"";' +
           'var text=(a.textContent||"").toLowerCase();' +
-          'if(href==="index.html"||href==="#main-menu"||href==="/"||text.indexOf("main menu")!==-1){' +
+          'if(href==="hub.html"||href==="index.html"||href==="#main-menu"||href==="/"||text.indexOf("main menu")!==-1){' +
           'e.preventDefault();' +
           'if(window.parent&&window.parent!==window){' +
           'window.parent.postMessage("zotok:back-to-hub","*");' +
