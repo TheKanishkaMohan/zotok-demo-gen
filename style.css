@@ -1453,3 +1453,19 @@ body {
   to { transform: translateY(0); opacity: 1; }
 }
 
+
+/* ── Map Styles for Van Sales Journey ── */
+.map-container { flex: 1; position: relative; background: #cbd5e1; overflow: hidden; display: flex; flex-direction: column; }
+.map-canvas { position: absolute; inset: 0; }
+.map-geofence { position: absolute; top: 45%; left: 50%; transform: translate(-50%, -50%); width: 140px; height: 140px; border-radius: 50%; border: 2.5px dashed #22c55e; background: rgba(34, 197, 94, 0.12); display: flex; align-items: center; justify-content: center; }
+.map-pin { font-size: 22px; z-index: 2; position: absolute; top: 40%; left: 47%; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15)); }
+.map-user-dot { width: 10px; height: 10px; border-radius: 50%; background: #3b82f6; border: 2px solid #fff; position: absolute; top: 52%; left: 53%; z-index: 2; box-shadow: 0 0 8px #3b82f6; }
+.map-details-card { position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 20px 20px 0 0; padding: 16px; box-shadow: 0 -4px 20px rgba(0,0,0,0.08); display: flex; flex-direction: column; gap: 10px; }
+.map-details-loc { display: flex; flex-direction: column; gap: 6px; }
+.map-address-title { font-size: 12px; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 4px; }
+.map-address-text { font-size: 9.5px; color: var(--text-secondary); line-height: 1.4; }
+
+/* Hide mobile sidebar close button (cross) globally */
+.mob-sb-close {
+  display: none !important;
+}
