@@ -331,25 +331,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
     <div class="step-item" onclick="scrollToStep(2)">
       <div class="step-num">2</div>
       <div>
-        <div class="step-lbl">Carried Stock View</div>
-        <div class="step-meta">Sales Rep · View carried stock</div>
+        <div class="step-lbl">Routes &amp; Check-In</div>
+        <div class="step-meta">Sales Rep · Routes, check-in, ordering</div>
       </div>
     </div>
     <div class="step-item" onclick="scrollToStep(3)">
       <div class="step-num">3</div>
       <div>
-        <div class="step-lbl">Routes &amp; Check-In</div>
-        <div class="step-meta">Sales Rep · Routes, check-in, ordering</div>
-      </div>
-    </div>
-    <div class="step-item" onclick="scrollToStep(4)">
-      <div class="step-num">4</div>
-      <div>
         <div class="step-lbl">Clock Out &amp; Reconciliation</div>
         <div class="step-meta">Sales Rep · Clock out and stock report</div>
       </div>
-    </div>
-  </div>
+    </div>  </div>
   <div class="sb-foot">{{brand.name}} Van Sales · ZoTok</div>
 </nav>
 
@@ -362,7 +354,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
       <span></span><span></span><span></span>
     </div>
     <div class="step-title" id="step-title">Clock In &amp; Trip Stock</div>
-    <div class="step-counter" id="step-counter">Step 1 of 4</div>
+    <div class="step-counter" id="step-counter">Step 1 of 3</div>
   </div>
 
   <!-- Description bar -->
@@ -771,272 +763,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
     </div>
 
-    <!-- ═══════════════ STEP 2: CARRIED STOCK VIEW ═══════════════ -->
+    <!-- ═══════════════ STEP 2: ROUTES & CHECK-IN & ORDERING ═══════════════ -->
     <div id="step-2" class="step-section">
-
-      <!-- Screen 1: Dashboard with View Stock (WebView) -->
-      <div class="screen-wrap">
-        <div class="screen-lbl">Screen 1 · Updated Dashboard</div>
-        <div class="screen-type-lbl">WhatsApp WebView — Dashboard view</div>
-        <div class="phone-frame-web">
-          <div class="status-bar-web">
-            <span>09:45</span>
-            <div class="status-icons-web">
-              <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><rect x="0" y="7" width="3" height="4" rx=".5" fill="#111"/><rect x="4" y="4.5" width="3" height="6.5" rx=".5" fill="#111"/><rect x="8" y="2" width="3" height="9" rx=".5" fill="#111"/><rect x="12" y="0" width="3" height="11" rx=".5" fill="#111"/></svg>
-              <div class="battery-box-web">98</div>
-            </div>
-          </div>
-          <div class="browser-bar">
-            <span class="browser-done">Done</span>
-            <div class="browser-url-wrap">
-              <span class="browser-wa-title">WhatsApp WebView</span>
-              <span class="browser-url">ops.zotok.ai/field-app/dashboard</span>
-            </div>
-            <span class="browser-menu">···</span>
-          </div>
-          
-          <div class="app-title-bar">
-            <div class="app-title-left">
-              <span class="app-menu-btn">☰</span>
-              <span class="app-title">Dashboard</span>
-            </div>
-          </div>
-
-          <div class="app-profile">
-            <div class="app-avatar" style="background:#1e3a8a;">DG</div>
-            <div class="app-profile-info">
-              <div class="app-user-name">Dinesh Goyal</div>
-              <div class="app-user-sub">Sales Rep · {{brand.name}}</div>
-            </div>
-          </div>
-
-          <div class="metrics-section">
-            <div class="metrics-container">
-              <div class="metrics-header">
-                <span class="section-title">Your Metrics</span>
-                <span style="font-size: 10px; color: var(--text-secondary); font-weight: 600;">Today ▾</span>
-              </div>
-              <div class="metrics-grid">
-                <div class="metric-card">
-                  <div class="metric-row">
-                    <span class="metric-icon blue">📍</span>
-                    <span class="metric-val blue">17</span>
-                  </div>
-                  <div class="metric-lbl">Total Check-ins</div>
-                </div>
-                <div class="metric-card">
-                  <div class="metric-row">
-                    <span class="metric-icon blue">🛣️</span>
-                    <span class="metric-val blue">5 km</span>
-                  </div>
-                  <div class="metric-lbl">Total Distance</div>
-                </div>
-                <div class="metric-card">
-                  <div class="metric-row">
-                    <span class="metric-icon orange">🛒</span>
-                    <span class="metric-val orange">08</span>
-                  </div>
-                  <div class="metric-lbl">Orders Placed</div>
-                </div>
-                <div class="metric-card">
-                  <div class="metric-row">
-                    <span class="metric-icon green">₹</span>
-                    <span class="metric-val green">₹57.9k</span>
-                  </div>
-                  <div class="metric-lbl">Amount Collected</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="actions-section">
-            <div class="action-card" style="border-color:#b5f5b5;background:#f6fff6;">
-              <div class="action-left">
-                <div class="action-icon" style="background:#e8f5e9;color:#2e7d32;">🟢</div>
-                <div class="action-info">
-                  <div class="action-title">Clocked In</div>
-                  <div class="action-desc">18 Sep, Wednesday · 2h 20m</div>
-                </div>
-              </div>
-              <button class="action-btn">View Trip</button>
-            </div>
-
-            <div class="action-card">
-              <div class="action-left">
-                <div class="action-icon">📦</div>
-                <div class="action-info">
-                  <div class="action-title">Trip Stock Issue</div>
-                  <div class="action-desc">4 Products loaded</div>
-                </div>
-              </div>
-              <span style="font-size: 11px; font-weight: 700; color: #2563eb; cursor: pointer;">View Stock ➔</span>
-            </div>
-          </div>
-
-          <div class="leaderboard-section">
-            <div class="metrics-header" style="margin-bottom: 8px;">
-              <span class="section-title">Sales Leaderboard</span>
-              <span style="font-size: 9px; color: var(--text-secondary); font-weight: 600;">This Week ▾</span>
-            </div>
-            
-            <div class="leaderboard-podium">
-              <div class="podium-rank rank-2">
-                <div class="leaderboard-avatar-wrap">
-                  <div class="leaderboard-avatar" style="background:#3b82f6; border-color: #cbd5e1;">AK</div>
-                  <span class="rank-badge">2</span>
-                </div>
-                <span class="leaderboard-name">Abey Khanna</span>
-                <span class="leaderboard-val">₹9.14 L</span>
-              </div>
-              <div class="podium-rank rank-1">
-                <div class="leaderboard-avatar-wrap">
-                  <div class="crown-icon">👑</div>
-                  <div class="leaderboard-avatar" style="background:#f59e0b; border-color: #fef08a;">VS</div>
-                  <span class="rank-badge gold">1</span>
-                </div>
-                <span class="leaderboard-name">Vijay Sharan</span>
-                <span class="leaderboard-val">₹9.56 L</span>
-              </div>
-              <div class="podium-rank rank-3">
-                <div class="leaderboard-avatar-wrap">
-                  <div class="leaderboard-avatar" style="background:#ea580c; border-color: #ffedd5;">BM</div>
-                  <span class="rank-badge bronze">3</span>
-                </div>
-                <span class="leaderboard-name">Bablu Mehta</span>
-                <span class="leaderboard-val">₹8.71 L</span>
-              </div>
-            </div>
-
-            <div class="leaderboard-my-row">
-              <div class="my-avatar">DG</div>
-              <div class="my-info">
-                <div class="my-name">Dinesh Goyal</div>
-                <div class="my-rank">Rank #4</div>
-              </div>
-              <div class="my-stats">
-                <span class="my-val">₹2.38 L</span>
-                <span class="my-view-link">View All ➔</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="app-bottom-nav">
-            <div class="nav-item active">
-              <span class="nav-item-icon">🏠</span>
-              <span class="nav-item-lbl">Home</span>
-            </div>
-            <div class="nav-item">
-              <span class="nav-item-icon">💬</span>
-              <span class="nav-item-lbl">Threads</span>
-            </div>
-            <div class="nav-item">
-              <span class="nav-item-icon">⚡</span>
-              <span class="nav-item-lbl">Actions</span>
-            </div>
-          </div>
-        </div>
-        <div class="screen-desc" style="background:#FFD9B0;">
-          <strong>Carried Stock View</strong>
-          Once the stock is confirmed, the representative can view his carried stock for the day under "View Stock" on the active dashboard.
-        </div>
-      </div>
-
-      <!-- Screen 2: Carried Stock Details (WebView) -->
-      <div class="screen-wrap">
-        <div class="screen-lbl">Screen 2 · Trip Details</div>
-        <div class="screen-type-lbl">WhatsApp WebView — Stock List</div>
-        <div class="phone-frame-web">
-          <div class="status-bar-web">
-            <span>09:46</span>
-            <div class="status-icons-web">
-              <svg width="15" height="11" viewBox="0 0 15 11" fill="none"><rect x="0" y="7" width="3" height="4" rx=".5" fill="#111"/><rect x="4" y="4.5" width="3" height="6.5" rx=".5" fill="#111"/><rect x="8" y="2" width="3" height="9" rx=".5" fill="#111"/><rect x="12" y="0" width="3" height="11" rx=".5" fill="#111"/></svg>
-              <div class="battery-box-web">98</div>
-            </div>
-          </div>
-          <div class="browser-bar">
-            <span class="browser-done">←</span>
-            <div class="browser-url-wrap">
-              <span class="browser-wa-title">Trip Details</span>
-              <span class="browser-url">Dinesh Goyal • {{brand.name}}</span>
-            </div>
-            <div style="font-size: 15px; display: flex; gap: 8px;">
-              <span>📥</span>
-              <span>🔗</span>
-            </div>
-          </div>
-          
-          <div class="app-profile" style="background:#fafafa; border-bottom: 1px solid var(--border-color);">
-            <div class="app-avatar" style="background:#1e3a8a;">DG</div>
-            <div class="app-profile-info">
-              <div class="app-user-name">Dinesh Goyal</div>
-              <div class="app-user-sub">{{brand.name}} • 4 Products</div>
-            </div>
-          </div>
-
-          <div class="list-scroll" style="background: #fafafa;">
-            <div class="prod-entry-card">
-              <div class="prod-entry-left">
-                <div class="prod-img-box" style="background:#e3f2fd; color:#1565c0;">🧴</div>
-                <div class="prod-details">
-                  <span class="prod-entry-name">Menthol Regular</span>
-                  <div class="prod-entry-meta">
-                    <span class="prod-category-pill">Powder</span>
-                  </div>
-                </div>
-              </div>
-              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: <span class="qty-val-menthol">{{#if journey.stock.menthol}}{{journey.stock.menthol}}{{else}}0{{/if}}</span></span>
-            </div>
-
-            <div class="prod-entry-card">
-              <div class="prod-entry-left">
-                <div class="prod-img-box" style="background:#ede7f6; color:#5e35b1;">🌸</div>
-                <div class="prod-details">
-                  <span class="prod-entry-name">Soothing Lavender</span>
-                  <div class="prod-entry-meta">
-                    <span class="prod-category-pill">Powder</span>
-                  </div>
-                </div>
-              </div>
-              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: <span class="qty-val-lavender">{{#if journey.stock.lavender}}{{journey.stock.lavender}}{{else}}10{{/if}}</span></span>
-            </div>
-
-            <div class="prod-entry-card">
-              <div class="prod-entry-left">
-                <div class="prod-img-box" style="background:#fff8e1; color:#ff8f00;">☀️</div>
-                <div class="prod-details">
-                  <span class="prod-entry-name">Radiant Sandal</span>
-                  <div class="prod-entry-meta">
-                    <span class="prod-category-pill">Powder</span>
-                  </div>
-                </div>
-              </div>
-              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: <span class="qty-val-sandal">{{#if journey.stock.sandal}}{{journey.stock.sandal}}{{else}}0{{/if}}</span></span>
-            </div>
-
-            <div class="prod-entry-card">
-              <div class="prod-entry-left">
-                <div class="prod-img-box" style="background:#e0f7fa; color:#0097a7;">🧼</div>
-                <div class="prod-details">
-                  <span class="prod-entry-name">DermiCool Soap</span>
-                  <div class="prod-entry-meta">
-                    <span class="prod-category-pill">Soap</span>
-                  </div>
-                </div>
-              </div>
-              <span style="font-size:12.5px;font-weight:800;color:var(--text-secondary)">Qty: <span class="qty-val-soap">{{#if journey.stock.soap}}{{journey.stock.soap}}{{else}}0{{/if}}</span></span>
-            </div>
-          </div>
-        </div>
-        <div class="screen-desc" style="background:#B0D4F0;">
-          <strong>Carried Stock List</strong>
-          The Trip Details view lists the active quantities of stock carried inside the van for the day.
-        </div>
-      </div>
-
-    </div>
-
-    <!-- ═══════════════ STEP 3: ROUTES & CHECK-IN & ORDERING ═══════════════ -->
-    <div id="step-3" class="step-section">
 
       <!-- Screen 1: Routes List (WebView) -->
       <div class="screen-wrap">
@@ -1388,8 +1116,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 
     </div>
 
-    <!-- ═══════════════ STEP 4: CLOCK OUT & RECONCILIATION ═══════════════ -->
-    <div id="step-4" class="step-section">
+    <!-- ═══════════════ STEP 3: CLOCK OUT & RECONCILIATION ═══════════════ -->
+    <div id="step-3" class="step-section">
 
       <!-- Screen 1: Clock Out confirmation WebView modal -->
       <div class="screen-wrap">
@@ -1734,14 +1462,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
         </div>
       </div>
 
-    </div><!-- /step-4 -->
+    </div><!-- /step-3 -->
     <!-- ── Nav bar ── -->
   <div class="nav-bar">
     <button class="nav-btn" id="desk-prev" onclick="desktopNavigate(-1)" disabled>
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Previous Step
     </button>
-    <div id="desk-counter" style="font-size:12px;color:#888;font-weight:600;">Step 1 of 4</div>
+    <div id="desk-counter" style="font-size:12px;color:#888;font-weight:600;">Step 1 of 3</div>
     <button class="nav-btn primary" id="desk-next" onclick="desktopNavigate(1)">
       Next Step
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -1784,10 +1512,9 @@ const totalSlides = allSlides.length;
 // Injected steps metadata
 const steps = [
   { num: 1, title: "Clock In & Trip Stock Entry", desc: "Sales representative clocks in and registers the trip stock to carry for secondary sales." },
-  { num: 2, title: "Carried Stock View", desc: "Rep verifies carried stock loaded in the van." },
-  { num: 3, title: "Routes & Check-In", desc: "Beat navigation, geofenced customer check-in, and ordering quick actions." },
-  { num: 4, title: "Clock Out & Reconciliation", desc: "Day end clock-out and remaining stock reconciliation." }
-];
+  { num: 2, title: "Routes & Check-In", desc: "Beat navigation, geofenced customer check-in, and ordering quick actions." },
+  { num: 3, title: "Clock Out & Reconciliation", desc: "Day end clock-out and remaining stock reconciliation." }
+]];
 
 const dotsContainer = document.getElementById('mob-dots');
 steps.forEach((_, i) => {
