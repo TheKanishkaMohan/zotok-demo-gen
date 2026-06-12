@@ -311,8 +311,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 <nav class="sidebar">
   <button class="mob-sb-close" onclick="closeSidebar()">✕</button>
   <div class="sb-head" style="padding-right:36px;">
+    <a href="index.html" class="back-to-menu-link" style="display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; color: #64748b; text-decoration: none; margin-bottom: 12px; text-transform: uppercase; letter-spacing: .5px; transition: color .15s;" onmouseover="this.style.color='var(--brand)'" onmouseout="this.style.color='#64748b'">
+      &larr; Return to Menu
+    </a>
     <div class="brand-row">
-      <div class="brand-logo" style="background:none;overflow:hidden;padding:0;"><img src="{{brandLogo}}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>
+      <div class="brand-logo" style="background:none;overflow:hidden;padding:0;"><img src="logo.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:block;" /></div>
       <div>
         <div class="brand-name">{{brand.name}}</div>
         <div class="brand-industry">{{industry.label}}</div>
@@ -1477,10 +1480,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
   </div>
 
   <!-- Mobile Swipe Bar -->
-  <div class="mob-swipe-hint">
-    <button class="mob-prev-btn" id="mob-prev" onclick="mobNavigate(-1)" disabled>← Prev</button>
+  <div class="mob-swipe-hint" id="mob-nav-bar">
+    <div style="display:flex;gap:6px;align-items:center;">
+      <button class="mob-prev-btn" id="mob-prev" onclick="mobNavigate(-1)" disabled>← Prev</button>
+      <a href="index.html" class="mob-prev-btn" style="text-decoration:none;padding:5px 10px;font-size:11px;">&#8592; Menu</a>
+    </div>
     <div class="mob-swipe-dots" id="mob-dots"></div>
-    <button class="mob-next-btn" id="mob-next" onclick="mobNavigate(1)">Next →</button>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <button class="mob-next-btn" id="mob-next" onclick="mobNavigate(1)">Next →</button>
+    </div>
   </div>
 
 </main>
