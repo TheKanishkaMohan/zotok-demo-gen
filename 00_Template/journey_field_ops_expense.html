@@ -2876,10 +2876,21 @@
 
     .sb {
       background: #DCF8C6;
-      border-radius: 10px 0 10px 10px;
+      border-radius: 8px 8px 0 8px;
       padding: 6px 9px 4px;
       max-width: 72%;
-      box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
+      position: relative;
+    }
+
+    .sb::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -7px;
+      border-width: 0 0 8px 8px;
+      border-style: solid;
+      border-color: transparent transparent transparent #DCF8C6;
     }
 
     .rb {
@@ -8400,6 +8411,12 @@
             </div>
             <div class="chat">
               <div class="date-chip"><span>31 Mar 2026</span></div>
+              <div class="sw">
+                <div class="sb">
+                  <div class="mb">Expense claim submitted ✅</div>
+                  <div class="mt">10:22 AM <span class="tick">✓✓</span></div>
+                </div>
+              </div>
               <div class="rw">
                 <div class="zt-card">
                   <div class="zt-card-hdr">Claim Submitted</div>
