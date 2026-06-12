@@ -1520,23 +1520,35 @@
       "steps": [
         {
           "num": 1,
+          "displayNum": 1,
           "title": "Clock In & Trip Stock Entry",
-          "desc": "Sales representative clocks in and registers the trip stock to carry for secondary sales."
+          "meta": "Sales Rep · Load stock carried",
+          "navTitle": "Clock In & Trip Stock Entry",
+          "navDesc": "<span style=\"color:#555;font-size:12px;\">Sales representative clocks in and registers the trip stock to carry for secondary sales.</span><span class=\"tag tag-ops\">Field Ops</span><span class=\"tag tag-stock\">Trip Stock</span><span class=\"tag tag-sales\">Attendance</span>"
         },
         {
           "num": 2,
+          "displayNum": 2,
           "title": "Routes & Check-In",
-          "desc": "Beat navigation, geofenced customer check-in, and ordering quick actions."
+          "meta": "Sales Rep · Routes, check-in, ordering",
+          "navTitle": "Routes & Check-In",
+          "navDesc": "<span style=\"color:#555;font-size:12px;\">Beat navigation, geofenced customer check-in, and ordering quick actions.</span><span class=\"tag tag-ops\">Field Ops</span><span class=\"tag tag-route\">Beat Route</span><span class=\"tag tag-sales\">Ordering</span>"
         },
         {
           "num": 3,
+          "displayNum": 3,
           "title": "Clock Out & Reconciliation",
-          "desc": "Day end clock-out and remaining stock reconciliation."
+          "meta": "Sales Rep · Clock out and stock report",
+          "navTitle": "Clock Out & Reconciliation",
+          "navDesc": "<span style=\"color:#555;font-size:12px;\">Day end clock-out and remaining stock reconciliation.</span><span class=\"tag tag-ops\">Field Ops</span><span class=\"tag tag-stock\">Reconciliation</span><span class=\"tag tag-sales\">Stock Report</span>"
         },
         {
           "num": 4,
+          "displayNum": 4,
           "title": "Manager Live Tracking",
-          "desc": "Real-time activity tracking, geofenced beats history, and sales metrics dashboard."
+          "meta": "Manager · Real-time activity dashboard",
+          "navTitle": "Manager Live Tracking",
+          "navDesc": "<span style=\"color:#555;font-size:12px;\">Real-time activity tracking, geofenced beats history, and sales metrics dashboard.</span><span class=\"tag tag-ops\">Field Ops</span><span class=\"tag tag-route\">Live Map</span><span class=\"tag tag-sales\">Manager Ops</span>"
         }
       ],
       "hubMeta": {
