@@ -2647,3 +2647,28 @@ body {
 
 }
 
+#desk-journey-btn, #mob-journey-btn {
+  display: none !important;
+}
+
+
+
+.btn-success-primary {
+  display: inline-block;
+  min-width: 150px;
+  padding: 10px 24px;
+  border-radius: 8px;
+  background: #0f172a; /* UI friendly Slate 900 */
+  color: #fff;
+  border: none;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 8px;
+  text-decoration: none;
+}
+.btn-success-primary:hover {
+  background: #1e293b;
+}

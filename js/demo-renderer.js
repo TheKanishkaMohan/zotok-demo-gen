@@ -1273,7 +1273,7 @@
       '        var nextDesc = selectedDescs[nextJt] || {};\n' +
       '        var nextTitle = nextDesc.title || nextJt;\n' +
       '        if (deskBtn) {\n' +
-      '          deskBtn.style.display = "inline-flex";\n' +
+      '          deskBtn.style.display = "none";\n' +
       '          deskBtn.innerHTML = "Next Module: " + nextTitle + " <svg width=\\"16\\" height=\\"16\\" viewBox=\\"0 0 24 24\\" fill=\\"none\\"><path d=\\"M9 18l6-6-6-6\\" stroke=\\"currentColor\\" stroke-width=\\"2\\" stroke-linecap=\\\"round\\" stroke-linejoin=\\"round\\"/></svg>";\n' +
       '          deskBtn.onclick = function(e) {\n' +
       '            e.preventDefault();\n' +
@@ -1281,7 +1281,7 @@
       '          };\n' +
       '        }\n' +
       '        if (mobBtn) {\n' +
-      '          mobBtn.style.display = "inline-block";\n' +
+      '          mobBtn.style.display = "none";\n' +
       '          mobBtn.textContent = "Next Module →";\n' +
       '          mobBtn.onclick = function(e) {\n' +
       '            e.preventDefault();\n' +
@@ -1290,7 +1290,7 @@
       '        }\n' +
       '      } else {\n' +
       '        if (deskBtn) {\n' +
-      '          deskBtn.style.display = "inline-flex";\n' +
+      '          deskBtn.style.display = "none";\n' +
       '          deskBtn.innerHTML = "Back to Menu <svg width=\\"16\\" height=\\"16\\" viewBox=\\"0 0 24 24\\" fill=\\"none\\"><path d=\\"M9 18l6-6-6-6\\" stroke=\\"currentColor\\" stroke-width=\\"2\\" stroke-linecap=\\\"round\\" stroke-linejoin=\\\"round\\"/></svg>";\n' +
       '          deskBtn.onclick = function(e) {\n' +
       '            e.preventDefault();\n' +
@@ -1298,7 +1298,7 @@
       '          };\n' +
       '        }\n' +
       '        if (mobBtn) {\n' +
-      '          mobBtn.style.display = "inline-block";\n' +
+      '          mobBtn.style.display = "none";\n' +
       '          mobBtn.textContent = "Back to Menu →";\n' +
       '          mobBtn.onclick = function(e) {\n' +
       '            e.preventDefault();\n' +

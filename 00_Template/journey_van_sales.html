@@ -182,6 +182,27 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .primary-action-btn { flex: 1; padding: 12px; border-radius: 8px; background: #000; color: #fff; border: none; font-size: 13px; font-weight: 700; text-align: center; cursor: pointer; transition: background 0.15s; }
 .primary-action-btn:hover { background: #222; }
 
+
+.btn-success-primary {
+  display: inline-block;
+  min-width: 150px;
+  padding: 10px 24px;
+  border-radius: 8px;
+  background: #0f172a; /* UI friendly Slate 900 */
+  color: #fff;
+  border: none;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: 8px;
+  text-decoration: none;
+}
+.btn-success-primary:hover {
+  background: #1e293b;
+}
+
 /* Success Card */
 .success-card { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; text-align: center; background: #fff; }
 .success-icon-circle { width: 54px; height: 54px; border-radius: 50%; background: #e8f5e9; color: #2e7d32; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 16px; border: 2.5px solid #a5d6a7; }
@@ -760,7 +781,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
               <button class="btn-success-sub">🔗 Share</button>
             </div>
 
-            <button class="primary-action-btn" style="width:100%;">Go to Routes</button>
+            <button class="btn-success-primary">Go to Routes</button>
             <a href="#" class="success-link-home">Back to Home</a>
           </div>
         </div>
